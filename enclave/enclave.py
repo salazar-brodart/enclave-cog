@@ -406,7 +406,7 @@ class enclave(commands.Cog):
             elif responce.component.label == 'Назад':
                 i-=1
             else:
-                await msg.edit(f"{ctx.author.display_name} откладывает книгу и берёт топор.", embed=None, components=[])
+                await msg.edit(content=f"{ctx.author.display_name} откладывает книгу и берёт топор.", embed=None, components=[])
                 return
 
     @книга.command(name="охотника")
