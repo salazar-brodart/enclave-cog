@@ -1,7 +1,11 @@
 {
-    "author" : ["Salazar.brodart"],
-    "install_msg" : "Welcome to the World of Warcrafts Magic.",
-    "name" : "Enclave Cogs",
-    "short" : "Cogs by Salazar.brodart",
-    "description" : "Welcome to the World of Warcrafts Magic."
+  "author": [" "],
+  "min_bot_version": "3.0.2",
+  "description": "!",
+  "hidden": false,
+  "install_msg": "...",
+  "required_cogs": {},
+  "requirements": ["Pillow"],
+  "short": "...",
+  "tags": ["leveler", "pillow", "fun"]
 }
