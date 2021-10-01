@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
-from redbot.core import checks, Config
+from redbot.core import checks, Config, bank
 import discord
+import random
 from redbot.core import commands
 from redbot.core.data_manager import bundled_data_path
 from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
@@ -325,17 +326,44 @@ class enlevel(commands.Cog):
             await self.profiles._give_exp(message.author, xp)
             await self.profiles._set_user_lastmessage(message.author, timenow)
             lvl = await self.profiles._get_level(message.author)
+            rlch=discord.utils.get(message.author.guild.roles, id=696014224442392717)
+            txtup=[
+                (f"Яркая вспышка осветила силуэт {message.author.display_name}."),
+                (f"{message.author.display_name} приподнимается в воздух и вспыхивает ослепительным светом."),
+                (f"{message.author.display_name} чувствует себя мудрее и опытнее."),
+                (f"{message.author.display_name} внимательно смотрит на растущую цифру уровня."),
+                (f"{message.author.display_name} достигает новых высот в своём мастерстве."),
+            ]
             if (
                 lvl == oldlvl + 1
-                and await self.profiles.data.guild(message.guild).lvlup_announce()
+                and rlch in message.author.roles
                 and await self.profiles._check_role_member(message.author)
             ):
-                await message.channel.send(f"{message.author.mention} получает {lvl} уровень и сундук с сокровищами!")
+                membal=await bank.get_balance(message.author)
+                max_bal=await bank.get_max_balance(guild=getattr(message.author, "guild", None))
+                heal=random.randint(200, 300)
+                if membal>(max_bal-heal):
+                    heal=(max_bal-membal)
+                await bank.deposit_credits(message.author, heal)
+                emb=discord.Embed(title=random.choice(txtup), description = f"*{message.author.mention} получает {lvl} уровень и компенсацию за неоткрытый сундук с сокровищами в размере {heal} золотых монет!*", colour=discord.Colour.gold())
+                await message.channel.send(embed=emb)
+                room=self.bot.get_channel(000000000000000000)
+                await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
             elif (
                 lvl == oldlvl + 1
-                and await self.profiles.data.guild(message.guild).lvlup_announce()
+                and await self.profiles._check_role_member(message.author)
             ):
-                await message.channel.send(f"{message.author.mention} получает {lvl} уровень за флуд на канале {message.channel.mention}!")
+                emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень и сундук с сокровищами!", colour=discord.Colour.gold())
+                await message.channel.send(embed=emb)
+                room=self.bot.get_channel(000000000000000000)
+                await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
+            elif (
+                lvl == oldlvl + 1
+            ):
+                emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень за флуд на канале {message.channel.mention}!", colour=discord.Colour.gold())
+                await message.channel.send(embed=emb)
+                room=self.bot.get_channel(000000000000000000)
+                await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
                 #await self.profiles._check_role_member(message.author)
             #await self.profiles._check_exp(message.author)
 
