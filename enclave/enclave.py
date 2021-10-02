@@ -1466,13 +1466,12 @@ class enclave(commands.Cog):
             while artj.name.startswith=="Артефакты":
                 curr="Артефакты: "+str(oldart)
                 if artj.name==curr:
-                    ctx.send("Мы въехали в тоннель.")
-                    return artj.edit(name="Артефакты: "+str(oldart+1))
+                    return await artj.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
         else:
             while artv.name.startswith=="Артефакты":
                 if artv.name=="Артефакты: "+str(oldart):
-                    return artv.edit(name="Артефакты: "+str(oldart+1))
+                    return await artv.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
     
     async def chkrank(self, ctx: commands.GuildContext, user: discord.Member) -> int:
