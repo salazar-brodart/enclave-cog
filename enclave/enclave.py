@@ -1255,6 +1255,18 @@ class enclave(commands.Cog):
         msg = await room.send(text)
 
     @commands.command()
+    async def тест(self, ctx):
+        artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
+        oldart=0
+        #if art==0:
+        #    while artj.name.startswith=="Артефакты":
+        curr="Артефакты: "+str(oldart)
+        #        if artj.name==curr:
+        ctx.send(artj.name+" = "+curr)
+        #            return artj.edit(name="Артефакты: "+str(oldart+1))
+        #        oldart+=1
+        
+    @commands.command()
     async def напоминание(self, ctx: Context):
         msg = await ctx.send ("Напоминаю! :point_up_tone1:")
         msg0 = (":point_right_tone1: У кого нету роли фракции или есть роль <@&709294419211452516> - может получить её, ткнув реакцию на канале <#675969784965496832>.")
