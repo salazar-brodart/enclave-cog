@@ -69,17 +69,6 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @commands.command()
-    async def тест(self, ctx):
-        artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
-        oldart=0
-        while True:
-            curr="Артефакты: "+str(oldart)
-            if artj.name==curr:
-                curr="Артефакты: "+str(oldart+1)
-                return await artj.edit(name=curr)
-            oldart+=1
-
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
         pass
@@ -1462,14 +1451,12 @@ class enclave(commands.Cog):
         artv=discord.utils.get(ctx.guild.roles, id=893294216036360242)
         oldart=0
         if art==0:
-            while artj.name.startswith=="Артефакты":
-                curr="Артефакты: "+str(oldart)
-                if artj.name==curr:
-                    curr="Артефакты: "+str(oldart+1)
-                    return await artj.edit(name=curr)
+            while oldart<1000:
+                if artj.name=="Артефакты: "+str(oldart):
+                    return await artj.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
         else:
-            while artv.name.startswith=="Артефакты":
+            while oldart<1000:
                 if artv.name=="Артефакты: "+str(oldart):
                     return await artv.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
