@@ -73,12 +73,12 @@ class enclave(commands.Cog):
     async def тест(self, ctx):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         oldart=0
-        #    while artj.name.startswith=="Артефакты":
-        curr="Артефакты: "+str(oldart+1)
-        #        if artj.name==curr:
-        await ctx.send(artj.name+" = "+curr)
-        await artj.edit(name=curr)
-        #        oldart+=1
+            while artj.name.startswith=="Артефакты":
+                curr="Артефакты: "+str(oldart)
+                if artj.name==curr:
+                    curr="Артефакты: "+str(oldart+1)
+                    return await artj.edit(name=curr)
+                oldart+=1
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
