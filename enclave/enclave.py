@@ -73,11 +73,10 @@ class enclave(commands.Cog):
     async def тест(self, ctx):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         oldart=0
-        #if art==0:
         #    while artj.name.startswith=="Артефакты":
-        #curr="Артефакты: "+str(oldart)
+        curr="Артефакты: "+str(oldart)
         #        if artj.name==curr:
-        await ctx.send(artj.name+" = "+str(oldart))
+        await ctx.send(artj.name+" = "+curr)
         #            return artj.edit(name="Артефакты: "+str(oldart+1))
         #        oldart+=1
 
