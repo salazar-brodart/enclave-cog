@@ -3,5 +3,6 @@ from redbot.core.bot import Red
 
 
 def setup(bot: Red):
-    bot.add_cog(enclave(bot))
-
+    n=enclave(bot)
+    bot.add_cog(n)
+    bot.add_listener(n.listener, "on_message")
