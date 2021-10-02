@@ -11,8 +11,8 @@ from redbot.core.utils.mod import get_audit_reason
 from redbot.core.utils.menus import close_menu, menu, DEFAULT_CONTROLS
 from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.chat_formatting import box, humanize_number, escape, italics
-from redbot.cogs.enlevel.userprofile import UserProfile
-from redbot.cogs.enlevel.enlevel import enlevel
+from .userprofile import UserProfile
+from .enlevel import enlevel
 from discord_components import DiscordComponents, Button, ButtonStyle, Select, SelectOption
 
 class enclave(commands.Cog):
