@@ -347,7 +347,7 @@ class enlevel(commands.Cog):
                 await bank.deposit_credits(message.author, heal)
                 emb=discord.Embed(title=random.choice(txtup), description = f"*{message.author.mention} получает {lvl} уровень и компенсацию за неоткрытый сундук с сокровищами в размере {heal} золотых монет!*", colour=discord.Colour.gold())
                 await message.channel.send(embed=emb)
-                room=self.bot.get_channel(000000000000000000)
+                room=self.bot.get_channel(583925220231086091)
                 await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
             elif (
                 lvl == oldlvl + 1
@@ -355,14 +355,14 @@ class enlevel(commands.Cog):
             ):
                 emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень и сундук с сокровищами!", colour=discord.Colour.gold())
                 await message.channel.send(embed=emb)
-                room=self.bot.get_channel(000000000000000000)
+                room=self.bot.get_channel(583925220231086091)
                 await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
             elif (
                 lvl == oldlvl + 1
             ):
                 emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень за флуд на канале {message.channel.mention}!", colour=discord.Colour.gold())
                 await message.channel.send(embed=emb)
-                room=self.bot.get_channel(000000000000000000)
+                room=self.bot.get_channel(583925220231086091)
                 await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
                 #await self.profiles._check_role_member(message.author)
             #await self.profiles._check_exp(message.author)
