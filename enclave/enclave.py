@@ -68,7 +68,19 @@ class enclave(commands.Cog):
         self.profiles = UserProfile()
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
-            
+
+    @commands.command()
+    async def тест(self, ctx):
+        #artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
+        #oldart=0
+        #if art==0:
+        #    while artj.name.startswith=="Артефакты":
+        #curr="Артефакты: "+str(oldart)
+        #        if artj.name==curr:
+        ctx.send("test")
+        #            return artj.edit(name="Артефакты: "+str(oldart+1))
+        #        oldart+=1
+
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
         pass
@@ -1254,18 +1266,6 @@ class enclave(commands.Cog):
     async def скажи(self, ctx, room: discord.TextChannel = None, *, text):
         msg = await room.send(text)
 
-    @commands.command()
-    async def тест(self, ctx):
-        artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
-        oldart=0
-        #if art==0:
-        #    while artj.name.startswith=="Артефакты":
-        #curr="Артефакты: "+str(oldart)
-        #        if artj.name==curr:
-        ctx.send(" = "+str(oldart))
-        #            return artj.edit(name="Артефакты: "+str(oldart+1))
-        #        oldart+=1
-        
     @commands.command()
     async def напоминание(self, ctx: Context):
         msg = await ctx.send ("Напоминаю! :point_up_tone1:")
