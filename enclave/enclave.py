@@ -1262,7 +1262,7 @@ class enclave(commands.Cog):
         #    while artj.name.startswith=="Артефакты":
         #curr="Артефакты: "+str(oldart)
         #        if artj.name==curr:
-        ctx.send(artj.name+" = "+str(oldart))
+        ctx.send(" = "+str(oldart))
         #            return artj.edit(name="Артефакты: "+str(oldart+1))
         #        oldart+=1
         
