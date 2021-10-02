@@ -74,10 +74,10 @@ class enclave(commands.Cog):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         oldart=0
         #    while artj.name.startswith=="Артефакты":
-        curr="Артефакты: "+str(oldart)
+        curr="Артефакты: "+str(oldart+1)
         #        if artj.name==curr:
         await ctx.send(artj.name+" = "+curr)
-        #            return artj.edit(name="Артефакты: "+str(oldart+1))
+        await artj.edit(name=curr)
         #        oldart+=1
 
     @commands.group(name="выбрать", autohelp=False)
