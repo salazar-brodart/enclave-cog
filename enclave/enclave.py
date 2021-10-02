@@ -1465,7 +1465,8 @@ class enclave(commands.Cog):
             while artj.name.startswith=="Артефакты":
                 curr="Артефакты: "+str(oldart)
                 if artj.name==curr:
-                    return await artj.edit(name="Артефакты: "+str(oldart+1))
+                    curr="Артефакты: "+str(oldart+1)
+                    return await artj.edit(name=curr)
                 oldart+=1
         else:
             while artv.name.startswith=="Артефакты":
