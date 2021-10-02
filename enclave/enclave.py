@@ -1451,12 +1451,12 @@ class enclave(commands.Cog):
         artv=discord.utils.get(ctx.guild.roles, id=893294216036360242)
         oldart=0
         if art==0:
-            while artj.name.startswith=="Артефактов: ":
+            while artj.name.startswith=="Артефактов":
                 if artj.name=="Артефактов: "+str(oldart):
                     return artj.edit(name="Артефактов: "+str(oldart+1))
                 oldart+=1
         else:
-            while artv.name.startswith=="Артефактов: ":
+            while artv.name.startswith=="Артефактов":
                 if artv.name=="Артефактов: "+str(oldart):
                     return artv.edit(name="Артефактов: "+str(oldart+1))
                 oldart+=1
