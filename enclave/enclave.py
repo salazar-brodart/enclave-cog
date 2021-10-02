@@ -1452,7 +1452,9 @@ class enclave(commands.Cog):
         oldart=0
         if art==0:
             while artj.name.startswith=="Артефакты":
-                if artj.name=="Артефакты: "+str(oldart):
+                curr="Артефакты: "+str(oldart)
+                if artj.name==curr:
+                    ctx.send("Мы въехали в тоннель.")
                     return artj.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
         else:
