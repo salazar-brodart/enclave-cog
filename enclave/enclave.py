@@ -1452,12 +1452,12 @@ class enclave(commands.Cog):
         oldart=0
         if art==0:
             while artj.name.startswith=="Артефакты":
-                if artj.name=="Артефактов: "+str(oldart):
+                if artj.name=="Артефакты: "+str(oldart):
                     return artj.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
         else:
             while artv.name.startswith=="Артефакты":
-                if artv.name=="Артефактов: "+str(oldart):
+                if artv.name=="Артефакты: "+str(oldart):
                     return artv.edit(name="Артефакты: "+str(oldart+1))
                 oldart+=1
     
