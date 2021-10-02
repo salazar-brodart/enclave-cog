@@ -73,7 +73,7 @@ class enclave(commands.Cog):
     async def тест(self, ctx):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         oldart=0
-        while artj.name.startswith=="Артефакты":
+        while True:
             curr="Артефакты: "+str(oldart)
             if artj.name==curr:
                 curr="Артефакты: "+str(oldart+1)
