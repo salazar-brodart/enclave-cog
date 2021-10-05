@@ -360,7 +360,7 @@ class enlevel(commands.Cog):
             elif (
                 lvl == oldlvl + 1
             ):
-                emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень за флуд на канале {message.channel.mention}!", colour=discord.Colour.gold())
+                emb=discord.Embed(title=random.choice(txtup), description = f"{message.author.mention} получает {lvl} уровень!", colour=discord.Colour.gold())
                 await message.channel.send(embed=emb)
                 room=self.bot.get_channel(583925220231086091)
                 await room.send(f"{message.author.display_name} получает {lvl} уровень за деятельность на канале {message.channel.mention}!")
