@@ -4204,7 +4204,7 @@ class enclave(commands.Cog):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=5:
-            return await ctx.send (f"*{user.display_name} учится правильно складывать кулак.*")
+            return await ctx.send (f"*{author.display_name} учится правильно складывать кулак.*")
         authbal=await bank.get_balance(author)
         cst=200
         if authbal<cst:
