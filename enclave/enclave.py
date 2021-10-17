@@ -1242,6 +1242,8 @@ class enclave(commands.Cog):
         MUT=discord.utils.get(ctx.guild.roles, id=899150508139376660)
         if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
             await user.add_roles(MUT)
+            await self.delarm(ctx=ctx, user=user)
+            await self.deleff(ctx=ctx, user=user)
             await ctx.send(f"{user.mention} отправляется на позорный столб.")
         else:
             await ctx.send(f"{ctx.author.mention} отправляется на позорный столб на 0 секунд.")
