@@ -1217,7 +1217,51 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def скажи(self, ctx, room: discord.TextChannel = None, *, text):
-        msg = await room.send(text)
+        GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
+        TAE=discord.utils.get(ctx.guild.roles, id=602362721660305433)
+        SOL=discord.utils.get(ctx.guild.roles, id=848948041696542731)
+        CHE=discord.utils.get(ctx.guild.roles, id=709346269491101757)
+        ELS=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
+            msg = await room.send(text)
+        else:
+            await ctx.send(text)
+            await ctx.send("И что дальше?")
+
+    @commands.group(name="позорный", autohelp=False)
+    async def позорный(self, ctx: commands.GuildContext):
+        pass
+
+    @позорный.command(name="столб")
+    async def позорный_столб(self, ctx, user: discord.Member = None):
+        GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
+        TAE=discord.utils.get(ctx.guild.roles, id=602362721660305433)
+        SOL=discord.utils.get(ctx.guild.roles, id=848948041696542731)
+        CHE=discord.utils.get(ctx.guild.roles, id=709346269491101757)
+        ELS=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        MUT=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
+            await user.add_roles(MUT)
+            await ctx.send(f"{user.mention} отправляется на позорный столб.")
+        else:
+            await ctx.send(f"{ctx.author.mention} отправляется на позорный столб на 0 секунд.")
+            await ctx.send(f"{ctx.author.mention} отбыл своё наказание.")
+
+    @commands.command()
+    async def амнистия(self, ctx, user: discord.Member = None):
+        GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
+        TAE=discord.utils.get(ctx.guild.roles, id=602362721660305433)
+        SOL=discord.utils.get(ctx.guild.roles, id=848948041696542731)
+        CHE=discord.utils.get(ctx.guild.roles, id=709346269491101757)
+        ELS=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        MUT=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
+            if MUT in user.roles:
+                await user.remove_roles(MUT)
+                await ctx.send(f"{user.mention} отбыл своё наказание.")
+        else:
+            await ctx.send(f"{ctx.author.mention} отправляется на позорный столб на 0 секунд.")
+            await ctx.send(f"{ctx.author.mention} отбыл своё наказание.")
 
     @commands.command()
     async def напоминание(self, ctx: Context):
