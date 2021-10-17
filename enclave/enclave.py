@@ -1997,7 +1997,7 @@ class enclave(commands.Cog):
             await ctx.send (f"*{author.display_name} закатывает глаза и высовывает язык.*\nБеее!")
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816:
-            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> или в <#610767915997986816> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=5:
             return await ctx.send (f"*{author.display_name} театрально закрывает глаза и медленно сползает на землю, прощально махая рукой.*\nТебе бы поучиться у мастера.")
@@ -2121,16 +2121,20 @@ class enclave(commands.Cog):
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} прячется под дырявое одеяло.*")
             return await ctx.message.delete()
-        if ctx.message.channel.id != 603151774009786393:
-            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> или в <#610767915997986816> и попробуй там.")
         authbal=await bank.get_balance(author)
         cst=280
         if authbal<cst:
             return await ctx.send (f"*{author.display_name} просит одолжить {cst-authbal} золотых монет на очень нужное дело!*")
         await bank.withdraw_credits(author, cst)
+        if ctx.message.channel.id == 603151774009786393:
+            await ctx.send (f"*{author.display_name} накидывает на голову тёмный капюшон плаща и исчезает в тени.*")
+        else:
+            room=self.bot.get_channel(603151774009786393)
+            await room.send(f"*{author.display_name} накидывает на голову тёмный капюшон плаща и исчезает в тени.*\n*{author.display_name} теряет все действующие чары.*")
         await self.deleff(ctx=ctx, user=author)
         await self.getarm(user=author, role=ARM)
-        await ctx.send (f"*{author.display_name} накидывает на голову тёмный капюшон плаща и исчезает в тени.*")
 
     @commands.group(name="по", autohelp=False)
     async def по(self, ctx: commands.GuildContext):
