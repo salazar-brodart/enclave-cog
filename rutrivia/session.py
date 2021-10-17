@@ -139,8 +139,7 @@ class rutriviaSession:
             async with self.ctx.typing():
                 await asyncio.sleep(3)
             self.count += 1
-            msg = bold(_("Question number {num}!").format(num=self.count)) + "\n```fix\n" + question + "```"
-            await self.ctx.send(msg)
+            msg = await self.ctx.send(f"Вопрос №{self.count}!\n```fix\n" + question + "```")
             continue_ = await self.wait_for_answer(answers, delay, timeout)
             await msg.edit("```fix\nОтвечено.```")
             if continue_ is False:
