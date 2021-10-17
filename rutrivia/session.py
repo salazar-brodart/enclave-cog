@@ -141,7 +141,7 @@ class rutriviaSession:
             self.count += 1
             msg = await self.ctx.send(f"**Вопрос №{self.count}!**\n```fix\n" + question + "```")
             continue_ = await self.wait_for_answer(answers, delay, timeout)
-            await msg.edit(f"**Вопрос №{self.count}!**\n```fix\n:white_check_mark: Отвечено.```")
+            await msg.edit(f"**Вопрос №{self.count}!**\n```fix\n✅ Отвечено.```")
             if continue_ is False:
                 break
             if any(score >= max_score for score in self.scores.values()):
