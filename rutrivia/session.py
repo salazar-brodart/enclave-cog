@@ -139,9 +139,9 @@ class rutriviaSession:
             async with self.ctx.typing():
                 await asyncio.sleep(3)
             self.count += 1
-            msg = await self.ctx.send(f"Вопрос №{self.count}!\n```fix\n" + question + "```")
+            msg = await self.ctx.send(f"**Вопрос №{self.count}!**\n```fix\n" + question + "```")
             continue_ = await self.wait_for_answer(answers, delay, timeout)
-            await msg.edit("```fix\nОтвечено.```")
+            await msg.edit(f"**Вопрос №{self.count}!**\n```fix\nОтвечено.```")
             if continue_ is False:
                 break
             if any(score >= max_score for score in self.scores.values()):
