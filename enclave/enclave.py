@@ -1239,7 +1239,7 @@ class enclave(commands.Cog):
         SOL=discord.utils.get(ctx.guild.roles, id=848948041696542731)
         CHE=discord.utils.get(ctx.guild.roles, id=709346269491101757)
         ELS=discord.utils.get(ctx.guild.roles, id=899150508139376660)
-        MUT=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        MUT=discord.utils.get(ctx.guild.roles, id=601992011838652427)
         if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
             await user.add_roles(MUT)
             await self.delarm(ctx=ctx, user=user)
@@ -1256,7 +1256,7 @@ class enclave(commands.Cog):
         SOL=discord.utils.get(ctx.guild.roles, id=848948041696542731)
         CHE=discord.utils.get(ctx.guild.roles, id=709346269491101757)
         ELS=discord.utils.get(ctx.guild.roles, id=899150508139376660)
-        MUT=discord.utils.get(ctx.guild.roles, id=899150508139376660)
+        MUT=discord.utils.get(ctx.guild.roles, id=601992011838652427)
         if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
             if MUT in user.roles:
                 await user.remove_roles(MUT)
