@@ -116,11 +116,11 @@ class UserLog(commands.Cog):
             colour=discord.Colour.green(),
             timestamp=member.joined_at,
         )
-        embed.add_field(name="Total Users:", value=str(users))
-        embed.add_field(name="Account created on:", value=created_on)
-        embed.set_footer(text=f"User ID: {member.id}")
+        embed.add_field(name="Всего пользователей:", value=str(users))
+        embed.add_field(name="Аккаунт создан:", value=created_on)
+        #embed.set_footer(text=f"User ID: {member.id}")
         embed.set_author(
-            name=f"{member.name} has joined the guild",
+            name=f"Приветствую {member.name} в этом месте!",
             url=member.avatar_url,
             icon_url=member.avatar_url,
         )
@@ -144,10 +144,10 @@ class UserLog(commands.Cog):
             colour=discord.Colour.red(),
             timestamp=time,
         )
-        embed.add_field(name="Total Users:", value=str(users))
-        embed.set_footer(text=f"User ID: {member.id}")
+        embed.add_field(name="Осталось пользователей:", value=str(users))
+        #embed.set_footer(text=f"User ID: {member.id}")
         embed.set_author(
-            name=f"{member.name} has left the guild",
+            name=f"{member.name} стремительно нас покидает.",
             url=member.avatar_url,
             icon_url=member.avatar_url,
         )
