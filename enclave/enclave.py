@@ -1261,8 +1261,6 @@ class enclave(commands.Cog):
                 await asyncio.sleep(1.5)
                 j+=1
         msg = await ctx.send(f"Удалено {j} сообщений.")
-        await asyncio.sleep(5)
-        await msg.delete()
 
     @commands.command()
     async def амнистия(self, ctx, user: discord.Member = None):
