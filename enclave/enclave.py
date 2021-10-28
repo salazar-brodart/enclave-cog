@@ -1250,6 +1250,15 @@ class enclave(commands.Cog):
             await ctx.send(f"{ctx.author.mention} отбыл своё наказание.")
 
     @commands.command()
+    async def уборка(self, ctx, i: int = 1):
+        GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
+        if GOB not in ctx.author.roles:
+            return await ctx.send(f"{ctx.author.display_name} подметает полы.")
+        async for mes in ctx.message.channel.history(limit=i,oldest_first=False):
+            if not mes.pinned:
+                await mes.delete()
+
+    @commands.command()
     async def амнистия(self, ctx, user: discord.Member = None):
         GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
         TAE=discord.utils.get(ctx.guild.roles, id=602362721660305433)
