@@ -1254,9 +1254,15 @@ class enclave(commands.Cog):
         GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
         if GOB not in ctx.author.roles:
             return await ctx.send(f"{ctx.author.display_name} подметает полы.")
+        j=0
         async for mes in ctx.message.channel.history(limit=i,oldest_first=False):
             if not mes.pinned:
                 await mes.delete()
+                await asyncio.sleep(1.5)
+                j+=1
+        msg = await ctx.send(f"Удалено {j} сообщений.")
+        await asyncio.sleep(5)
+        await msg.delete()
 
     @commands.command()
     async def амнистия(self, ctx, user: discord.Member = None):
