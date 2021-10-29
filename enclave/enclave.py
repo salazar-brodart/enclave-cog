@@ -1470,6 +1470,12 @@ class enclave(commands.Cog):
         else:
             await ctx.send("Усё пропало.")
 
+    @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def ставлю(self, ctx: commands.Context, bid):
+        bid=int(bid)
+        await ctx.send(f"{bid}")
+
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         artv=discord.utils.get(ctx.guild.roles, id=893294216036360242)
@@ -4417,6 +4423,8 @@ class enclave(commands.Cog):
         VIP=discord.utils.get(ctx.guild.roles, id=832557988401119243)
         if VIP in author.roles:
             await author.remove_roles(VIP)
-            await ctx.send (f"*Где-то прогремел взрыв. Высоко в небе можно разглядеть {author.display_name}.*")
+            room=self.bot.get_channel(603151774009786393)
+            await room.send (f"*Где-то прогремел взрыв. Высоко в небе можно разглядеть {author.display_name}.*")
         else:
             await ctx.send (f"*Где-то прогремел взрыв. {author.display_name} не имеет к этому никакого отношения.*")
+            return await ctx.message.delete()
