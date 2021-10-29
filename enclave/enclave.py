@@ -1505,7 +1505,7 @@ class enclave(commands.Cog):
         embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
         msg=await ctx.send(embed=embed)
         i=0
-        j=random.randint(8, 9)
+        j=random.randint(8, 10)
         while i<j:
             await asyncio.sleep(0.85) 
             if i<4:
