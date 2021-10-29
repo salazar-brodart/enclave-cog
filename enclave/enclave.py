@@ -1470,7 +1470,7 @@ class enclave(commands.Cog):
         else:
             await ctx.send("Усё пропало.")
 
-    @commands.command()
+    @commands.command(autohelp=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def ставлю(self, ctx: commands.Context, bid):
         FRY=self.bot.get_emoji(675570659975495698)
@@ -1491,7 +1491,7 @@ class enclave(commands.Cog):
         author=ctx.author
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
-        if bid>authbal or bid==0:
+        if bid>authbal or bid==0 or bid==None:
             return await ctx.send("Нужно больше золота!")
         P1=random.choice(roll)
         P2=random.choice(roll)
@@ -1502,24 +1502,24 @@ class enclave(commands.Cog):
         P7=random.choice(roll)
         P8=random.choice(roll)
         P9=random.choice(roll)
-        embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6} <=\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+        embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
         msg=await ctx.send(embed=embed)
         i=0
-        j=random.randint(16, 20)
+        j=random.randint(9, 12)
         while i<j:
-            await asyncio.sleep(0.5) 
-            if i<6:
+            await asyncio.sleep(1) 
+            if i<3:
                 P1=random.choice(roll)
                 P7=P4
                 P4=P1
-            if i<12:
+            if i<6:
                 P2=random.choice(roll)
                 P8=P5
                 P5=P2
             P3=random.choice(roll)
             P9=P6
             P6=P3
-            embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6} <=\n{P7}{P8}{P9}")
+            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
             await msg.edit(embed=embed, colour=discord.Colour.gold())
             i+=1
         
