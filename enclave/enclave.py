@@ -1473,7 +1473,10 @@ class enclave(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def ставлю(self, ctx: commands.Context, bid):
-        bid=int(bid)
+        try:
+            bid=int(bid)
+        except discord.ValueError:
+            return await ctx.send("Мы такое не принимаем. Убери это подальше от меня.")
         await ctx.send(f"{bid}")
 
     async def getart(self, ctx: commands.GuildContext, art: int):
