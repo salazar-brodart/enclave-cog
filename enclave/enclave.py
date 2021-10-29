@@ -1472,7 +1472,7 @@ class enclave(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def ставлю(self, ctx: commands.Context, bid=0):
+    async def ставлю(self, ctx: commands.Context, bid):
         FRY=self.bot.get_emoji(675570659975495698)
         ONE=self.bot.get_emoji(618806054268043305)
         TOP=self.bot.get_emoji(660098359012360214)
@@ -1502,8 +1502,27 @@ class enclave(commands.Cog):
         P7=random.choice(roll)
         P8=random.choice(roll)
         P9=random.choice(roll)
-        embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
-        msg=await ctx.author.send(embed=embed)
+        embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6} <=\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+        msg=await ctx.send(embed=embed)
+        i=0
+        j=random.randint(16, 20)
+        while i<j:
+            await asyncio.sleep(0.5) 
+            if i<6:
+                P1=random.choice(roll)
+                P7=P4
+                P4=P1
+            if i<12:
+                P2=random.choice(roll)
+                P8=P5
+                P5=P2
+            P3=random.choice(roll)
+            P9=P6
+            P6=P3
+            embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6} <=\n{P7}{P8}{P9}")
+            await msg.edit(embed=embed, colour=discord.Colour.gold())
+            i+=1
+        
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
