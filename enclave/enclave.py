@@ -1507,7 +1507,7 @@ class enclave(commands.Cog):
         i=0
         j=random.randint(9, 12)
         while i<j:
-            await asyncio.sleep(1) 
+            await asyncio.sleep(0.75) 
             if i<3:
                 P7=P4
                 P4=P1
