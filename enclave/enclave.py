@@ -1513,22 +1513,22 @@ class enclave(commands.Cog):
                 P7=P4
                 P4=P1
             else:
-                P1=⬇
-                P7=⬆
+                P1="⬇"
+                P7="⬆"
             if i<6:
                 P2=random.choice(roll)
                 P8=P5
                 P5=P2
             else:
-                P2=⬇
-                P8=⬆
+                P2="⬇"
+                P8="⬆"
             P3=random.choice(roll)
             P9=P6
             P6=P3
             i+=1
             if i=j:
-                P3=⬇
-                P9=⬆
+                P3="⬇"
+                P9="⬆"
             embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
             await msg.edit(embed=embed, colour=discord.Colour.gold())
         
