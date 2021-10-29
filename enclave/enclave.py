@@ -1509,22 +1509,22 @@ class enclave(commands.Cog):
         while i<j:
             await asyncio.sleep(1) 
             if i<3:
-                P1=random.choice(roll)
                 P7=P4
                 P4=P1
+                P1=random.choice(roll)
             else:
                 P1="⬇"
                 P7="⬆"
             if i<6:
-                P2=random.choice(roll)
                 P8=P5
                 P5=P2
+                P2=random.choice(roll)
             else:
                 P2="⬇"
                 P8="⬆"
-            P3=random.choice(roll)
             P9=P6
             P6=P3
+            P3=random.choice(roll)
             i+=1
             if i==j:
                 P3="⬇"
