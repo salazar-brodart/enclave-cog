@@ -1472,12 +1472,38 @@ class enclave(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def ставлю(self, ctx: commands.Context, bid):
+    async def ставлю(self, ctx: commands.Context, bid=0):
+        FRY=self.bot.get_emoji(675570659975495698)
+        ONE=self.bot.get_emoji(618806054268043305)
+        TOP=self.bot.get_emoji(660098359012360214)
+        COIN=self.bot.get_emoji(624216995784687657)
+        KEK=self.bot.get_emoji(609362609983979520)
+        GOBL=self.bot.get_emoji(732588769567440956)
+        GOLD=self.bot.get_emoji(620315740993617920)
+        NEED=self.bot.get_emoji(605429832007942174)
+        MUR=self.bot.get_emoji(620973875219529788)
+        OGR=self.bot.get_emoji(620973875714457600)
+        roll=[FRY, ONE, TOP, COIN, KEK, GOBL, GOLD, NEED, MUR, OGR]
         try:
             bid=int(bid)
         except ValueError:
             return await ctx.send("Мы такое не принимаем. Убери это подальше от меня.")
-        await ctx.send(f"{bid}")
+        author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        if bid>authbal or bid==0:
+            return await ctx.send("Нужно больше золота!")
+        P1=random.choice(roll)
+        P2=random.choice(roll)
+        P3=random.choice(roll)
+        P4=random.choice(roll)
+        P5=random.choice(roll)
+        P6=random.choice(roll)
+        P7=random.choice(roll)
+        P8=random.choice(roll)
+        P9=random.choice(roll)
+        embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
+        msg=await ctx.author.send(embed=embed)
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
