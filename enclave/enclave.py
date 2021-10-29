@@ -1475,7 +1475,7 @@ class enclave(commands.Cog):
     async def ставлю(self, ctx: commands.Context, bid):
         try:
             bid=int(bid)
-        except discord.ValueError:
+        except ValueError:
             return await ctx.send("Мы такое не принимаем. Убери это подальше от меня.")
         await ctx.send(f"{bid}")
 
