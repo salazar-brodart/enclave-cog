@@ -1526,7 +1526,7 @@ class enclave(commands.Cog):
             P9=P6
             P6=P3
             i+=1
-            if i=j:
+            if i==j:
                 P3="⬇"
                 P9="⬆"
             embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
