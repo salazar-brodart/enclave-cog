@@ -1471,7 +1471,7 @@ class enclave(commands.Cog):
             await ctx.send("Усё пропало.")
 
     @commands.command()
-    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def ставлю(self, ctx: commands.Context, bid=None):
         FRY=self.bot.get_emoji(675570659975495698)
         ONE=self.bot.get_emoji(618806054268043305)
@@ -1484,6 +1484,8 @@ class enclave(commands.Cog):
         MUR=self.bot.get_emoji(620973875219529788)
         OGR=self.bot.get_emoji(620973875714457600)
         roll=[FRY, ONE, TOP, COIN, KEK, GOBL, GOLD, NEED, MUR, OGR]
+        if bid==None:
+            return await ctx.send("Нужно больше золота!")
         try:
             bid=int(bid)
         except ValueError:
@@ -1491,7 +1493,7 @@ class enclave(commands.Cog):
         author=ctx.author
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
-        if bid>authbal or bid==0 or bid==None:
+        if bid>authbal or bid==0:
             return await ctx.send("Нужно больше золота!")
         P1=random.choice(roll)
         P2=random.choice(roll)
