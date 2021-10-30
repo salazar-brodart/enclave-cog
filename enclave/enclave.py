@@ -1504,7 +1504,8 @@ class enclave(commands.Cog):
         P7=random.choice(roll)
         P8=random.choice(roll)
         P9=random.choice(roll)
-        embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+        #embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+        embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
         msg=await ctx.send(embed=embed)
         i=0
         j=random.randint(8, 10)
@@ -1531,8 +1532,8 @@ class enclave(commands.Cog):
             if i==j:
                 P3="⬇"
                 P9="⬆"
-            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
-            await msg.edit(embed=embed, colour=discord.Colour.gold())
+            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+            await msg.edit(embed=embed)
         
 
     async def getart(self, ctx: commands.GuildContext, art: int):
