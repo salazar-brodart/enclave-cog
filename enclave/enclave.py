@@ -1505,24 +1505,24 @@ class enclave(commands.Cog):
         P8=random.choice(roll)
         P9=random.choice(roll)
         #embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
-        embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+        embed=discord.Embed(description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", color = discord.Colour.random())
         msg=await ctx.send(embed=embed)
         i=0
         j=random.randint(8, 10)
         while i<j:
             await asyncio.sleep(0.85) 
-            if i<4:
+            if i<=4:
                 P7=P4
                 P4=P1
                 P1=random.choice(roll)
-            else:
+            if i>=4:
                 P1="⬇"
                 P7="⬆"
-            if i<6:
+            if i<=6:
                 P8=P5
                 P5=P2
                 P2=random.choice(roll)
-            else:
+            if i>=6:
                 P2="⬇"
                 P8="⬆"
             P9=P6
@@ -1532,7 +1532,7 @@ class enclave(commands.Cog):
             if i==j:
                 P3="⬇"
                 P9="⬆"
-            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
+            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", color = discord.Colour.random())
             await msg.edit(embed=embed)
         
 
