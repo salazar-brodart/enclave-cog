@@ -1534,6 +1534,8 @@ class enclave(commands.Cog):
                 P3="⬇"
                 P9="⬆"
             await msg.edit(f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
+            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', color = discord.Colour.random())
+            await msg1.edit(embed=embed)
         embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Остался без денег, ха-ха!", color = discord.Colour.random())
         await msg1.edit(embed=embed)
 
