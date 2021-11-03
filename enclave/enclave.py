@@ -1251,9 +1251,8 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def уборка(self, ctx, i: int = 1):
-        DES=discord.utils.get(ctx.guild.roles, id=903847910951751692)
         GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
-        if GOB not in ctx.author.roles and DES not in ctx.author.roles:
+        if GOB not in ctx.author.roles:
             return await ctx.send(f"{ctx.author.display_name} подметает полы.")
         j=0
         async for mes in ctx.message.channel.history(limit=i,oldest_first=False):
@@ -1505,10 +1504,10 @@ class enclave(commands.Cog):
         P7=random.choice(roll)
         P8=random.choice(roll)
         P9=random.choice(roll)
-        #embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}", colour=discord.Colour.gold())
         embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', color = discord.Colour.random())
         msg=await ctx.send(f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
         msg1=await ctx.send(embed=embed)
+        await bank.withdraw_credits(author, bid)
         i=0
         j=random.randint(8, 10)
         while i<j:
@@ -1535,8 +1534,155 @@ class enclave(commands.Cog):
                 P3="⬇"
                 P9="⬆"
             await msg.edit(f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
-        embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Остался без денег, ха-ха!", color = discord.Colour.random())
-        await msg1.edit(embed=embed)
+        if P2==P5 and P5==P8:
+            if P5==GOLD:
+                bid1=bid*50
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"НЕБЫВАЛАЯ УДАЧКА - ДЖЕКПОТ!!! *В зал казино вносят три золотых сундука!* Ставка умножается на 50!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==TOP:
+                bid1=bid*25
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Легендарная тройка! Не обошлось без подкрутки! Ставка умножается на 25!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==COIN:
+                bid1=bid*20
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Три мешка с золотом, какое прекрасное бремя! Ставка умножается на 20!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==FRY:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Заткнись и бери мои деньги! Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==ONE:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"*Игровой автомат клинит, и {author.display_name} одним ударом выбивает из него {bid1} золотых монет!*\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==KEK:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Орочий смех заразен, как красная оспа! Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==GOBL:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"*Игровой автомат начинает подозрительно тикать!* Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==NEED:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Наш рудник скоро иссякнет! Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==OGR:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Горианская империя пала жертвой азарта. Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==MUR:
+                bid1=bid*10
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Мрглглглгл! <Пора сходить на рыбалку!> Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            return await msg1.edit(embed=embed)
+        elif P2==P5 or P5==P8:
+            if P5==GOLD:
+                bid1=bid*4
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Неплохо сыграно! Два золотых сундука! Ставка умножается на 4!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==TOP:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Легендарная карта! Встречается один раз на 40 ставок! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==COIN:
+                bid1=bid*3
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"ЗОЛОТАЯ ЖИЛА!!! Ставка умножается на 3!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==FRY:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Кто-то бросал деньги в экран игрового автомата. Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==ONE:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Скидка на услуги парикмахера! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==KEK:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Хочешь рассмешить орка - расскажи ему о своих планах наступления! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==GOBL:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Бесплатный напиток за счёт заведения! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==NEED:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Склоняюсь перед вашей волей! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==OGR:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Одна голова - хорошо, а две - уже огр-маг! Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            elif P5==MUR:
+                bid1=bid*2
+                if (authbal+bid1)>max_bal:
+                    bid1=max_bal-authbal
+                await bank.deposit_credits(author, bid1)
+                newbal=await bank.get_balance(author)
+                embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Мргл мргл! <Звучит весёлая песенка.> Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            return await msg1.edit(embed=embed)
+        else:
+            bid1=0
+            newbal=await bank.get_balance(author)
+            embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"И ничего не получает!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
+            return await msg1.edit(embed=embed)
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
