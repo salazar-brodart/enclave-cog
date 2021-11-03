@@ -1534,7 +1534,7 @@ class enclave(commands.Cog):
                 P3="⬇"
                 P9="⬆"
             await msg.edit(f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
-        if P2==P5 and P5==P8:
+        if P4==P5 and P5==P6:
             if P5==GOLD:
                 bid1=bid*50
                 if (authbal+bid1)>max_bal:
@@ -1606,7 +1606,7 @@ class enclave(commands.Cog):
                 newbal=await bank.get_balance(author)
                 embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Мрглглглгл! <Пора сходить на рыбалку!> Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
             return await msg1.edit(embed=embed)
-        elif P2==P5 or P5==P8:
+        elif P4==P5 or P5==P6:
             if P5==GOLD:
                 bid1=bid*4
                 if (authbal+bid1)>max_bal:
