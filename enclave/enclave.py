@@ -1471,7 +1471,7 @@ class enclave(commands.Cog):
             await ctx.send("Усё пропало.")
 
     @commands.command()
-    @commands.cooldown(1, 10, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.guild)
     async def ставка(self, ctx: commands.Context, bid=None):
         FRY=self.bot.get_emoji(675570659975495698)
         ONE=self.bot.get_emoji(618806054268043305)
