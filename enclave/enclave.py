@@ -1493,7 +1493,7 @@ class enclave(commands.Cog):
         author=ctx.author
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
-        if bid>authbal or bid==0:
+        if bid>authbal or bid<=0:
             return await ctx.send("Нужно больше золота!")
         P1=random.choice(roll)
         P2=random.choice(roll)
