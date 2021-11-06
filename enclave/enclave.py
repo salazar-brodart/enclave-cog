@@ -1528,12 +1528,12 @@ class enclave(commands.Cog):
                 P8="⬆"
             P9=P6
             P6=P3
+            i+=1
             if i==(j-1) and authbal<200:
                 roll1=[P4, P5]
                 P3=random.choice(roll1)
             else:
                 P3=random.choice(roll)
-            i+=1
             if i==j:
                 P3="⬇"
                 P9="⬆"
