@@ -1253,7 +1253,7 @@ class enclave(commands.Cog):
     async def уборка(self, ctx, i: int = 1):
         GOB=discord.utils.get(ctx.guild.roles, id=583993057330855946)
         if GOB not in ctx.author.roles:
-            return await ctx.send(f"{ctx.author.display_name} подметает полы.")
+            return await ctx.send(f"*{ctx.author.display_name} подметает полы.*")
         j=0
         async for mes in ctx.message.channel.history(limit=i,oldest_first=False):
             if not mes.pinned:
