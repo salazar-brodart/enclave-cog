@@ -1528,7 +1528,11 @@ class enclave(commands.Cog):
                 P8="⬆"
             P9=P6
             P6=P3
-            P3=random.choice(roll)
+            if i==(j-1):
+                roll=[P4, P5]
+                P3=random.choice(roll)
+            else:
+                P3=random.choice(roll)
             i+=1
             if i==j:
                 P3="⬇"
