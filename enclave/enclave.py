@@ -1309,12 +1309,7 @@ class enclave(commands.Cog):
             await msg.edit(content=msg3)
         if str(react.emoji) == "\N{CROSS MARK}":
             await msg.delete()
-        try:
-            react, user = await self.bot.wait_for("reaction_add", check=pred, timeout=300)
-        except asyncio.TimeoutError:
-            return
-        if str(react.emoji) == "\N{CROSS MARK}":
-            await msg.delete() 
+        await message.clear_reactions()
 
     @commands.group(name="зов", autohelp=False)
     async def зов(self, ctx: commands.GuildContext):
