@@ -1308,7 +1308,7 @@ class enclave(commands.Cog):
         if str(react.emoji) == "<:zCandle:620973875714588673>":
             await msg.edit(content=msg3)
         if str(react.emoji) == "\N{CROSS MARK}":
-            await msg.delete()
+            return await msg.delete()
         await msg.clear_reactions()
 
     @commands.group(name="зов", autohelp=False)
