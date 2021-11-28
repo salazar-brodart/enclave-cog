@@ -1213,7 +1213,7 @@ class enclave(commands.Cog):
         if len(choices) < 2:
             await ctx.send("Слишком мало вариков!")
         else:
-            await ctx.send(random.choices(choices))
+            await ctx.send(random.choice(choices))
 
     @commands.command()
     async def скажи(self, ctx, room: discord.TextChannel = None, *, text):
