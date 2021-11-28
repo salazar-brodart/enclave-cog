@@ -1469,6 +1469,8 @@ class enclave(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.guild)
     async def ставка(self, ctx: commands.Context, bid=None):
+        if ctx.message.channel.id != 684600533834792996:
+            return await ctx.send("Здесь вам не тут!\nИди заниматься подобным в <#684600533834792996>.")
         FRY=self.bot.get_emoji(675570659975495698)
         ONE=self.bot.get_emoji(618806054268043305)
         TOP=self.bot.get_emoji(660098359012360214)
@@ -1827,7 +1829,7 @@ class enclave(commands.Cog):
             await ctx.send (f"*{author.display_name} пытается крикнуть что-то боевое, но лишь хрипит и кашляет.*")
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393:
-            await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         while user is None or user is author:
             user = random.choice(ctx.message.guild.members)
         authbal=await bank.get_balance(author)
