@@ -4699,11 +4699,13 @@ class enclave(commands.Cog):
             elif responce.component.label == 'Зелье рассеивания чар':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
+                await msg.edit(embed=emb, components=[])
+                return await self.купить_зелье(ctx)
             elif responce.component.label == 'Свиток антимагии':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
+                await msg.edit(embed=emb, components=[])
+                return await self.купить_свиток(ctx)
             elif responce.component.label == 'Связаться с гоблином':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
