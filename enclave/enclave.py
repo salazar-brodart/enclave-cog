@@ -4687,7 +4687,7 @@ class enclave(commands.Cog):
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 await msg.edit(embed=emb, components=[])
-                return self.купить_пропуск(ctx)
+                return await self.купить_пропуск(ctx)
             elif responce.component.label == 'Сменить фракцию':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
