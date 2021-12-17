@@ -4653,7 +4653,7 @@ class enclave(commands.Cog):
         emb1.set_thumbnail(url="https://cdn.discordapp.com/emojis/921290887651291146.png")
         emb2 = discord.Embed(title="Магические товары и услуги.", description = "*Выберите товар, деньги будут сняты со счёта автоматически.*\n*Нижеприведённые команды допускается использовать на канале <#610767915997986816> в качестве исключения.*\n\n1. <@&685830280464039954> - зелье рассеивает любые эффекты наложенные на вас.\nСтоимость - 350 монет.\n*Не забудьте команду `=выпить зелье`!*\n\n2. <@&686206326371516498> - свиток рассеивает замедляющие чары, наложенные на канал.\nСтоимость - 400 монет.\n*Не забудьте команду `=прочесть свиток`!*", colour=discord.Colour.gold())
         emb2.set_thumbnail(url="https://cdn.discordapp.com/emojis/893780879648894987.png")
-        emb3 = discord.Embed(title="Товары от Оззи К.", description = "*Договариваться лично!\n\n1. Наследный аксессуар 'Касание Бездны'. Любой сервер - привязывается к аккаунту.\nСтоимость - от 400 монет.\n\n2. Один дейлик на 1500 опыта в Hearthstone.\nПокупка - от 500 монет, продажа - цена договорная.", colour=discord.Colour.gold())
+        emb3 = discord.Embed(title="Товары от Оззи К.", description = "*Договариваться лично!*\n\n1. Наследный аксессуар 'Касание Бездны'. Любой сервер - привязывается к аккаунту.\nСтоимость - от 400 монет.\n\n2. Один дейлик на 1500 опыта в Hearthstone.\nПокупка - от 500 монет, продажа - цена договорная.", colour=discord.Colour.gold())
         emb3.set_thumbnail(url="https://cdn.discordapp.com/emojis/732590031981641789.png")
         msg = await ctx.send(embed=emb0, components=[Select(placeholder="Выбрать категорию товаров:", options=[SelectOption(label="Всё для дома", value="enc", emoji=enc), SelectOption(label="Всё для магии", value="mag", emoji=magic), SelectOption(label="Гоблинские товары", value="ozzi", emoji=gob)])])
         embed=emb0
@@ -4683,27 +4683,28 @@ class enclave(commands.Cog):
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
+            elif responce.component.label == 'VIP-пропуск':
+                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
+                await msg.edit(embed=emb, components=[])
+                return self.купить_пропуск(ctx)
+            elif responce.component.label == 'Сменить фракцию':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
+            elif responce.component.label == 'Сменить класс':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
+            elif responce.component.label == 'Зелье рассеивания чар':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
+            elif responce.component.label == 'Свиток антимагии':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
-                emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
-            elif responce.component.label == 'Читательский билет':
+            elif responce.component.label == 'Связаться с гоблином':
                 emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 return await msg.edit(embed=emb, components=[])
