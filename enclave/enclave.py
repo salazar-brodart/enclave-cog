@@ -4640,6 +4640,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
 
     @commands.command()
+    @commands.cooldown(1, 600, commands.BucketType.user)
     async def блескотрон(self, ctx):
         author = ctx.author
         enc=self.bot.get_emoji(921290887651291146)
@@ -4680,35 +4681,150 @@ class enclave(commands.Cog):
                 return await msg.edit(embed=embed, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Читательский билет':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-бип.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
+                await msg.edit(embed=emb, components=[])
+                return await self.читательский_билет(ctx)
             elif responce.component.label == 'VIP-пропуск':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-тик-так.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 await msg.edit(embed=emb, components=[])
                 return await self.купить_пропуск(ctx)
             elif responce.component.label == 'Сменить фракцию':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-бррр.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
+                await msg.edit(embed=emb, components=[])
+                return await self.сменить_фракцию(ctx)
             elif responce.component.label == 'Сменить класс':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-бззз.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
-                return await msg.edit(embed=emb, components=[])
+                await msg.edit(embed=emb, components=[])
+                return await self.сменить_класс(ctx)
             elif responce.component.label == 'Зелье рассеивания чар':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-дзынь.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 await msg.edit(embed=emb, components=[])
                 return await self.купить_зелье(ctx)
             elif responce.component.label == 'Свиток антимагии':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-бип-буп.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
                 await msg.edit(embed=emb, components=[])
                 return await self.купить_свиток(ctx)
             elif responce.component.label == 'Связаться с гоблином':
-                emb = discord.Embed(title='*Бип-буп.*', colour=discord.Colour.gold())
+                emb = discord.Embed(title='*Бип-буп-бам.*', colour=discord.Colour.gold())
                 emb.set_image(url="https://media.discordapp.net/attachments/921279850956877834/921280721803415572/59042.jpg")
+                nom=random.randint(1, 9000000)
+                await ctx.send(f"Ваше обращение зарегистрировано под номером {nom}. Вам ответит первый освободившийся гоблин.")
                 return await msg.edit(embed=emb, components=[])
             else:
                 await msg.edit(embed=emb0, components=[Select(placeholder="Выбрать категорию товаров:", options=[SelectOption(label="Всё для дома", value="enc", emoji=enc), SelectOption(label="Всё для магии", value="mag", emoji=magic), SelectOption(label="Гоблинские товары", value="ozzi", emoji=gob)])])
+
+    @commands.group(name="читательский", autohelp=False)
+    async def читательский(self, ctx: commands.GuildContext):
+        pass
+
+    @читательский.command(name="билет")
+    @commands.cooldown(1, 300, commands.BucketType.user)
+    async def читательский_билет(self, ctx):
+        if ctx.message.channel.id != 610767915997986816:
+            return await ctx.send("Торговый автомат стоит вон там -> <#610767915997986816>.")
+        author=ctx.author
+        TICK=discord.utils.get(ctx.guild.roles, id=616665313123406827)
+        BES=discord.utils.get(ctx.guild.roles, id=687899248892706830)
+        authbal=await bank.get_balance(author)
+        cst=150
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} бросает {authbal} монет в Блескотрон, но они вываливаются обратно. На табло загорается цифра `{cst}`.*")
+        await bank.withdraw_credits(author, cst)
+        if BES in author.roles:
+            await author.remove_roles(BES)
+            return await ctx.send (f"*Бес на плече {author.display_name} хватает выпавший билет и убегает в библиотеку, крича что-то о выполненном договоре.*")
+        await self.zadd(who=author, give=TICK)
+        await ctx.send (f"*{author.display_name} бросает монеты в Блескотрон и забирает выпавший читательский билет в сокрытую библиотеку.*")
+
+    @commands.group(name="сменить", autohelp=False)
+    async def сменить(self, ctx: commands.GuildContext):
+        pass
+
+    @сменить.command(name="фракцию")
+    @commands.cooldown(1, 300, commands.BucketType.user)
+    async def сменить_фракцию(self, ctx):
+        if ctx.message.channel.id != 610767915997986816:
+            return await ctx.send("Торговый автомат стоит вон там -> <#610767915997986816>.")
+        author=ctx.author
+        HORD=discord.utils.get(ctx.guild.roles, id=583992582447693834)
+        ALLY=discord.utils.get(ctx.guild.roles, id=583992639968378880)
+        NEUT=discord.utils.get(ctx.guild.roles, id=583992930394570776)
+        authbal=await bank.get_balance(author)
+        cst=100
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} бросает {authbal} монет в Блескотрон, но они вываливаются обратно. На табло загорается цифра `{cst}`.*")
+        await bank.withdraw_credits(author, cst)
+        for r in HORD, ALLY, NEUT:
+            if r in author.roles:
+                await author.remove_roles(r)
+                embed = discord.Embed(title = f'*{author.display_name} переосмысливает свою принадлежность к фракции.*', colour=discord.Colour.gold())
+                msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'За Альянс!'), Button(style = ButtonStyle.red, label = 'За Орду!'), Button(style = ButtonStyle.green, emoji = label = 'За Азерот!')]])
+                try:
+                    responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
+                except asyncio.TimeoutError:
+                    return await msg.edit(embed=embed, components = [])
+                await responce.edit_origin()
+                if responce.component.label == 'За Альянс!':
+                    embed = discord.Embed(title = f'*{author.display_name} встаёт на сторону доблестных воинов Альянса.*', colour=discord.Colour.gold())
+                    await self.zadd(who=author, give=ALLY)
+                    return await msg.edit(embed=embed, components = [])
+                elif responce.component.label == 'За Орду!':
+                    embed = discord.Embed(title = f'*{author.display_name} присоединяется к воинственным сынам Орды.*', colour=discord.Colour.gold())
+                    await self.zadd(who=author, give=HORD)
+                    return await msg.edit(embed=embed, components = [])
+                elif responce.component.label == 'За Азерот!':
+                    embed = discord.Embed(title = f'*{author.display_name} считает, что Азерот - наш общий дом.*', colour=discord.Colour.gold())
+                    await self.zadd(who=author, give=NEUT)
+                    return await msg.edit(embed=embed, components = [])
+                else:
+                    return
+        return await ctx.send ("Роль фракции можно выбрать на канале <#675969784965496832>.")
+
+    @сменить.command(name="класс")
+    @commands.cooldown(1, 300, commands.BucketType.user)
+    async def сменить_класс(self, ctx):
+        if ctx.message.channel.id != 610767915997986816:
+            return await ctx.send("Торговый автомат стоит вон там -> <#610767915997986816>.")
+        author=ctx.author
+        C1=discord.utils.get(ctx.guild.roles, id=685724787397361695)#war
+        C2=discord.utils.get(ctx.guild.roles, id=685724790425649157)#hunt
+        C3=discord.utils.get(ctx.guild.roles, id=685724791914758147)#rog
+        C4=discord.utils.get(ctx.guild.roles, id=685724793567444995)#pal
+        C5=discord.utils.get(ctx.guild.roles, id=685724794586398761)#dru
+        C6=discord.utils.get(ctx.guild.roles, id=685724796075769889)#sham
+        C7=discord.utils.get(ctx.guild.roles, id=685724798193762365)#mage
+        C8=discord.utils.get(ctx.guild.roles, id=685724797266952219)#priest
+        C9=discord.utils.get(ctx.guild.roles, id=685724799527551042)#lock
+        C10=discord.utils.get(ctx.guild.roles, id=685724801486290947)#dk
+        C11=discord.utils.get(ctx.guild.roles, id=685724800169410631)#monk
+        C12=discord.utils.get(ctx.guild.roles, id=685724803105161216)#dh
+        R0=discord.utils.get(ctx.guild.roles, id=687903691587846158)#от Ученика 1
+        R1=discord.utils.get(ctx.guild.roles, id=696008498764578896)#2
+        R2=discord.utils.get(ctx.guild.roles, id=687903789457735680)#3
+        R3=discord.utils.get(ctx.guild.roles, id=696008500240973885)#4
+        R4=discord.utils.get(ctx.guild.roles, id=687903789843218457)#5
+        R5=discord.utils.get(ctx.guild.roles, id=696008502497378334)#6
+        R6=discord.utils.get(ctx.guild.roles, id=687903807405162506)#7
+        R7=discord.utils.get(ctx.guild.roles, id=696008504153997322)#8
+        R8=discord.utils.get(ctx.guild.roles, id=687903808268927002)#9
+        R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)#до Эксперта 10
+        authbal=await bank.get_balance(author)
+        cst=1000
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} бросает {authbal} монет в Блескотрон, но они вываливаются обратно. На табло загорается цифра `{cst}`.*")
+        await bank.withdraw_credits(author, cst)
+        for r in C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12:
+            if r in author.roles:
+                for RAN in R0, R1, R2, R3, R4, R5, R6, R7, R8, R9:
+                    if RAN in author.roles:
+                        await author.remove_roles(RAN)
+                await author.remove_roles(r)
+                await ctx.send (f"*{author.display_name} забывает все свои навыки и отправляется к классовому тренеру.*")
+                return self.выбрать_класс(ctx)
+        return await ctx.send ("Получить роль класса может любой желающий, отправив команду:\n`=выбрать класс`")
