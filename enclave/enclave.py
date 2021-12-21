@@ -4640,7 +4640,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
 
     @commands.command()
- #   @commands.cooldown(1, 600, commands.BucketType.user)
+#    @commands.cooldown(1, 600, commands.BucketType.user)
     async def блескотрон(self, ctx):
         author = ctx.author
         enc=self.bot.get_emoji(921290887651291146)
@@ -4759,10 +4759,10 @@ class enclave(commands.Cog):
         cst=100
         if authbal<cst:
             return await ctx.send (f"*{author.display_name} бросает {authbal} монет в Блескотрон, но они вываливаются обратно. На табло загорается цифра `{cst}`.*")
-        await bank.withdraw_credits(author, cst)
         for r in HORD, ALLY, NEUT:
             if r in author.roles:
                 await author.remove_roles(r)
+                await bank.withdraw_credits(author, cst)
                 embed = discord.Embed(title = f'*{author.display_name} переосмысливает свою принадлежность к фракции.*', colour=discord.Colour.gold())
                 msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'За Альянс!'), Button(style = ButtonStyle.red, label = 'За Орду!'), Button(style = ButtonStyle.green, label = 'За Азерот!')]])
                 try:
@@ -4818,12 +4818,12 @@ class enclave(commands.Cog):
         cst=1000
         if authbal<cst:
             return await ctx.send (f"*{author.display_name} бросает {authbal} монет в Блескотрон, но они вываливаются обратно. На табло загорается цифра `{cst}`.*")
-        await bank.withdraw_credits(author, cst)
         for r in C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12:
             if r in author.roles:
                 for RAN in R0, R1, R2, R3, R4, R5, R6, R7, R8, R9:
                     if RAN in author.roles:
                         await author.remove_roles(RAN)
+                await bank.withdraw_credits(author, cst)
                 await author.remove_roles(r)
                 await ctx.send (f"*{author.display_name} забывает все свои навыки и отправляется к классовому тренеру.*")
                 return self.выбрать_класс(ctx)
