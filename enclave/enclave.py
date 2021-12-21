@@ -4640,7 +4640,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
 
     @commands.command()
-    @commands.cooldown(1, 600, commands.BucketType.user)
+ #   @commands.cooldown(1, 600, commands.BucketType.user)
     async def блескотрон(self, ctx):
         author = ctx.author
         enc=self.bot.get_emoji(921290887651291146)
