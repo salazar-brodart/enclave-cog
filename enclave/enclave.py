@@ -4826,5 +4826,5 @@ class enclave(commands.Cog):
                 await bank.withdraw_credits(author, cst)
                 await author.remove_roles(r)
                 await ctx.send (f"*{author.display_name} забывает все свои навыки и отправляется к классовому тренеру.*")
-                return self.выбрать_класс(ctx)
+                return await self.выбрать_класс(ctx)
         return await ctx.send ("Получить роль класса может любой желающий, отправив команду:\n`=выбрать класс`")
