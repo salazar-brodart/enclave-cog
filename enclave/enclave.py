@@ -4764,7 +4764,7 @@ class enclave(commands.Cog):
             if r in author.roles:
                 await author.remove_roles(r)
                 embed = discord.Embed(title = f'*{author.display_name} переосмысливает свою принадлежность к фракции.*', colour=discord.Colour.gold())
-                msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'За Альянс!'), Button(style = ButtonStyle.red, label = 'За Орду!'), Button(style = ButtonStyle.green, emoji = label = 'За Азерот!')]])
+                msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'За Альянс!'), Button(style = ButtonStyle.red, label = 'За Орду!'), Button(style = ButtonStyle.green, label = 'За Азерот!')]])
                 try:
                     responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
                 except asyncio.TimeoutError:
