@@ -1508,6 +1508,7 @@ class enclave(commands.Cog):
         await bank.withdraw_credits(author, bid)
         i=0
         j=random.randint(8, 10)
+        z=random.randint(6, 7)
         while i<j:
             await asyncio.sleep(0.85) 
             if i<=4:
@@ -1517,11 +1518,11 @@ class enclave(commands.Cog):
             if i>=4:
                 P1="⬇"
                 P7="⬆"
-            if i<=6:
+            if i<=z:
                 P8=P5
                 P5=P2
                 P2=random.choice(roll)
-            if i>=6:
+            if i>=z:
                 P2="⬇"
                 P8="⬆"
             P9=P6
