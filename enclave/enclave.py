@@ -1247,7 +1247,7 @@ class enclave(commands.Cog):
             await ctx.send(f"{user.mention} отправляется на позорный столб.")
         else:
             await ctx.send(f"{ctx.author.mention} отправляется на позорный столб на 0 секунд.")
-            await ctx.send(f"{ctx.author.mention} отбыл своё наказание.")
+            await ctx.send(f"{ctx.author.mention} отбывает своё наказание и слазит со столба.")
 
     @commands.command()
     async def уборка(self, ctx, i: int = 1):
@@ -1274,10 +1274,10 @@ class enclave(commands.Cog):
         if GOB in ctx.author.roles or TAE in ctx.author.roles or SOL in ctx.author.roles or CHE in ctx.author.roles or ELS in ctx.author.roles:
             if MUT in user.roles:
                 await user.remove_roles(MUT)
-                await ctx.send(f"{user.mention} отбыл своё наказание.")
+                await ctx.send(f"{user.mention} отбывает своё наказание и слазит со столба.")
         else:
             await ctx.send(f"{ctx.author.mention} отправляется на позорный столб на 0 секунд.")
-            await ctx.send(f"{ctx.author.mention} отбыл своё наказание.")
+            await ctx.send(f"{ctx.author.mention} отбывает своё наказание и слазит со столба.")
 
     @commands.command()
     async def напоминание(self, ctx: Context):
