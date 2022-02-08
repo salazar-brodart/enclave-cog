@@ -73,6 +73,7 @@ class enclave(commands.Cog):
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
         file = discord.File("/data/Screen/s ("+str(x)+").jpg", filename="screenshot.jpg")
+        embed.set_image(url="attachment://screenshot.jpg")
         embed = discord.Embed(color = discord.Colour.gold())
         await ctx.send(file = file, embed = embed)
 
