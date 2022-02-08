@@ -73,7 +73,7 @@ class enclave(commands.Cog):
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
         file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Screen/s ("+str(x)+").jpg", filename="screenshot.jpg")
-        await ctx.send(file=discord.File("screenshot.jpg"))
+        await ctx.send(file=file)
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
