@@ -69,6 +69,13 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
+    @commands.command()
+    async def скрин(self, ctx: Context):
+        x=random.randint(1, 1467)
+        file = discord.File("screenshot.jpg", filename="data/Screen/s ("+str(x)+").jpg")
+        embed = discord.Embed(color = discord.Colour.gold())
+        await ctx.send(file = file, embed = embed)
+
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
         pass
