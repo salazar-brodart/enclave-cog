@@ -70,10 +70,14 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
+    @commands.cooldown(1, 60, commands.BucketType.user)
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
         file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Screen/s ("+str(x)+").jpg", filename="screenshot.jpg")
-        await ctx.send(file=file)
+        try:
+            await ctx.send(file=file)
+        except discord.ext.commands.errors.CommandOnCooldown:
+            await ctx.send("Вы слишком устали. Съешьте ещё этих мягких сурамарских манабулок, да выпейте маначаю.")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
