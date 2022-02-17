@@ -2558,7 +2558,7 @@ class enclave(commands.Cog):
         xp=await self.buffexp(ctx, author, 10)
 #        next_payday = cur_time + await self.config.PAYDAY_TIME()
 #        await self.config.user(author).next_payday.set(next_payday)
-        await ctx.send(f"Пребывая в Изумрудном сне, {author.display_name} наблюдает пророческое видение. Полезное знание позволяет усилиться на {amount} золотых монет и стать опытнее на {xp} единиц.")
+        await ctx.send(f"*Пребывая в Изумрудном сне, {author.display_name} наблюдает пророческое видение. Полезное знание позволяет усилиться на {amount} золотых монет и стать опытнее на {xp} единиц.*")
 
     @commands.command()
     @commands.cooldown(2, 86400, commands.BucketType.user)
@@ -3314,7 +3314,7 @@ class enclave(commands.Cog):
         xp=await self.buffexp(ctx, author, -15)
 #        next_payday = cur_time + await self.config.PAYDAY_TIME()
 #        await self.config.user(author).next_payday.set(next_payday)
-        await ctx.send(f"{author.display_name} взывает к Бездне, теряя {xp} единиц опыта. Несколько тёмных щупалец прорывают реальность и высасывают энергию из окружающего мира на {amount} золотых монет.")
+        await ctx.send(f"*{author.display_name} взывает к Бездне, теряя {xp} единиц опыта. Несколько тёмных щупалец прорывают реальность и высасывают энергию из окружающего мира на {amount} золотых монет.*")
 
     @commands.command()
     async def безумие(self, ctx, user: discord.Member = None):
@@ -4463,7 +4463,7 @@ class enclave(commands.Cog):
         await bank.deposit_credits(author, amount)
 #        next_payday = cur_time + await self.config.PAYDAY_TIME()
 #        await self.config.user(author).next_payday.set(next_payday)
-        await ctx.send(f"{author.display_name} погружается в транс, приводя внутренние силы в порядок. Чувствует себя сильнее на {amount} золотых монет.")
+        await ctx.send(f"*{author.display_name} погружается в транс, приводя внутренние силы в порядок. Чувствует себя сильнее на {amount} золотых монет.*")
 
     @commands.group(name="рука", autohelp=False)
     async def рука(self, ctx: commands.GuildContext):
