@@ -1330,28 +1330,33 @@ class enclave(commands.Cog):
     async def зов_стихий(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
+        g=random.randint(25, 50)
+        p=random.randint(5, 10)
+        target=random.choice(ctx.message.guild.members)
+        SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
+        MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
-        msg1=discord.Embed(title="*Повелитель огня Рагнарос в ярости!*", description=f"-Как ты смеешь взывать ко мне?! УМРИ, НАСЕКОМОЕ!!!\n*У вас сгорает {x} золотых монет.*", colour=discord.Colour.red())
+        msg1=discord.Embed(title="*Повелитель огня Рагнарос в ярости!*", description=f"-Как ты смеешь взывать ко мне?! УМРИ, НАСЕКОМОЕ!!!\n*Гнев Рагнароса обрушивается на всех, кто находится поблизости! {author} и {target} теряют по {g} золотых монет.*", colour=discord.Colour.red())
         msg1.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg1.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/e/e2/Ragnaros_the_Firelord.png/revision/latest/scale-to-width-down/340?cb=20131027083613&path-prefix=ru")
         
-        msg2=discord.Embed(title="Повелитель огня Рагнарос доволен!", description="Восстань, слуга пламени! Поглоти их плоть! *Повелитель огня назначает вас своим мажордомом.*", colour=discord.Colour.dark_red())
+        msg2=discord.Embed(title="*Повелитель огня Рагнарос доволен!*", description="Восстань, слуга пламени! Поглоти их плоть! *Повелитель огня назначает вас своим мажордомом.*", colour=discord.Colour.dark_red())
         msg2.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg2.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/e/e2/Ragnaros_the_Firelord.png/revision/latest/scale-to-width-down/340?cb=20131027083613&path-prefix=ru")
         
-        msg3=discord.Embed(title="Повелитель огня Пеплорон обращает на вас свой взор!", description="На колени, смертный! *Пеплорон сжигает {x1} золотых монет у {user.display_name}.*", colour=discord.Colour.orange())
+        msg3=discord.Embed(title="*Повелитель огня Пеплорон обращает на вас свой взор!*", description="На колени, смертный! *Пеплорон сжигает {x1} золотых монет у {user.display_name}.*", colour=discord.Colour.orange())
         msg3.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg3.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/normal/660184-.jpg")
         
-        msg4=discord.Embed(title="Герцог Гидраксис в ярости!", description="Как ты смеешь взывать ко мне?! Умри, насекомое!!!", colour=discord.Colour.blue())
+        msg4=discord.Embed(title="*Герцог Гидраксис в ярости!*", description="Как ты смеешь взывать ко мне?! Умри, насекомое!!!", colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="https://wow.zamimg.com/modelviewer/live/webthumbs/npc/246/58870.png")
         
-        msg5=discord.Embed(title="Повелитель воды Нептулон в ярости!", description="Нерадивое сухопутное! Ты решил потревожить владыку вод?! Почувствуй силу чистой воды!!!", colour=discord.Colour.dark_blue())
+        msg5=discord.Embed(title="*Повелитель воды Нептулон в ярости!*", description="Нерадивое сухопутное! Ты решил потревожить владыку вод?! Почувствуй силу чистой воды!!!", colour=discord.Colour.dark_blue())
         msg5.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg5.set_thumbnail(url="https://wow.blizzwiki.ru/images/thumb/9/95/Neptulon.jpg/200px-Neptulon.jpg")
         
-        msg6=discord.Embed(title="Повелитель воздуха Громораан в ярости!", description="Я дарую тебе силу ветров!", colour=0xD0D0D0)
+        msg6=discord.Embed(title="*Повелитель воздуха Громораан в ярости!*", description="Я дарую тебе силу ветров!", colour=0xD0D0D0)
         msg6.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg6.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/683871.jpg")
         
@@ -1367,9 +1372,15 @@ class enclave(commands.Cog):
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        mass=[msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
+        mass=[msg1, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
         embed=random.choice(mass)
-        await ctx.send (embed=msg1)
+        if embed==msg1:
+            async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
+                if SH in mes.author.roles:
+                    x+=75
+            if x>95:
+                embed=msg2
+        await ctx.send (embed=embed)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
