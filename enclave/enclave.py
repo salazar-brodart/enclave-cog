@@ -1346,37 +1346,37 @@ class enclave(commands.Cog):
         msg2.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg2.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/e/e2/Ragnaros_the_Firelord.png/revision/latest/scale-to-width-down/340?cb=20131027083613&path-prefix=ru")
         
-        m3=f"{x} золотых монет испаряются из кошелька {author.display_name}.*"
+        m3=f"*"
         msg3=discord.Embed(title="*Повелитель огня Пеплорон обращает на вас свой взор!*", description=f"- На колени, смертный!\n*"+m3, colour=discord.Colour.orange())
         msg3.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg3.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/normal/660184-.jpg")
         
-        m4=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m4=f"*"
         msg4=discord.Embed(title="*Герцог Гидраксис прибывает в наш мир!*", description=f"- Пусть прилив правосудия захлестнет наших врагов!\n**", colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="https://wow.zamimg.com/modelviewer/live/webthumbs/npc/246/58870.png")
         
-        m5=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m5=f"*"
         msg5=discord.Embed(title="*Хозяин приливов Нептулон в ярости!*", description=f"- Узрите силу чистой воды!\n*Мудрость свежим потоком вливается в голову {author.display_name}, увеличивая опыт на {p}.*", colour=discord.Colour.dark_blue())
         msg5.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg5.set_thumbnail(url="https://wow.blizzwiki.ru/images/thumb/9/95/Neptulon.jpg/200px-Neptulon.jpg")
         
-        m6=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m6=f"*"
         msg6=discord.Embed(title="*Принц Громораан в ярости!*", description=f"- Кто-то сказал Громовая Ярость, благословенный клинок Искателя Ветра?! Я дарую тебе силу ветров!", colour=0xD0D0D0)
         msg6.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg6.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/683871.jpg")
         
-        m7=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m7=f"*"
         msg7=discord.Embed(title="*Повелитель ветра Алакир в ярости!*", description=f"- Жалкий смертный, твои попытки приводят меня в ЯРОСТЬ!!!", colour=0x808080)
         msg7.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg7.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/3/37/Al%27Akir_the_Windlord_TCG.jpg/revision/latest/scale-to-width-down/340?cb=20131018201518&path-prefix=ru")
         
-        m8=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m8=f"*"
         msg8=discord.Embed(title="*Мать-Скала Теразан в ярости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!", colour=discord.Colour.gold())
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        m9=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m9=f"*"
         msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!", colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
