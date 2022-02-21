@@ -1718,7 +1718,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def пынь(self, ctx, user: discord.Member = None):
         author=ctx.author
-        is user is None:
+        if user is None:
             user=author
         if user==author:
             await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!*")
