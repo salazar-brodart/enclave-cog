@@ -1724,6 +1724,7 @@ class enclave(commands.Cog):
             await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!*")
         else:
             await ctx.send(f"*{author.display_name} пынькает {user.mention} по носу. Пынь!*")
+        await ctx.message.delete()
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
