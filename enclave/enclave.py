@@ -1715,6 +1715,16 @@ class enclave(commands.Cog):
             embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"И ничего не получает!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
             return await msg1.edit(embed=embed)
 
+    @commands.command()
+    async def пынь(self, ctx, user: discord.Member = None):
+        author=ctx.author
+        is user is None:
+            user=author
+        if user==author:
+            await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!*")
+        else:
+            await ctx.send(f"*{author.display_name} пынькает {user.mention} по носу. Пынь!*")
+
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
         artv=discord.utils.get(ctx.guild.roles, id=893294216036360242)
