@@ -1336,48 +1336,54 @@ class enclave(commands.Cog):
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
-        m1=f"{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
-        msg1=discord.Embed(title="*Повелитель огня Рагнарос в ярости!*", description=f"- Как ты смеешь взывать ко мне?! УМРИ, НАСЕКОМОЕ!!!\n*Гнев Рагнароса обрушивается на всех, кто находится поблизости! "+m1, colour=discord.Colour.red())
+        m1=f"*{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m11=f"*{author.display_name} и {target.display_name} бегают по лагерю, пытаясь потушить пожар.*"
+        m2=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"
+        m22=f"- СЛИШКОМ РАНО, {author.display_name}, СЛИШКОМ РАНО!!!"
+        m3=f"**"
+        m33=f"**"
+        m4=f"**"
+        m44=f"**"
+        m7=f"**"
+        m77=f"**"
+        m8=f"**"
+        m88=f"**"
+        m9=f"**"
+        m99=f"**"
+        
+        msg1=discord.Embed(title="*Повелитель огня Рагнарос в ярости!*", description=f"- Как ты смеешь взывать ко мне?! УМРИ, НАСЕКОМОЕ!!!\n*Гнев Рагнароса обрушивается на всех, кто находится поблизости!*\n"+m1, colour=discord.Colour.red())
         msg1.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg1.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/e/e2/Ragnaros_the_Firelord.png/revision/latest/scale-to-width-down/340?cb=20131027083613&path-prefix=ru")
         
-        m2=f""
-        msg2=discord.Embed(title="*Повелитель огня Рагнарос доволен!*", description=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"+m2, colour=discord.Colour.dark_red())
+        msg2=discord.Embed(title="*Повелитель огня Рагнарос доволен!*", description=m2, colour=discord.Colour.dark_red())
         msg2.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg2.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/e/e2/Ragnaros_the_Firelord.png/revision/latest/scale-to-width-down/340?cb=20131027083613&path-prefix=ru")
         
-        m3=f"*"
-        msg3=discord.Embed(title="*Повелитель огня Пеплорон обращает на вас свой взор!*", description=f"- На колени, смертный!\n*"+m3, colour=discord.Colour.orange())
+        msg3=discord.Embed(title="*Повелитель огня Пеплорон обращает на нас свой взор!*", description=f"- На колени, смертное существо!\n"+m3, colour=discord.Colour.orange())
         msg3.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg3.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/normal/660184-.jpg")
         
-        m4=f"*"
-        msg4=discord.Embed(title="*Герцог Гидраксис прибывает в наш мир!*", description=f"- Пусть прилив правосудия захлестнет наших врагов!\n**", colour=discord.Colour.blue())
+        msg4=discord.Embed(title="*Герцог Гидраксис отвечает на зов!*", description=f"- Пусть прилив правосудия захлестнет наших врагов!\n*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="https://wow.zamimg.com/modelviewer/live/webthumbs/npc/246/58870.png")
         
-        m5=f"*"
-        msg5=discord.Embed(title="*Хозяин приливов Нептулон в ярости!*", description=f"- Узрите силу чистой воды!\n*Мудрость свежим потоком вливается в голову {author.display_name}, увеличивая опыт на {p}.*", colour=discord.Colour.dark_blue())
+        msg5=discord.Embed(title="*Восставшая из воды фигура принимает облик Хозяина приливов Нептулона!*", description=f"- Узрите силу чистой воды!\n*Мудрость свежим потоком вливается в голову {author.display_name}*\n*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.dark_blue())
         msg5.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg5.set_thumbnail(url="https://wow.blizzwiki.ru/images/thumb/9/95/Neptulon.jpg/200px-Neptulon.jpg")
         
-        m6=f"*"
         msg6=discord.Embed(title="*Принц Громораан в ярости!*", description=f"- Кто-то сказал Громовая Ярость, благословенный клинок Искателя Ветра?! Я дарую тебе силу ветров!", colour=0xD0D0D0)
         msg6.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg6.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/683871.jpg")
         
-        m7=f"*"
         msg7=discord.Embed(title="*Повелитель ветра Алакир в ярости!*", description=f"- Жалкий смертный, твои попытки приводят меня в ЯРОСТЬ!!!", colour=0x808080)
         msg7.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg7.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/3/37/Al%27Akir_the_Windlord_TCG.jpg/revision/latest/scale-to-width-down/340?cb=20131018201518&path-prefix=ru")
         
-        m8=f"*"
-        msg8=discord.Embed(title="*Мать-Скала Теразан в ярости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!", colour=discord.Colour.gold())
+        msg8=discord.Embed(title="*Мать-Скала Теразан в ярости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!\n", colour=discord.Colour.gold())
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        m9=f"*"
-        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!", colour=discord.Colour.dark_gold())
+        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
