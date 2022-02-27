@@ -1326,7 +1326,7 @@ class enclave(commands.Cog):
         pass
 
     @зов.command(name="стихий")
-#    @commands.cooldown(3, 1800, commands.BucketType.user)
+    @commands.cooldown(3, 1800, commands.BucketType.user)
     async def зов_стихий(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
@@ -1354,6 +1354,7 @@ class enclave(commands.Cog):
         m99=f"*Полученные знания не открыли ничего нового для {author.display_name}.*"
         
         authbal=await bank.get_balance(author)
+        targbal=await bank.get_balance(target)
         if authbal<25:
             m1=m11
             m3=m33
@@ -1398,7 +1399,7 @@ class enclave(commands.Cog):
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!"+m9, colour=discord.Colour.dark_gold())
+        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!\n"+m9, colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
@@ -1410,6 +1411,42 @@ class enclave(commands.Cog):
                     x+=75
             if x>95:
                 embed=msg2
+        
+        if embed==msg1:
+            if m1!=m11:
+                g1=g
+                if targbal<g1:
+                    g1=targbal
+                if authbal<g:
+                    g=authbal
+                await bank.withdraw_credits(author, g)
+                await bank.withdraw_credits(target, g1)
+        elif embed==msg2:
+            if m2!=m22:
+                await self.zadd(who=author, give=MAJ)
+                await asyncio.sleep(60)
+                await author.remove_roles(MAJ)
+        elif embed==msg3:
+            if m3!=m33:
+                if authbal<g:
+                    g=authbal
+                await bank.withdraw_credits(author, g)
+        elif embed==msg4:
+            p=await self.buffexp(ctx, target, p)
+        elif embed==msg5:
+            if m5!=m55:
+                p=await self.buffexp(ctx, author, p)
+        elif embed==msg6:
+            p=await self.buffexp(ctx, target, p)
+        elif embed==msg7:
+            if slw<=3600:
+                await ctx.channel.edit(slowmode_delay=slw+5)
+        elif embed==msg8:
+            if slw<=3600:
+                await ctx.channel.edit(slowmode_delay=slw+5)
+        elif embed==msg9:
+            if m9!=m99:
+                p=await self.buffexp(ctx, author, p)
         await ctx.send (embed=embed)
 
     @commands.command()
