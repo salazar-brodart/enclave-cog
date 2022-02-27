@@ -1424,8 +1424,9 @@ class enclave(commands.Cog):
         elif embed==msg2:
             if m2!=m22:
                 await self.zadd(who=author, give=MAJ)
+                await ctx.send (embed=embed)
                 await asyncio.sleep(60)
-                await author.remove_roles(MAJ)
+                return await author.remove_roles(MAJ)
         elif embed==msg3:
             if m3!=m33:
                 if authbal<g:
