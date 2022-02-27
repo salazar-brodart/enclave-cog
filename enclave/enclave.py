@@ -1326,13 +1326,15 @@ class enclave(commands.Cog):
         pass
 
     @зов.command(name="стихий")
-#    @commands.cooldown(1, 3600, commands.BucketType.user)#server
+#    @commands.cooldown(3, 1800, commands.BucketType.user)
     async def зов_стихий(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
         g=random.randint(25, 50)
         p=random.randint(5, 10)
         target=random.choice(ctx.message.guild.members)
+        while target==author:
+            target=random.choice(ctx.message.guild.members)
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
@@ -1340,16 +1342,29 @@ class enclave(commands.Cog):
         m11=f"*{author.display_name} и {target.display_name} бегают по лагерю, пытаясь потушить пожар.*"
         m2=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"
         m22=f"- СЛИШКОМ РАНО, {author.display_name}, СЛИШКОМ РАНО!!!"
-        m3=f"**"
-        m33=f"**"
-        m4=f"**"
-        m44=f"**"
-        m7=f"**"
-        m77=f"**"
-        m8=f"**"
-        m88=f"**"
-        m9=f"**"
-        m99=f"**"
+        m3=f"*Древнее копьё 'Углекол' пронзает пространство и поражает чей-то кошелёк.*\n*{author.display_name} теряeт {g} золотых монет.*"
+        m33=f"*Древнее копьё 'Углекол' пронзает пространство и чудом никого не задевает.*"
+        m5=f"*{author.display_name} увеличивает свой опыт на {p} единиц.*"
+        m55=f"*Полученная мудрость гласит, что не стоит беспокоить повелителей стихий попусту.*"
+        m7=f"*Внезапно налетевший порыв ветра мешает общению.*"
+        m77=f"*Ветер усиливается и мешает общаться ещё сильнее.*"
+        m8=f"*Земля под ногами начинает дрожжать и нервировать окружающих.*"
+        m88=f"*Усиливающееся землетрясение заставляет всех ещё больше нервничать.*"
+        m9=f"*{author.display_name} увеличивает свой опыт на {p} единиц.*"
+        m99=f"*Полученные знания не открыли ничего нового для {author.display_name}.*"
+        
+        authbal=await bank.get_balance(author)
+        if authbal<25:
+            m1=m11
+            m3=m33
+            m5=m55
+            m9=m99
+        slw=ctx.channel.slowmode_delay
+        if slw>0:
+            m7=m77
+            m8=m88
+        if MAJ in author.roles:
+            m2=m22
         
         msg1=discord.Embed(title="*Повелитель огня Рагнарос в ярости!*", description=f"- Как ты смеешь взывать ко мне?! УМРИ, НАСЕКОМОЕ!!!\n*Гнев Рагнароса обрушивается на всех, кто находится поблизости!*\n"+m1, colour=discord.Colour.red())
         msg1.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
@@ -1363,27 +1378,27 @@ class enclave(commands.Cog):
         msg3.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg3.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/normal/660184-.jpg")
         
-        msg4=discord.Embed(title="*Герцог Гидраксис отвечает на зов!*", description=f"- Пусть прилив правосудия захлестнет наших врагов!\n*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.blue())
+        msg4=discord.Embed(title="*Герцог Гидраксис отвечает на зов!*", description=f"- Пусть прилив правосудия захлестнет наших врагов!\n*{target.display_name} получает новые знания на {p} единиц опыта.*", colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="https://wow.zamimg.com/modelviewer/live/webthumbs/npc/246/58870.png")
         
-        msg5=discord.Embed(title="*Восставшая из воды фигура принимает облик Хозяина приливов Нептулона!*", description=f"- Узрите силу чистой воды!\n*Мудрость свежим потоком вливается в голову {author.display_name}*\n*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.dark_blue())
+        msg5=discord.Embed(title="*Восставшая из воды фигура принимает облик Хозяина приливов Нептулона!*", description=f"- Узрите силу чистой воды!\n*Мудрость свежим потоком вливается в голову {author.display_name}.*\n"+m5, colour=discord.Colour.dark_blue())
         msg5.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg5.set_thumbnail(url="https://wow.blizzwiki.ru/images/thumb/9/95/Neptulon.jpg/200px-Neptulon.jpg")
         
-        msg6=discord.Embed(title="*Принц Громораан в ярости!*", description=f"- Кто-то сказал Громовая Ярость, благословенный клинок Искателя Ветра?! Я дарую тебе силу ветров!", colour=0xD0D0D0)
+        msg6=discord.Embed(title="*Принц Громораан пробудился!*", description=f"- Кто-то сказал Громовая Ярость, благословенный клинок Искателя Ветра?! Я дарую тебе силу ветров!\n*Сила ветра и молний врывается в помещение и наделяет {target.display_name} мудростью на {p} единиц опыта.*", colour=0xD0D0D0)
         msg6.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg6.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/683871.jpg")
         
-        msg7=discord.Embed(title="*Повелитель ветра Алакир в ярости!*", description=f"- Жалкий смертный, твои попытки приводят меня в ЯРОСТЬ!!!", colour=0x808080)
+        msg7=discord.Embed(title="*В воздухе возникает воронка урагана, из которой через сполохи электричества смотрят глаза Повелителя ветра Ал'Акира!*", description=f"- Жалкий смертный, твои попытки приводят меня в ЯРОСТЬ!!!\n"+m7, colour=0x808080)
         msg7.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg7.set_thumbnail(url="https://vignette.wikia.nocookie.net/wow/images/3/37/Al%27Akir_the_Windlord_TCG.jpg/revision/latest/scale-to-width-down/340?cb=20131018201518&path-prefix=ru")
         
-        msg8=discord.Embed(title="*Мать-Скала Теразан в ярости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!\n", colour=discord.Colour.gold())
+        msg8=discord.Embed(title="*Мать-Скала Теразан вне себя от злости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!\n"+m8, colour=discord.Colour.gold())
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!*{author.display_name} увеличивает свой опыт на {p} единиц.*", colour=discord.Colour.dark_gold())
+        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!"+m9, colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
@@ -2578,7 +2593,7 @@ class enclave(commands.Cog):
             await ctx.send (f"*{author.display_name} закрывает глаза и погружается в Изумрудный сон.*")
 
     @commands.command()
-    @commands.cooldown(1, 86400, commands.BucketType.user)
+    @commands.cooldown(1, 57600, commands.BucketType.user)
     async def сновидение(self, ctx):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, id=685724794586398761)
@@ -3334,7 +3349,7 @@ class enclave(commands.Cog):
         await ctx.send (f"*Струйки фиолетовой энергии обвалакивают тело {author.display_name}.*")
 
     @commands.command()
-    @commands.cooldown(1, 86400, commands.BucketType.user)
+    @commands.cooldown(1, 57600, commands.BucketType.user)
     async def воззвание(self, ctx):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, id=685724797266952219)
@@ -4484,7 +4499,7 @@ class enclave(commands.Cog):
         await ctx.send (f"*Духовная оболочка {author.display_name} отделяется от тела и устремляется в астральное путешествие.*")
 
     @commands.command()
-    @commands.cooldown(1, 86400, commands.BucketType.user)
+    @commands.cooldown(1, 57600, commands.BucketType.user)
     async def медитация(self, ctx):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, id=685724800169410631)
