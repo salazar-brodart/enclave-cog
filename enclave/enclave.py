@@ -73,7 +73,7 @@ class enclave(commands.Cog):
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
-        file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Screen/s ("+str(x)+").jpg", filename="screenshot.jpg")
+        file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Screen/s ("+str(x)+").jpg", filename="Salazar.jpg")
         try:
             await ctx.send(file=file)
         except discord.ext.commands.errors.CommandOnCooldown:
@@ -1330,15 +1330,15 @@ class enclave(commands.Cog):
     async def зов_стихий(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
-        g=random.randint(25, 50)
-        p=random.randint(5, 10)
+        g=random.randint(10, 50)
+        p=random.randint(5, 30)
         target=random.choice(ctx.message.guild.members)
         while target==author:
             target=random.choice(ctx.message.guild.members)
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
-        m1=f"*{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m1=f"*{author.display_name} и {target.display_name} теряют {g} и {g1} золотых монет, соответственно.*"
         m11=f"*{author.display_name} и {target.display_name} бегают по лагерю, пытаясь потушить пожар.*"
         m2=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"
         m22=f"- СЛИШКОМ РАНО, {author.display_name}, СЛИШКОМ РАНО!!!"
@@ -1399,56 +1399,164 @@ class enclave(commands.Cog):
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
-        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты решил потревожить Мать-Скалу? Тогда получи моё благославение!\n"+m9, colour=discord.Colour.dark_gold())
+        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты тревожишь Мать-Скалу?! Тогда получи моё благославение!\n"+m9, colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
         
         mass=[msg1, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
         embed=random.choice(mass)
         if embed==msg1:
-            async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
+            async for mes in ctx.message.channel.history(limit=3,oldest_first=False):
                 if SH in mes.author.roles:
                     x+=75
             if x>95:
                 embed=msg2
         
-        if embed==msg1:
-            if m1!=m11:
-                g1=g
-                if targbal<g1:
-                    g1=targbal
-                if authbal<g:
-                    g=authbal
-                await bank.withdraw_credits(author, g)
-                await bank.withdraw_credits(target, g1)
-        elif embed==msg2:
-            if m2!=m22:
-                await self.zadd(who=author, give=MAJ)
-                await ctx.send (embed=embed)
-                await asyncio.sleep(60)
-                return await author.remove_roles(MAJ)
-        elif embed==msg3:
-            if m3!=m33:
-                if authbal<g:
-                    g=authbal
-                await bank.withdraw_credits(author, g)
+        if embed==msg1 and m1!=m11:
+            g1=g
+            if targbal<g1:
+                g1=targbal
+            if authbal<g:
+                g=authbal
+            await bank.withdraw_credits(author, g)
+            await bank.withdraw_credits(target, g1)
+        elif embed==msg2 and m2!=m22:
+            await self.zadd(who=author, give=MAJ)
+            await ctx.send (embed=embed)
+            await asyncio.sleep(300)
+            return await author.remove_roles(MAJ)
+        elif embed==msg3 and m3!=m33:
+            if authbal<g:
+                g=authbal
+            await bank.withdraw_credits(author, g)
         elif embed==msg4:
             p=await self.buffexp(ctx, target, p)
-        elif embed==msg5:
-            if m5!=m55:
-                p=await self.buffexp(ctx, author, p)
+        elif embed==msg5 and m5!=m55:
+            p=await self.buffexp(ctx, author, p)
         elif embed==msg6:
             p=await self.buffexp(ctx, target, p)
-        elif embed==msg7:
-            if slw<=3600:
-                await ctx.channel.edit(slowmode_delay=slw+5)
-        elif embed==msg8:
-            if slw<=3600:
-                await ctx.channel.edit(slowmode_delay=slw+5)
-        elif embed==msg9:
-            if m9!=m99:
-                p=await self.buffexp(ctx, author, p)
+        elif embed==msg7 and slw<=3600:
+            await ctx.channel.edit(slowmode_delay=slw+5)
+        elif embed==msg8 and slw<=3600:
+            await ctx.channel.edit(slowmode_delay=slw+5)
+        elif embed==msg9 and m9!=m99:
+            p=await self.buffexp(ctx, author, p)
         await ctx.send (embed=embed)
+
+    @commands.group(name="пентаграмма", autohelp=False)
+    async def пентаграмма(self, ctx: commands.GuildContext):
+        pass
+        
+    @пентаграмма.command(name="душ")
+    @commands.cooldown(3, 1800, commands.BucketType.user)
+    async def пентаграмма_душ(self, ctx):
+        author=ctx.author
+        x=random.randint(1, 100)
+        g=random.randint(1, 80)
+        p=random.randint(-12, -5)
+        target=random.choice(ctx.message.guild.members)
+        while target==author:
+            target=random.choice(ctx.message.guild.members)
+        authbal=await bank.get_balance(author)
+        targbal=await bank.get_balance(target)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        slw=ctx.channel.slowmode_delay
+        WL=discord.utils.get(ctx.guild.roles, id=685724799527551042)
+        DK=discord.utils.get(ctx.guild.roles, id=685724801486290947)
+        DH=discord.utils.get(ctx.guild.roles, id=685724803105161216)
+        DEMS=[("Малчезар"), ("Джараксус"), ("Магтеридон"), ("Маннорот"), ("Малганис"), ("Тикондрий"), ("Анетерон"), ("Мефистрот"), ("Бальназзар"), ("Детерок"), ("Вариматас")]
+        DEM=random.choice(DEMS)
+        VLS=[("Энтропий"), ("Зурамат Уничтожитель"), ("Пространствус Всепоглощающий"), ("Принц пустоты Дурзаан"), ("Аруун Вестник Тьмы")]
+        VL=random.choice(VLS)
+        SLS=[("претендент кирий"), ("перерожденная кирия"), ("распорядитель из Бастиона"), ("некролорд"), ("кадавр"), ("кузнец рун из Малдраксуса"), ("сильвара из Арденвельда"), ("тирненн"), ("воркай из Дикой Охоты"), ("аристократ со Двора Жнецов"), ("камнерождённый легионер"), ("пара грязных землероев"), ("любопытное лицо брокера")]
+        SL=random.choice(SLS)
+        msg1=discord.Embed(title=f"*Среди всполохов зелёного пламени образовалась брешь в Круговерть пустоты, и через неё к нам заглянул {DEM}!*", description="", colour=discord.Colour.green())
+        msg1.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717480906010634/DEM.png")
+        msg2=discord.Embed(title=f"*Среди всполохов зелёного пламени образовалась брешь в Круговерть пустоты, и через неё к нам заглянул {DEM}!*", description="", colour=discord.Colour.green())
+        msg2.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717480906010634/DEM.png")
+        msg3=discord.Embed(title=f"*Из образовавшегося разлома в пространстве выглядывает {SL}!*", description="", colour=discord.Colour.red())
+        msg3.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg3.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481195425792/SL.png")
+        msg4=discord.Embed(title=f"*Из образовавшегося разлома в пространстве выглядывает {SL}!*", description="", colour=discord.Colour.red())
+        msg4.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481195425792/SL.png")
+        msg5=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description="", colour=discord.Colour.red())
+        msg5.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg5.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        msg6=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description="", colour=discord.Colour.red())
+        msg6.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+        msg6.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        msg7=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description="", colour=discord.Colour.red())
+        msg7.set_author(name=f"{author.display_name} распевает детскую считалочку и случайно открывает портал в другое измерение.", icon_url=author.avatar_url)
+        msg7.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        mass=[msg1, msg2, msg3, msg4, msg5, msg6]
+        embed=random.choice(mass)
+        if embed==msg6 and x>90:
+            embed=msg7
+        msg=await ctx.send (embed=embed)
+        if embed==msg1:
+            if author.display_name=="Дымящийся ботинок":
+                t=0
+                emb0=discord.Embed(title=f"*Среди всполохов зелёного пламени образовалась брешь в Круговерть пустоты, и через неё к нам заглянул {DEM}!*", description="*Демон расхохотался над дымящимся ботинком и растворился в воздухе.*", color=0xabd473)
+                emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+                emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717480906010634/DEM.png")
+            else:
+                t=3
+                emb0=discord.Embed(title=f"*Среди всполохов зелёного пламени образовалась брешь в Круговерть пустоты, и через неё к нам заглянул {DEM}!*", description=f"*Демон вырывается из-под контроля и страшно мстит призывателю за нарушение покоя. {author.display_name} исчезает в клубах дыма, оставляя на своём месте лишь дымящийся ботинок.*", color=0xabd473)
+                emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+                emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717480906010634/DEM.png")
+                await author.edit(reason=get_audit_reason(ctx.author, None), nick="Дымящийся ботинок")
+        elif embed==msg2:
+            t=3
+            if targbal<g:
+                g=targbal
+            if authbal>(max_bal-g):
+                g=(max_bal-targbal)
+            await bank.withdraw_credits(target, g)
+            await bank.deposit_credits(author, g)
+            if g!=0:
+                m2=f"\n*{author.display_name} становится богаче на {g} золотых монет.*"
+            emb0=discord.Embed(title=f"*Среди всполохов зелёного пламени образовалась брешь в Круговерть пустоты, и через неё к нам заглянул {DEM}!*", description=f"- Всё, что пожелает мой господин!\n*Демон высасывает жизненные силы у {target.mention} и направляет их в {author.mention}.*"+m2, color=0xabd473)
+            emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717480906010634/DEM.png")
+        elif embed==msg3:
+            t=5
+            emb0=discord.Embed(title=f"*Из образовавшегося разлома в пространстве выглядывает {SL}!*", description="*Влияние Тёмных земель сказывается на округе. Всё вокруг словно засыпает и время движется медленнее.*", color=0x69ccf0)
+            emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481195425792/SL.png")
+            if slw<=3600:
+                await ctx.channel.edit(slowmode_delay=slw+10)
+        elif embed==msg4:
+            t=5
+            emb0=discord.Embed(title=f"*Из образовавшегося разлома в пространстве выглядывает {SL}!*", description="- Это то, что нужно.\n*После некоторых манипуляций, все наложенные на область чары устремляются в разлом.*", color=0x69ccf0)
+            emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481195425792/SL.png")
+            await ctx.channel.edit(slowmode_delay=0)
+        elif embed==msg5:
+            t=4
+            p=await self.buffexp(ctx, author, p)
+            if p!=0:
+                m5=f"\n*{author.display_name} теряет {p} единиц опыта.*"
+            emb0=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description=f"*{author.display_name} в спешке останавливает призыв, но в последний момент удар из Бездны наносит психический урон.*"+m5, color=0xa330c9)
+            emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        elif embed==msg6:
+            t=4
+            p=await self.buffexp(ctx, target, p)
+            if p!=0:
+                m6=f"\n*{target.mention} теряет {p} единиц опыта после взаимодействия с Бездной.*"
+            emb0=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description=f"*{target.display_name} вмешивается, останавливая процесс призыва.*"+m6, color=0xa330c9)
+            emb0.set_author(name=f"{author.display_name} рисует на земле пентаграмму и нараспев произносит заклинание призыва.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        elif embed==msg7:
+            t=0
+            emb0=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description=f"*{author.display_name} насвистывает и идёт в другую сторону.*", color=0xa330c9)
+            emb0.set_author(name=f"{author.display_name} распевает детскую считалочку и случайно открывает портал в другое измерение.", icon_url=author.avatar_url)
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+        await asyncio.sleep(t)
+        await msg.edit(embed=emb0)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
@@ -4697,8 +4805,8 @@ class enclave(commands.Cog):
 
     @прочесть.command(name="свиток")
     async def прочесть_свиток(self, ctx):
-        if ctx.message.channel.id != 603151774009786393:
-            return await ctx.send("Защитные чары не позволяют использовать здесь этот свиток. Иди в <#603151774009786393> и читай там.")
+#        if ctx.message.channel.id != 603151774009786393:
+#            return await ctx.send("Защитные чары не позволяют использовать здесь этот свиток. Иди в <#603151774009786393> и читай там.")
         author=ctx.author
         SCR=discord.utils.get(ctx.guild.roles, id=686206326371516498)
         if SCR in author.roles:
