@@ -1338,7 +1338,7 @@ class enclave(commands.Cog):
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
-        m1=f"*{author.display_name} и {target.display_name} теряют {g} и {g1} золотых монет, соответственно.*"
+        m1=f"*{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
         m11=f"*{author.display_name} и {target.display_name} бегают по лагерю, пытаясь потушить пожар.*"
         m2=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"
         m22=f"- СЛИШКОМ РАНО, {author.display_name}, СЛИШКОМ РАНО!!!"
