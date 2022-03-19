@@ -1493,6 +1493,9 @@ class enclave(commands.Cog):
         msg7.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
         mass=[msg1, msg2, msg3, msg4, msg5, msg6]
         embed=random.choice(mass)
+        m2=""
+        m5=""
+        m6=""
         if embed==msg6 and x>90:
             embed=msg7
         msg=await ctx.send (embed=embed)
