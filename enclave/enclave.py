@@ -1333,12 +1333,20 @@ class enclave(commands.Cog):
         g=random.randint(10, 50)
         p=random.randint(5, 30)
         target=random.choice(ctx.message.guild.members)
+        if ctx.message.channel.id == 583924101970657280:
+            g-=10
+            p+=10
+        elif ctx.message.channel.id == 583924549716803595 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
+            g+=10
+        else:
+            return await ctx.send("Стихии отвечают только тем, кто находится в особых местах силы. В окрестностях Фераласа таких предостаточно.")
+        g1=g
         while target==author:
             target=random.choice(ctx.message.guild.members)
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
-        m1=f"*{author.display_name} и {target.display_name} теряют по {g} золотых монет.*"
+        m1=f"*{author.display_name} и {target.display_name} теряют {g} и {g1} золотых монет, соответственно.*"
         m11=f"*{author.display_name} и {target.display_name} бегают по лагерю, пытаясь потушить пожар.*"
         m2=f"- Восстань, слуга пламени! Поглоти их плоть!\n*Повелитель огня назначает {author.display_name} своим мажордомом.*"
         m22=f"- СЛИШКОМ РАНО, {author.display_name}, СЛИШКОМ РАНО!!!"
@@ -1406,14 +1414,12 @@ class enclave(commands.Cog):
         mass=[msg1, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
         embed=random.choice(mass)
         if embed==msg1:
-            async for mes in ctx.message.channel.history(limit=3,oldest_first=False):
+            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
                 if SH in mes.author.roles:
                     x+=75
             if x>95:
                 embed=msg2
-        
         if embed==msg1 and m1!=m11:
-            g1=g
             if targbal<g1:
                 g1=targbal
             if authbal<g:
@@ -1455,6 +1461,13 @@ class enclave(commands.Cog):
         g=random.randint(1, 80)
         p=random.randint(-12, -5)
         target=random.choice(ctx.message.guild.members)
+        if ctx.message.channel.id == 583924549716803595:
+            g+=30
+            p+=4
+        elif ctx.message.channel.id == 583924101970657280 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
+            p-=10
+        else:
+            return await ctx.send("Стихии отвечают только тем, кто находится в особых местах силы. В окрестностях Фераласа таких предостаточно.")
         while target==author:
             target=random.choice(ctx.message.guild.members)
         authbal=await bank.get_balance(author)
