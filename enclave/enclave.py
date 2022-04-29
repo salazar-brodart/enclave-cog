@@ -1337,14 +1337,19 @@ class enclave(commands.Cog):
         g=random.randint(10, 50)
         p=random.randint(5, 30)
         target=random.choice(ctx.message.guild.members)
+        authbal=await bank.get_balance(author)
+        targbal=await bank.get_balance(target)
         if ctx.message.channel.id == 583924101970657280:
             g-=10
             p+=10
         elif ctx.message.channel.id == 583924549716803595 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
             g+=10
+            x-=50
         else:
             return await ctx.send("Стихии отвечают только тем, кто находится в особых местах силы. В окрестностях Фераласа таких предостаточно.")
         g1=g
+        if targbal<g1:
+            g1=targbal
         while target==author:
             target=random.choice(ctx.message.guild.members)
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
@@ -1365,8 +1370,6 @@ class enclave(commands.Cog):
         m9=f"*{author.display_name} увеличивает свой опыт на {p} единиц.*"
         m99=f"*Полученные знания не открыли ничего нового для {author.display_name}.*"
         
-        authbal=await bank.get_balance(author)
-        targbal=await bank.get_balance(target)
         if authbal<25:
             m1=m11
             m3=m33
@@ -1424,8 +1427,6 @@ class enclave(commands.Cog):
             if x>95:
                 embed=msg2
         if embed==msg1 and m1!=m11:
-            if targbal<g1:
-                g1=targbal
             if authbal<g:
                 g=authbal
             await bank.withdraw_credits(author, g)
@@ -1466,12 +1467,13 @@ class enclave(commands.Cog):
         p=random.randint(-12, -5)
         target=random.choice(ctx.message.guild.members)
         if ctx.message.channel.id == 583924549716803595:
-            g+=30
+            g+=50
             p+=4
         elif ctx.message.channel.id == 583924101970657280 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
             p-=10
+            x+=75
         else:
-            return await ctx.send("Стихии отвечают только тем, кто находится в особых местах силы. В окрестностях Фераласа таких предостаточно.")
+            return await ctx.send("Призвать существо из иного мира возможно только в особых местах силы. В окрестностях Фераласа таких предостаточно.")
         while target==author:
             target=random.choice(ctx.message.guild.members)
         authbal=await bank.get_balance(author)
@@ -1577,6 +1579,7 @@ class enclave(commands.Cog):
             emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
         await asyncio.sleep(t)
         await msg.edit(embed=emb0)
+
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
@@ -1909,7 +1912,7 @@ class enclave(commands.Cog):
         if user is None:
             user=author
         if user==author:
-            await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!*")
+            await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!* <:peu:968784071306133505>")
         else:
             await ctx.send(f"*{author.display_name} пынькает {user.mention} по носу. Пынь!* <:peu:968784071306133505>")
         await ctx.message.delete()
@@ -3167,7 +3170,8 @@ class enclave(commands.Cog):
     async def выброс_лавы(self, ctx, user: discord.Member = None):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, id=685724796075769889)
-        if CLS not in author.roles:
+        MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
+        if CLS not in author.roles and MAJ not in author.roles:
             await ctx.send (f"*{author.display_name} идёт выбрасывать мусор.*")
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393:
@@ -3175,7 +3179,7 @@ class enclave(commands.Cog):
         while user is None or user is author:
             user = random.choice(ctx.message.guild.members)
         rank=await self.chkrank(ctx=ctx, user=author)
-        if rank<=3:
+        if rank<=3 and MAJ not in author.roles:
             return await ctx.send (f"*{author.display_name} не может совладать с духами огня и поджигает стоящее недалеко дерево.*")
         authbal=await bank.get_balance(author)
         cst=2500
@@ -3795,13 +3799,14 @@ class enclave(commands.Cog):
         while user is None or user is author:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, id=685724798193762365)
-        if CLS not in author.roles:
+        MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
+        if CLS not in author.roles and MAJ not in author.roles:
             await ctx.send (f"*{author.display_name} надувает воздушный шарик ярко-красного цвета.*")
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393:
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
-        if rank<=1:
+        if rank<=1 and MAJ not in author.roles:
             return await ctx.send (f"*{author.display_name} находит лужу магмы и пытается скатать 'снежок'.*")
         authbal=await bank.get_balance(author)
         cst=80
