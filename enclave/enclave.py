@@ -1337,12 +1337,14 @@ class enclave(commands.Cog):
         g=random.randint(10, 50)
         p=random.randint(5, 30)
         target=random.choice(ctx.message.guild.members)
+        while target==author:
+            target=random.choice(ctx.message.guild.members)
         authbal=await bank.get_balance(author)
         targbal=await bank.get_balance(target)
         if ctx.message.channel.id == 583924101970657280:
             g-=10
             p+=10
-        elif ctx.message.channel.id == 583924549716803595 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
+        elif ctx.message.channel.id == 583924549716803595 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 584285274956103690:
             g+=10
             x-=50
         else:
@@ -1350,8 +1352,6 @@ class enclave(commands.Cog):
         g1=g
         if targbal<g1:
             g1=targbal
-        while target==author:
-            target=random.choice(ctx.message.guild.members)
         SH=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         MAJ=discord.utils.get(ctx.guild.roles, id=944589974823637024)
         
@@ -1421,9 +1421,11 @@ class enclave(commands.Cog):
         mass=[msg1, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
         embed=random.choice(mass)
         if embed==msg1:
+            x1=0
             async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
                 if SH in mes.author.roles:
-                    x+=75
+                    x1=75
+            x+=x1
             if x>95:
                 embed=msg2
         if embed==msg1 and m1!=m11:
@@ -1469,9 +1471,9 @@ class enclave(commands.Cog):
         if ctx.message.channel.id == 583924549716803595:
             g+=50
             p+=4
-        elif ctx.message.channel.id == 583924101970657280 and ctx.message.channel.id == 583924289393393664 and ctx.message.channel.id == 584285274956103690:
+        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 584285274956103690:
             p-=10
-            x+=75
+            x-=75
         else:
             return await ctx.send("Призвать существо из иного мира возможно только в особых местах силы. В окрестностях Фераласа таких предостаточно.")
         while target==author:
@@ -1515,7 +1517,22 @@ class enclave(commands.Cog):
         m2=""
         m5=""
         m6=""
-        if embed==msg6 and x>90:
+        x1=0
+        x2=0
+        x3=0
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if WL in mes.author.roles:
+                x1=35
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if DK in mes.author.roles:
+                x1=25
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if DH in mes.author.roles:
+                x1=15
+        x+=x1
+        x+=x2
+        x+=x3
+        if embed==msg6 and x<10:
             embed=msg7
         msg=await ctx.send (embed=embed)
         if embed==msg1:
@@ -1535,8 +1552,10 @@ class enclave(commands.Cog):
             if targbal<g:
                 g=targbal
             if authbal>(max_bal-g):
-                g=(max_bal-targbal)
+                g=(max_bal-authbal)
             await bank.withdraw_credits(target, g)
+            if g==0:
+                g+=abs(x)
             await bank.deposit_credits(author, g)
             if g!=0:
                 m2=f"\n*{author.display_name} становится богаче на {g} золотых монет.*"
@@ -1580,6 +1599,131 @@ class enclave(commands.Cog):
         await asyncio.sleep(t)
         await msg.edit(embed=emb0)
 
+    @commands.command()
+    #@commands.cooldown(3, 1800, commands.BucketType.user)
+    async def ритуал(self, ctx):
+        author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        x=random.randint(1, 100)
+        g=random.randint(30, 110)
+        if ctx.message.channel.id == 583924289393393664:
+            g+=50
+        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924549716803595 or ctx.message.channel.id == 584285274956103690:
+            g-=25
+        else:
+            return await ctx.send("Для проведения ритуала необходимо много редких ингридиентов. Поищи их в окрестностях Фераласа.")
+        slw=ctx.channel.slowmode_delay
+        MAG=discord.utils.get(ctx.guild.roles, id=685724798193762365)
+        GIFT=discord.utils.get(ctx.guild.roles, id=972039576426283048)
+        SHIFT=discord.utils.get(ctx.guild.roles, id=972039983454121984)
+        LOAS=[("Хирик"), ("Торкали"), ("Резан"), ("Гонк"), ("Хаккар"), ("Ширвалла"), ("Шадра"), ("Урсол"), ("Агамагган"), ("Авиана"), ("Малорн"), ("Голдринн")]
+        ASPS=[("Аспект жизни Алекстраза"), ("Королева снов Изера"), ("Хранитель магии Калесгос"), ("Аспект времени Ноздорму")]
+        DBS=[("К'Туна"), ("Н'Зота"), ("Йогг-Сарона"), ("И'Шараджа")]
+        MS=[("Бвонсамди"), ("Ксалатат"), ("Двойник из будущего")]
+        LOA=random.choice(LOAS)
+        ASP=random.choice(ASPS)
+        DB=random.choice(DBS)
+        M=random.choice(MS)
+        ANN=random.choice(LOA, ASP, DB, M)
+        m1=""
+        m2=""
+        m3=""
+        m4=""
+        msg1=discord.Embed(title=f"*{LOA} принимает подношение и предлагает свой дар.*", description=m1, colour=discord.Colour.blue())
+        msg1.set_author(name=f"{author.display_name} делает ритуальное подношение.", icon_url=author.avatar_url)
+        msg1.set_thumbnail(url="")
+        msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
+        msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
+        msg2.set_thumbnail(url="")
+        msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
+        msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+        msg3.set_thumbnail(url="")
+        msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо {author.mention}.*", description=m4, colour=discord.Colour.blue())
+        msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+        msg4.set_thumbnail(url="")
+        t=random.randint(3, 10)
+        if ANN==LOA:
+            msg=await ctx.send (embed=msg1)
+            await asyncio.sleep(t)
+            async for mes in ctx.message.channel.history(limit=1,oldest_first=False):
+                if mes.author.display_name=="Джола Древняя":
+                    target=author
+                else:
+                    target=mes.author
+            targbal=await bank.get_balance(target)
+            if x>50:
+                if targbal>(max_bal-g):
+                    g=(max_bal-targbal)
+                #await bank.deposit_credits(target, g)
+                m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\n{target.mention} получает {g} монет из чистого золота!"
+            else:
+                if targbal<g:
+                    g=targbal
+                #await bank.withdraw_credits(target, g)
+                m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\nДар представляет собой избавление от лишних материальных ценностей.\n{target.mention} недосчитывается {g} золотых монет!"
+            embed=msg1
+            return await msg.edit(embed=embed)
+        elif ANN==ASP:
+            msg=await ctx.send (embed=msg2)
+            await asyncio.sleep(t)
+            async for mes in ctx.message.channel.history(limit=1,oldest_first=False):
+                if mes.author.display_name=="Джола Древняя":
+                    target=author
+                else:
+                    target=mes.author
+            targbal=await bank.get_balance(target)
+            if x>50:
+                if targbal>(max_bal-g):
+                    g=(max_bal-targbal)
+                #await bank.deposit_credits(target, g)
+                m2=f"{target.display_name} выходит вперёд и принимает благословение аспектов.\n{target.mention} теперь богаче на {g} золотых монет!"
+            else:
+                await ctx.channel.edit(slowmode_delay=0)
+                m2="Аспект благословляет это место, рассеивая все вредоносные чары."
+            embed=msg2
+            return await msg.edit(embed=embed)
+        elif ANN==DB:
+            if targbal>(max_bal-g):
+                g=(max_bal-targbal)
+            if DB=="К'Туна":
+                m3=f"{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.mention} слабеет на {g} золотых монет."
+                #await bank.withdraw_credits(author, g)
+            elif DB=="Йогг-Сарона":
+                m3=f"{author.display_name} грезит демоном с тысячью лиц.\nОт сковывающего ужаса {author.mention} чувствует себя хуже на {g} золотых монет."
+                #await bank.withdraw_credits(author, g)
+            elif DB=="И'Шараджа":
+                m3=f"{author.display_name} видит сон про чёрного семиглазого козла.\nПроснувшись, {author.mention} замечает пропажу {g} золотых монет."
+                #await bank.withdraw_credits(author, g)
+            elif DB=="Н'Зота" and x>80:
+                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.mention} получает эффект Дар {DB}."
+                #respons
+                await self.zadd(who=author, give=GIFT)
+            else:
+                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nМоргнув, {author.mention} теряет страшное видение и {g} золотых монет."
+                #await bank.withdraw_credits(author, g)
+            return await ctx.send (embed=msg3)
+        else:
+            x1=0
+            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+                if MAG in mes.author.roles:
+                    x1=60
+            x-=x1
+            if x<20:
+                await self.zadd(who=author, give=SHIFT)
+                m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.mention} получает эффект Временной сдвиг."
+                await ctx.send (embed=msg4)
+                await asyncio.sleep(300)
+                return await author.remove_roles(SHIFT)
+            elif x<51:
+                await ctx.channel.edit(slowmode_delay=0)
+                m4=f"{author.display_name} теряет концентрацию и энергия ритуала разлетается в разные стороны.\nЧары, наложенные на область, сгорели от избытка энергии."
+            else:
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.mention} вмиг становится богаче на {g} золотых монет!"
+                #await bank.deposit_credits(author, g)
+            return await ctx.send (embed=msg4)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
