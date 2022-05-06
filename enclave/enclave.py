@@ -1625,7 +1625,8 @@ class enclave(commands.Cog):
         ASP=random.choice(ASPS)
         DB=random.choice(DBS)
         M=random.choice(MS)
-        ANN=random.choice(LOA, ASP, DB, M)
+        ANNS=[LOA, ASP, DB, M]
+        ANN=random.choice(ANNS)
         m1=""
         m2=""
         m3=""
