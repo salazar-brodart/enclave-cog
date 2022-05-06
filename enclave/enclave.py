@@ -1640,7 +1640,7 @@ class enclave(commands.Cog):
         msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
         msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
         msg3.set_thumbnail(url="")
-        msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо {author.mention}.*", description=m4, colour=discord.Colour.blue())
+        msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="")
         t=random.randint(3, 10)
