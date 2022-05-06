@@ -1685,8 +1685,8 @@ class enclave(commands.Cog):
             embed=msg2
             return await msg.edit(embed=embed)
         elif ANN==DB:
-            if targbal>(max_bal-g):
-                g=(max_bal-targbal)
+            if authbal<g:
+                g=authbal
             if DB=="К'Туна":
                 m3=f"{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.mention} слабеет на {g} золотых монет."
                 #await bank.withdraw_credits(author, g)
