@@ -1663,8 +1663,10 @@ class enclave(commands.Cog):
                     g=targbal
                 #await bank.withdraw_credits(target, g)
                 m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\nДар представляет собой избавление от лишних материальных ценностей.\n{target.mention} недосчитывается {g} золотых монет!"
-            embed=msg1
-            return await msg.edit(embed=embed)
+            msg1=discord.Embed(title=f"*{LOA} принимает подношение и предлагает свой дар.*", description=m1, colour=discord.Colour.blue())
+            msg1.set_author(name=f"{author.display_name} делает ритуальное подношение.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await msg.edit(embed=msg1)
         elif ANN==ASP:
             msg=await ctx.send (embed=msg2)
             await asyncio.sleep(t)
@@ -1682,8 +1684,10 @@ class enclave(commands.Cog):
             else:
                 await ctx.channel.edit(slowmode_delay=0)
                 m2="Аспект благословляет это место, рассеивая все вредоносные чары."
-            embed=msg2
-            return await msg.edit(embed=embed)
+            msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
+            msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
+            msg2.set_thumbnail(url="")
+            return await msg.edit(embed=msg2)
         elif ANN==DB:
             if authbal<g:
                 g=authbal
@@ -1703,6 +1707,9 @@ class enclave(commands.Cog):
             else:
                 m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nМоргнув, {author.mention} теряет страшное видение и {g} золотых монет."
                 #await bank.withdraw_credits(author, g)
+            msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
+            msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+            msg3.set_thumbnail(url="")
             return await ctx.send (embed=msg3)
         else:
             x1=0
@@ -1713,6 +1720,9 @@ class enclave(commands.Cog):
             if x<20:
                 await self.zadd(who=author, give=SHIFT)
                 m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.mention} получает эффект Временной сдвиг."
+                msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
+                msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+                msg4.set_thumbnail(url="")
                 await ctx.send (embed=msg4)
                 await asyncio.sleep(300)
                 return await author.remove_roles(SHIFT)
@@ -1724,6 +1734,9 @@ class enclave(commands.Cog):
                     g=(max_bal-authbal)
                 m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.mention} вмиг становится богаче на {g} золотых монет!"
                 #await bank.deposit_credits(author, g)
+            msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
+            msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+            msg4.set_thumbnail(url="")
             return await ctx.send (embed=msg4)
 
     @commands.command()
