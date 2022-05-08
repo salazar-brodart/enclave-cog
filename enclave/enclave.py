@@ -1636,16 +1636,16 @@ class enclave(commands.Cog):
         m4=""
         msg1=discord.Embed(title=f"*{LOA} принимает подношение и предлагает свой дар.*", description=m1, colour=discord.Colour.blue())
         msg1.set_author(name=f"{author.display_name} делает ритуальное подношение.", icon_url=author.avatar_url)
-        msg1.set_thumbnail(url="")
+        msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691626143137812/voodoo.jpg")
         msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
         msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
-        msg2.set_thumbnail(url="")
+        msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
         msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
         msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-        msg3.set_thumbnail(url="")
+        msg3.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691607612706866/db.jpg")
         msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
         msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-        msg4.set_thumbnail(url="")
+        msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
         t=random.randint(5, 15)
         if ANN==LOA:
             msg=await ctx.send (embed=msg1)
@@ -1668,7 +1668,7 @@ class enclave(commands.Cog):
                 m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\nДар представляет собой избавление от лишних материальных ценностей.\n{target.mention} недосчитывается {g} золотых монет!"
             msg1=discord.Embed(title=f"*{LOA} принимает подношение и предлагает свой дар.*", description=m1, colour=discord.Colour.blue())
             msg1.set_author(name=f"{author.display_name} делает ритуальное подношение.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691626143137812/voodoo.jpg")
             return await msg.edit(embed=msg1)
         elif ANN==ASP:
             msg=await ctx.send (embed=msg2)
@@ -1689,7 +1689,7 @@ class enclave(commands.Cog):
                 m2="Аспект благословляет это место, рассеивая все вредоносные чары."
             msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
             msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
-            msg2.set_thumbnail(url="")
+            msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
             return await msg.edit(embed=msg2)
         elif ANN==DB:
             if authbal<g:
@@ -1712,7 +1712,7 @@ class enclave(commands.Cog):
                 await bank.withdraw_credits(author, g)
             msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
             msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-            msg3.set_thumbnail(url="")
+            msg3.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691607612706866/db.jpg")
             return await ctx.send (embed=msg3)
         else:
             x1=0
@@ -1725,7 +1725,7 @@ class enclave(commands.Cog):
                 m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.mention} получает эффект Временной сдвиг."
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-                msg4.set_thumbnail(url="")
+                msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
                 await ctx.send (embed=msg4)
                 await asyncio.sleep(300)
                 return await author.remove_roles(SHIFT)
@@ -1739,7 +1739,7 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(author, g)
             msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
             msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-            msg4.set_thumbnail(url="")
+            msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
             return await ctx.send (embed=msg4)
 
     @commands.command()
