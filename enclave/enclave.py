@@ -71,7 +71,7 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def тест(self, ctx: Context):
-        await ctx.send(ctx.message.channel.category)
+        await ctx.send(ctx.message.channel.category.id)
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
