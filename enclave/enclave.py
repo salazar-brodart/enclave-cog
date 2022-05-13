@@ -1143,7 +1143,7 @@ class enclave(commands.Cog):
         emb5 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 1.**", description = "Q: Как мне узнать свой уровень?\nA: Написать команду `=уровень` или `=ур`, и подождать пару секунд.\nQ: Там есть шкала опыта, за что я его получаю?\nA: За каждое сообщение на общедоступных каналах (кроме строчилки) - 1 единица опыта. Если сообщение >15 символов - 2 единицы, если >30 - 3.\nQ: Я флужу, как потерпевший, а опыт растёт медленно!\nA: Опыт начисляется раз в 90 секунд.\nQ: Как мне получить роль класса?\nA: Нужно написать команду `=выбрать класс` и выбрать класс, следуя инструкциям.\nQ: Мне постоянно не хватает золота, где его можно взять?!\nA: На данный момент золото можно получить: играя в викторину, получить в наградном уровневом сундуке, выиграть что-нибудь в казино, получить от других участников заклинаниями лечения и усиления, а также монеты выдаются в ходе различных турниров и ивентов на сервере. В планах команды на выполнение поручений и отражение атак огров.\nQ: Почему я должен платить золото за каждое использование заклинаний, они очень дорогие, что за грабительская система?!\nA: Систему придумал и реализовал гоблин.\nQ: Я не могу писать на канале <#603151774009786393>!\nA: Скорее всего вас кто-то заглушил заклинанием, проверьте свои роли на наличие отрицательных эффектов. Можете их рассеять, купив и выпив зелье в <#610767915997986816>, подробности в его закрепах.\nQ: Меня постоянно атакуют и сжигают все мои монеты! Казлы!\nA: Чаще всего атаками наказывают за неадекватное поведение и грубость в чате. Ведите себя дружелюбно и ситуация улучшится.", colour=discord.Colour.gold())
         emb6 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 2.**", description = "Q: Меня постоянно глушит один недоброжелатель, что делать?\nA: Некоторые классы имеют сейвы, которые дают защиту от мута. Если его у вас нет, вы можете договориться с другим участниками (или подкупить их), чтобы совместно атаковать вашего врага.\nQ: Что за ранги мастерства?\nA: Это уровень владения заклинаниями вашего класса. Каждые 5 уровней вам будет предложен выбор, улучшить ранг или получить некоторую сумму золотых монет.\nQ: Могу ли я передать золото другому участнику?\nA: Только с помощью заклинаний лечения/усиления.\nQ: Можно ли выбрать два разных класса?\nA: Двойная специализация в разработке. К моменту появления первого Эксперта своего класса, она уже должна заработать.", colour=discord.Colour.gold())
         emb7 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Краткая аннотация\".**", description = "Жители Анклава, как и любые другие обитатели Азерота, могут обратиться за помощью к различным могущественным существам, божествам и космологическим силам.\nДля этого существуют следующие команды:\n\n`=зов стихий` - вы взываете к повелителям стихий, в надежде, что они одарят вас своей мудростью. Может добавить опыта или отнять золотых монет.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924101970657280>.\n\n`=пентаграмма душ` - вы создаёте портал для призыва опасной сущности, которая поможет вам разбогатеть. Может прибавить золотых монет (при этом отняв их у кого-то) или отнять опыт.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924549716803595>.\n\n`=ритуал` - вы проводите магический ритуал с непредсказуемым эффектом. Результат может как прибавить золотых монет, так и отнять.\nРекомендуемое место применения для более крупных сумм - <#583924289393393664>.\n\n`=созерцание` - вы умиротворяетесь и раскрываете свой разум. Может принести дополнительный опыт, а может и отнять его. [НЕАКТИВНО]\nРекомендуемое место применения для более сильных эффектов - <#584285274956103690>.\n\n`=тренировка` - вы отрабатываете свои боевые навыки в ряде упражнений. Результат неизвестен заранее. [НЕАКТИВНО]\nРекомендуемое место применения - любой из вышеперечисленных каналов.\n\nКаждую команду можно применять не чаще 5 раз за 30 минут для каждого участника сервера.", colour=discord.Colour.gold())
-        emb8 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Детальный разбор\".**", description = "`=зов стихий`\n- Может прибавить от 5 до 40 единиц опыта, интервал меняется в зависимости от канала.\n- Может отнять от 0 до 60 золотых монет, интервал меняется в зависимости от канала.\n- Возможно увеличение медленного режима на канале.\n- В редких случаях можно получить эффект Мажордом огня на 5 минут. Эффект позволяет применять заклинания Огненный шар и Выброс лавы не зависимо от класса и ранга мастерства (но требуют монет на применение согласно стоимости). Присутствие в чате шаманов увеличивает шанс на получение эффекта.\n - Что-то ещё.\n\n`=пентаграмма душ`\n- Может прибавить от 1 до 130 золотых монет.\n- Может отнять от 1 до 22 единиц опыта.\n- Возможно отключение медленного режима на канале.\n- Возможно увеличение медленного режима на канале.\n - Что-то ещё.\n\n`=ритуал`\n- Может как отнять, так и прибавить от 30 до 160 золотых монет.\n- Возможно отключение медленного режима на канале.\n- В редких случаях можно получить эффект Временной сдвиг на 5 минут. Присутствие в чате магов увеличивает шанс на получение эффекта.\n\n`=созерцание`\n[НЕАКТИВНО]\n\n`=тренировка`\n[НЕАКТИВНО]", colour=discord.Colour.gold())
+        emb8 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Детальный разбор\".**", description = "`=зов стихий`\n- Может прибавить от 5 до 40 единиц опыта, интервал меняется в зависимости от канала.\n- Может отнять от 0 до 60 золотых монет, интервал меняется в зависимости от канала.\n- Возможно увеличение медленного режима на канале на 5 секунд.\n- В редких случаях можно получить эффект Мажордом огня на 5 минут. Эффект позволяет применять заклинания Огненный шар и Выброс лавы не зависимо от класса и ранга мастерства (но требуют монет на применение согласно стоимости). Присутствие в чате шаманов увеличивает шанс на получение эффекта.\n - Что-то ещё.\n\n`=пентаграмма душ`\n- Может прибавить от 1 до 130 золотых монет.\n- Может отнять от 1 до 22 единиц опыта.\n- Возможно полное отключение медленного режима на канале.\n- Возможно увеличение медленного режима на канале на 10 секунд.\n - Что-то ещё.\n\n`=ритуал`\n- Может как отнять, так и прибавить от 30 до 160 золотых монет.\n- Возможно ослабление медленного режима на канале на 25 секунд.\n- Возможно полное отключение медленного режима на канале.\n- В редких случаях можно получить эффект Временной сдвиг на 5 минут. Присутствие в чате магов увеличивает шанс на получение эффекта.\n\n`=созерцание`\n[НЕАКТИВНО]\n\n`=тренировка`\n[НЕАКТИВНО]", colour=discord.Colour.gold())
         msg = await ctx.send(embed=emb0, components=[Select(placeholder="Выбрать главу:", options=[SelectOption(label="Подсчёт опыта", value="exp", emoji=scr), SelectOption(label="Правила магии", value="magic", emoji=mag), SelectOption(label="О классах", value="class", emoji=clas), SelectOption(label="Общие команды", value="commands", emoji=com), SelectOption(label="Частые вопросы, часть 1", value="faq1", emoji=faq), SelectOption(label="Частые вопросы, часть 2", value="faq2", emoji=faq), SelectOption(label="Высшие силы, кратко", value="cosmo", emoji=cosm), SelectOption(label="Высшие силы, подробно", value="cosmolog", emoji=cosm), SelectOption(label="Запретная глава (не открывать!)", value="close", emoji=clos)])])
         embed=emb0
         while True:
@@ -1333,7 +1333,7 @@ class enclave(commands.Cog):
         pass
 
     @зов.command(name="стихий")
-    @commands.cooldown(3, 1800, commands.BucketType.user)
+    @commands.cooldown(5, 1800, commands.BucketType.user)
     async def зов_стихий(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
@@ -1464,7 +1464,7 @@ class enclave(commands.Cog):
         pass
         
     @пентаграмма.command(name="душ")
-    @commands.cooldown(3, 1800, commands.BucketType.user)
+    @commands.cooldown(5, 1800, commands.BucketType.user)
     async def пентаграмма_душ(self, ctx):
         author=ctx.author
         x=random.randint(1, 100)
@@ -1478,7 +1478,7 @@ class enclave(commands.Cog):
             p-=10
             x-=75
         else:
-            return await ctx.send("Призвать существо из иного мира возможно только в особых местах силы. В окрестностях Фераласа таких предостаточно.")
+            return await ctx.send("Призывать существо из иного мира лучше подальше от чужих глаз. Найди укрытие в окрестностях Фераласа.")
         while target==author:
             target=random.choice(ctx.message.guild.members)
         authbal=await bank.get_balance(author)
@@ -1603,7 +1603,7 @@ class enclave(commands.Cog):
         await msg.edit(embed=emb0)
 
     @commands.command()
-    @commands.cooldown(3, 1800, commands.BucketType.user)
+    @commands.cooldown(5, 1800, commands.BucketType.user)
     async def ритуал(self, ctx):
         author=ctx.author
         authbal=await bank.get_balance(author)
@@ -1684,9 +1684,12 @@ class enclave(commands.Cog):
                     g=(max_bal-targbal)
                 await bank.deposit_credits(target, g)
                 m2=f"{target.display_name} выходит вперёд и принимает благословение аспектов.\n{target.mention} теперь богаче на {g} золотых монет!"
-            else:
+            elif slw<30:
                 await ctx.channel.edit(slowmode_delay=0)
                 m2="Аспект благословляет это место, рассеивая все вредоносные чары."
+            else:
+                await ctx.channel.edit(slowmode_delay=slw-25)
+                m2="Аспект благословляет это место, ослабляя все действующие вредоносные чары."
             msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
             msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
             msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
@@ -1715,10 +1718,19 @@ class enclave(commands.Cog):
             msg3.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691607612706866/db.jpg")
             return await ctx.send (embed=msg3)
         else:
+            if x>50:
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.mention} вмиг становится богаче на {g} золотых монет!"
+                await bank.deposit_credits(author, g)
+                msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
+                msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+                msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
+                return await ctx.send (embed=msg4)
             x1=0
             async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
                 if MAG in mes.author.roles:
-                    x1=60
+                    x1=31
             x-=x1
             if x<20 and SHIFT not in author.roles:
                 await self.zadd(who=author, give=SHIFT)
@@ -1729,18 +1741,52 @@ class enclave(commands.Cog):
                 await ctx.send (embed=msg4)
                 await asyncio.sleep(300)
                 return await author.remove_roles(SHIFT)
-            elif x<51:
-                await ctx.channel.edit(slowmode_delay=0)
-                m4=f"{author.display_name} теряет концентрацию и энергия ритуала разлетается в разные стороны.\nЧары, наложенные на область, сгорели от избытка энергии."
             else:
-                if authbal>(max_bal-g):
-                    g=(max_bal-authbal)
-                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.mention} вмиг становится богаче на {g} золотых монет!"
-                await bank.deposit_credits(author, g)
-            msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
-            msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
-            msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
-            return await ctx.send (embed=msg4)
+                await ctx.channel.edit(slowmode_delay=0)
+                m4=f"{author.display_name} теряет концентрацию и энергия ритуала разлетается в разные стороны.\nЧары, наложенные на область, сгорели от переизбытка энергии."
+                msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
+                msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
+                msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
+                return await ctx.send (embed=msg4)
+
+    @commands.command()
+    @commands.cooldown(5, 1800, commands.BucketType.user)
+    async def созерцание(self, ctx):
+        author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        x=random.randint(1, 100)
+        g=random.randint(50, 80)
+        p=random.randint(10, 50)
+        if ctx.message.channel.id == 584285274956103690:
+            g+=70
+            p+=20
+        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 583924549716803595:
+            p-=10
+        else:
+            return await ctx.send("Постигать красоту этого мира приятнее в живописных местах. Окрестности Фераласа как раз такие.")
+        target=random.choice(ctx.message.guild.members)
+        while target==author:
+            target=random.choice(ctx.message.guild.members)
+        targbal=await bank.get_balance(target)
+        slw=ctx.channel.slowmode_delay
+        PAL=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+
+    @commands.command()
+    @commands.cooldown(5, 1800, commands.BucketType.user)
+    async def тренировка(self, ctx):
+        author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        x=random.randint(1, 100)
+        g=random.randint(1, 40)
+        p=random.randint(1, 10)
+        if ctx.message.channel.id != 583924101970657280 and ctx.message.channel.id != 583924289393393664 and ctx.message.channel.id != 584285274956103690 and ctx.message.channel.id != 583924549716803595:
+            return await ctx.send("Для тренировки лучше выбрать открытое пространство. Прогуляйся по окрестностям Фераласа.")
+        target=random.choice(ctx.message.guild.members)
+        while target==author:
+            target=random.choice(ctx.message.guild.members)
+        WAR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
