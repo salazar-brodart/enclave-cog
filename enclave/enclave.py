@@ -1602,7 +1602,7 @@ class enclave(commands.Cog):
             t=0
             emb0=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description=f"*{author.display_name} насвистывает и идёт в другую сторону.*", color=0xa330c9)
             emb0.set_author(name=f"{author.display_name} распевает детскую считалочку и случайно открывает портал в другое измерение.", icon_url=author.avatar_url)
-            emb0.set_thumbnai  l(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
         await asyncio.sleep(t)
         await msg.edit(embed=emb0)
 
