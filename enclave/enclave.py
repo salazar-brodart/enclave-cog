@@ -1702,16 +1702,16 @@ class enclave(commands.Cog):
             if authbal<g:
                 g=authbal
             if DB=="К'Туна":
-                m3=f"{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.mention} слабеет на {g} золотых монет."
+                m3=f"{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.display_name} слабеет на {g} золотых монет."
                 await bank.withdraw_credits(author, g)
             elif DB=="Йогг-Сарона":
-                m3=f"{author.display_name} грезит демоном с тысячью лиц.\nОт сковывающего ужаса {author.mention} чувствует себя хуже на {g} золотых монет."
+                m3=f"{author.display_name} грезит демоном с тысячью лиц.\nОт сковывающего ужаса {author.display_name} чувствует себя хуже на {g} золотых монет."
                 await bank.withdraw_credits(author, g)
             elif DB=="И'Шараджа":
-                m3=f"{author.display_name} видит сон про чёрного семиглазого козла.\nПроснувшись, {author.mention} замечает пропажу {g} золотых монет."
+                m3=f"{author.display_name} видит сон про чёрного семиглазого козла.\nПроснувшись, {author.display_name} замечает пропажу {g} золотых монет."
                 await bank.withdraw_credits(author, g)
             elif DB=="Н'Зота" and x>80 and GIFT not in author.roles:
-                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.mention} получает эффект Дар {DB}."
+                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.display_name} получает эффект Дар {DB}."
                 #interactions
                 await self.zadd(who=author, give=GIFT)
             else:
@@ -1725,7 +1725,7 @@ class enclave(commands.Cog):
             if x>50:
                 if authbal>(max_bal-g):
                     g=(max_bal-authbal)
-                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.mention} вмиг становится богаче на {g} золотых монет!"
+                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.display_name} вмиг становится богаче на {g} золотых монет!"
                 await bank.deposit_credits(author, g)
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
@@ -1738,7 +1738,7 @@ class enclave(commands.Cog):
             x-=x1
             if x<20 and SHIFT not in author.roles:
                 await self.zadd(who=author, give=SHIFT)
-                m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.mention} получает эффект Временной сдвиг."
+                m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.display_name} получает эффект Временной сдвиг."
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
                 msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
@@ -1757,7 +1757,6 @@ class enclave(commands.Cog):
     @commands.cooldown(5, 1800, commands.BucketType.user)
     async def созерцание(self, ctx):
         author=ctx.author
-        authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         x=random.randint(1, 100)
         g=random.randint(50, 80)
@@ -1775,11 +1774,63 @@ class enclave(commands.Cog):
         targbal=await bank.get_balance(target)
         slw=ctx.channel.slowmode_delay
         PAL=discord.utils.get(ctx.guild.roles, id=685724793567444995)
-        NAAS=[("A'дал"), ("Г'ерас"), ("K'иру"), ("K'ури"), ("K'уте"), ("M'ори"), ("Mи'да")]
+        MIR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        NAAS=[("A'дала"), ("Г'ераса"), ("K'иру"), ("K'ури"), ("K'уте"), ("M'ори"), ("Mи'ды")]
         DAAS=[("Д'ор"), ("K'ара"), ("K'уре"), ("Л'ура"), ("M'уру")]
         NAA=random.choice(NAAS)
         DAA=random.choice(DAAS)
-        
+        x1=0
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if PAL in mes.author.roles:
+                x1=25
+        if x<26:
+            p=await self.buffexp(ctx, author, p)
+            msg1=discord.Embed(title=f"*Перед глазами возникает образ {NAA}, словно сотканный из света!*", description=f"Наару дарует видение будущего!\n{author.display_name} становится мудрее на {p} единиц опыта.", colour=discord.Colour.gold())
+            msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if x<51:
+            if targbal>(max_bal-g):
+                g=(max_bal-targbal)
+            await bank.deposit_credits(target, g)
+            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение на {g} золотых монет.*", colour=discord.Colour.white())
+            msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if x<76:
+            p=await self.buffexp(ctx, author, p)
+            p1=await self.buffexp(ctx, target, -p)
+            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if (x+x1)>100:
+            for r in author.roles:
+                if r.name.startswith("Порча:️"):
+                    await author.remove_roles(r)
+                    msg1=discord.Embed(title=f"*Элуна посылает своё благословение, уничтожая следы порчи Древних Богов!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.white())
+                    msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+                    msg1.set_thumbnail(url="")
+                    return await ctx.send (embed=msg1)
+        if (x+x1)>95 and MIR not in author.roles:
+            await self.zadd(who=author, give=MIR)
+            msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"{author.display_name} получает эффект Умиротворение.", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            await ctx.send (embed=msg1)
+            await asyncio.sleep(300)
+            return await author.remove_roles(MIR)
+        else:
+            slw+=85-x
+            await ctx.channel.edit(slowmode_delay=slw)
+            if (85-x)<0:
+                m1="Время слегка замедляется."
+            else:
+                m1="Время слегка ускоряется."
+            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и что-то странное происходит со временем!*", description=m1, colour=discord.Colour.white())
+            msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
 
     @commands.command()
     @commands.cooldown(5, 1800, commands.BucketType.user)
@@ -1796,6 +1847,46 @@ class enclave(commands.Cog):
         while target==author:
             target=random.choice(ctx.message.guild.members)
         WAR=discord.utils.get(ctx.guild.roles, id=685724787397361695)
+        TIR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        x1=0
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if WAR in mes.author.roles:
+                x1=25
+        if x<19:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if x<38:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if x<57:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if x<76:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if (x+x1)>100:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        if (x+x1)>95 and TIR not in author.roles:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
+        else:
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="")
+            return await ctx.send (embed=msg1)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
