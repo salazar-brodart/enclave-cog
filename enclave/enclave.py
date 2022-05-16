@@ -1342,7 +1342,7 @@ class enclave(commands.Cog):
         author=ctx.author
         x=random.randint(1, 100)
         g=random.randint(10, 50)
-        p=random.randint(5, 30)
+        p=random.randint(5, 25)
         target=random.choice(ctx.message.guild.members)
         while target==author:
             target=random.choice(ctx.message.guild.members)
@@ -1760,10 +1760,10 @@ class enclave(commands.Cog):
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         x=random.randint(1, 100)
         g=random.randint(50, 80)
-        p=random.randint(10, 50)
+        p=random.randint(10, 30)
         if ctx.message.channel.id == 584285274956103690:
             g+=70
-            p+=20
+            p+=10
         elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 583924549716803595:
             p-=10
         else:
@@ -1793,14 +1793,14 @@ class enclave(commands.Cog):
             if targbal>(max_bal-g):
                 g=(max_bal-targbal)
             await bank.deposit_credits(target, g)
-            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение на {g} золотых монет.*", colour=discord.Colour.light_grey())
+            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение. {target.display_name} получает {g} золотых монет.*", colour=discord.Colour.light_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748554217914389/unknown.png")
             return await ctx.send (embed=msg1)
         if x<76:
             p=await self.buffexp(ctx, author, -p)
             p1=await self.buffexp(ctx, target, p)
-            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
+            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.display_name} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975747375899508796/unknown.png")
             return await ctx.send (embed=msg1)
