@@ -1798,8 +1798,8 @@ class enclave(commands.Cog):
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if x<76:
-            p=await self.buffexp(ctx, author, p)
-            p1=await self.buffexp(ctx, target, -p)
+            p=await self.buffexp(ctx, author, -p)
+            p1=await self.buffexp(ctx, target, p)
             msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
