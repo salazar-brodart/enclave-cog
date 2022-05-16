@@ -1787,7 +1787,7 @@ class enclave(commands.Cog):
             p=await self.buffexp(ctx, author, p)
             msg1=discord.Embed(title=f"*Перед глазами возникает образ {NAA}, словно сотканный из света!*", description=f"Наару дарует видение будущего!\n{author.display_name} становится мудрее на {p} единиц опыта.", colour=discord.Colour.gold())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748363804876860/unknown.png")
             return await ctx.send (embed=msg1)
         if x<51:
             if targbal>(max_bal-g):
@@ -1795,14 +1795,14 @@ class enclave(commands.Cog):
             await bank.deposit_credits(target, g)
             msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение на {g} золотых монет.*", colour=discord.Colour.light_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748554217914389/unknown.png")
             return await ctx.send (embed=msg1)
         if x<76:
             p=await self.buffexp(ctx, author, -p)
             p1=await self.buffexp(ctx, target, p)
             msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975747375899508796/unknown.png")
             return await ctx.send (embed=msg1)
         if (x+x1)>100:
             for r in author.roles:
@@ -1810,13 +1810,13 @@ class enclave(commands.Cog):
                     await author.remove_roles(r)
                     msg1=discord.Embed(title=f"*Элуна посылает своё благословение, уничтожая следы порчи Древних Богов!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.light_grey())
                     msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-                    msg1.set_thumbnail(url="")
+                    msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975749683920138260/unknown.png")
                     return await ctx.send (embed=msg1)
         if (x+x1)>95 and MIR not in author.roles:
             await self.zadd(who=author, give=MIR)
             msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"{author.display_name} получает эффект Умиротворение.", colour=discord.Colour.teal())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748923639603240/unknown.png")
             await ctx.send (embed=msg1)
             await asyncio.sleep(300)
             return await author.remove_roles(MIR)
@@ -1831,7 +1831,7 @@ class enclave(commands.Cog):
                 m1="Время слегка ускоряется."
             msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и что-то странное происходит со временем!*", description=m1, colour=discord.Colour.lighter_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975750179070283856/unknown.png")
             return await ctx.send (embed=msg1)
 
     @commands.command()
