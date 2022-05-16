@@ -1821,9 +1821,11 @@ class enclave(commands.Cog):
             await asyncio.sleep(300)
             return await author.remove_roles(MIR)
         else:
-            slw+=85-x
-            await ctx.channel.edit(slowmode_delay=slw)
-            if (85-x)<0:
+            slw1=slw+85-x
+            if slw1<0:
+                slw1=abs(slw1)
+            await ctx.channel.edit(slowmode_delay=slw1)
+            if slw1<slw:
                 m1="Время слегка замедляется."
             else:
                 m1="Время слегка ускоряется."
