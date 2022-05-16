@@ -1602,7 +1602,7 @@ class enclave(commands.Cog):
             t=0
             emb0=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description=f"*{author.display_name} насвистывает и идёт в другую сторону.*", color=0xa330c9)
             emb0.set_author(name=f"{author.display_name} распевает детскую считалочку и случайно открывает портал в другое измерение.", icon_url=author.avatar_url)
-            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
+            emb0.set_thumbnai  l(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
         await asyncio.sleep(t)
         await msg.edit(embed=emb0)
 
@@ -1774,7 +1774,12 @@ class enclave(commands.Cog):
             target=random.choice(ctx.message.guild.members)
         targbal=await bank.get_balance(target)
         slw=ctx.channel.slowmode_delay
-        PAL=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        PAL=discord.utils.get(ctx.guild.roles, id=685724793567444995)
+        NAAS=[("A'дал"), ("Г'ерас"), ("K'иру"), ("K'ури"), ("K'уте"), ("M'ори"), ("Mи'да")]
+        DAAS=[("Д'ор"), ("K'ара"), ("K'уре"), ("Л'ура"), ("M'уру")]
+        NAA=random.choice(NAAS)
+        DAA=random.choice(DAAS)
+        
 
     @commands.command()
     @commands.cooldown(5, 1800, commands.BucketType.user)
@@ -1790,7 +1795,7 @@ class enclave(commands.Cog):
         target=random.choice(ctx.message.guild.members)
         while target==author:
             target=random.choice(ctx.message.guild.members)
-        WAR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        WAR=discord.utils.get(ctx.guild.roles, id=685724787397361695)
 
     @commands.command()
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
