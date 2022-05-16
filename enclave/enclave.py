@@ -1774,7 +1774,7 @@ class enclave(commands.Cog):
         targbal=await bank.get_balance(target)
         slw=ctx.channel.slowmode_delay
         PAL=discord.utils.get(ctx.guild.roles, id=685724793567444995)
-        MIR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        MIR=discord.utils.get(ctx.guild.roles, id=975698195868971038)
         NAAS=[("A'дала"), ("Г'ераса"), ("K'иру"), ("K'ури"), ("K'уте"), ("M'ори"), ("Mи'ды")]
         DAAS=[("Д'ор"), ("K'ара"), ("K'уре"), ("Л'ура"), ("M'уру")]
         NAA=random.choice(NAAS)
@@ -1793,14 +1793,14 @@ class enclave(commands.Cog):
             if targbal>(max_bal-g):
                 g=(max_bal-targbal)
             await bank.deposit_credits(target, g)
-            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение на {g} золотых монет.*", colour=discord.Colour.white())
+            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и воодушеляет всех находящихся поблизости на правильные поступки!*", description=f"*Благодаря этому {target.mention} укрепляет своё материальное положение на {g} золотых монет.*", colour=discord.Colour.light_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if x<76:
             p=await self.buffexp(ctx, author, p)
             p1=await self.buffexp(ctx, target, -p)
-            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.mention} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
@@ -1808,13 +1808,13 @@ class enclave(commands.Cog):
             for r in author.roles:
                 if r.name.startswith("Порча:️"):
                     await author.remove_roles(r)
-                    msg1=discord.Embed(title=f"*Элуна посылает своё благословение, уничтожая следы порчи Древних Богов!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.white())
+                    msg1=discord.Embed(title=f"*Элуна посылает своё благословение, уничтожая следы порчи Древних Богов!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.light_grey())
                     msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
                     msg1.set_thumbnail(url="")
                     return await ctx.send (embed=msg1)
         if (x+x1)>95 and MIR not in author.roles:
             await self.zadd(who=author, give=MIR)
-            msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"{author.display_name} получает эффект Умиротворение.", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"{author.display_name} получает эффект Умиротворение.", colour=discord.Colour.teal())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             await ctx.send (embed=msg1)
@@ -1827,7 +1827,7 @@ class enclave(commands.Cog):
                 m1="Время слегка замедляется."
             else:
                 m1="Время слегка ускоряется."
-            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и что-то странное происходит со временем!*", description=m1, colour=discord.Colour.white())
+            msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и что-то странное происходит со временем!*", description=m1, colour=discord.Colour.lighter_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
@@ -1847,43 +1847,43 @@ class enclave(commands.Cog):
         while target==author:
             target=random.choice(ctx.message.guild.members)
         WAR=discord.utils.get(ctx.guild.roles, id=685724787397361695)
-        TIR=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+        TIR=discord.utils.get(ctx.guild.roles, id=975698437423132732)
         x1=0
         async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
             if WAR in mes.author.roles:
                 x1=25
         if x<19:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if x<38:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if x<57:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if x<76:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if (x+x1)>100:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         if (x+x1)>95 and TIR not in author.roles:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
         else:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.grey())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="")
             return await ctx.send (embed=msg1)
