@@ -298,6 +298,8 @@ class rutrivia(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(rate=5, per=43200, type=commands.BucketType.member)
     async def rutrivia(self, ctx: commands.Context, *categories: str):
+        if ctx.message.channel.id != 675376390207438848:
+            return await ctx.send("Если хочешь пощекотать извилины - загляни в мой <#675376390207438848>!")
         categories = [c.lower() for c in categories]
         session = self._get_rutrivia_session(ctx.channel)
         if session is not None:
