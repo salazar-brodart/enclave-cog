@@ -72,7 +72,8 @@ class enclave(commands.Cog):
     @commands.command()
     async def баланс(self, ctx: Context):
         author = ctx.author
-        bank.balance(ctx, author)
+        authbal=await bank.get_balance(author)
+        await ctx.send(f"Баланс пользователя {author.display_name}: {authbal} золотых монет.")
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
