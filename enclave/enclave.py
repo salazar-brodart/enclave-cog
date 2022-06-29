@@ -1891,7 +1891,7 @@ class enclave(commands.Cog):
                     await author.remove_roles(r)
                     msg1=discord.Embed(title=f"*В ходе изнурительной тренировки {author.display_name} превозмогает наложенные проклятия!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.red())
                     msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-                    msg1.set_thumbnail(url="")z
+                    msg1.set_thumbnail(url="")
                     return await ctx.send (embed=msg1)
         if (x+x1)>95 and TIR not in author.roles:
             msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.red())
