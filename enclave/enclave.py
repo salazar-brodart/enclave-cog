@@ -70,10 +70,6 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
-    async def тест(self, ctx: Context):
-        await ctx.send(ctx.message.channel.category.id)
-
-    @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
@@ -386,7 +382,7 @@ class enclave(commands.Cog):
         emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Воинское искусство\".', description = "`=провокация @цель` - вы насмехаетесь над противником, от стыда он теряет всяческую защиту перед заклинаниями.\n**Стоимость:** 170 монет.\nКоманда: `=провокация @цель` - лишает цель эффекта защиты от мута.\n**Применение** - не ограничено.\n\n*Если у воина имеется эффект 🛡:Щит, он может спровоцировать противника бесплатно, рискуя потерять этот эффект.*\n\nКоманда: `=исступление @цель` - лишает цель эффекта защиты от мута. Заклинатель может потерять эффект 🛡:Щит с вероятностью 50%.\n**Применение** - не ограничено.", color=0xc79c6e)
         emb4.set_footer(text="Ранг Искусник.")
         emb4.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833858160271370.png")
-        emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Воинское искусство\".', description = "`=ободряющий клич @цель` - вы издаёте клич, ободряющий и воодушевляющий вашего союзника.\n**Стоимость:** 150 монет.\nКоманда: `=ободряющий клич @цель` - цель получает 15 единиц опыта.\n**Применение** - до 3 раз в сутки.", color=0xc79c6e)
+        emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Воинское искусство\".', description = "`=ободряющий клич @цель` - вы издаёте клич, ободряющий и воодушевляющий вашего союзника.\n**Стоимость:** 150 монет.\nКоманда: `=ободряющий клич @цель` - цель получает 15 единиц опыта.\n**Применение** - до 5 раз в сутки.", color=0xc79c6e)
         emb5.set_footer(text="Ранг Мастер.")
         emb5.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833858160271370.png")
         emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Воинское искусство\".', description = "`=казнь @цель` - вы пытаетесь прикончить своего противника.\n**Стоимость:** - количество отнимаемых монет.\nКоманда: `=казнь @цель` - цель теряет ВСЕ свои монеты.\n**Применение** - 1 раз в сутки.", color=0xc79c6e)
@@ -761,7 +757,7 @@ class enclave(commands.Cog):
         emb3 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=огненный шар @цель` - поджигает противника вместе с его средствами.\n**Стоимость:** 100 монет.\nКоманда: `=огненный шар @цель` - цель теряет от 80 до 90 золотых монет.\n**Применение** - до 10 раз в сутки.", color=0x69ccf0)
         emb3.set_footer(text="Ранг Подмастерье.")
         emb3.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
-        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=чародейский интеллект @цель` - вы усиливаете умственные способности цели.\n**Стоимость:** 100 монет.\nКоманда: `=чародейский интеллект @цель` - цель получает 25 единиц опыта.\n**Применение** - до 3 раз в сутки.", color=0x69ccf0)
+        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=чародейский интеллект @цель` - вы усиливаете умственные способности цели.\n**Стоимость:** 100 монет.\nКоманда: `=чародейский интеллект @цель` - цель получает 25 единиц опыта.\n**Применение** - до 5 раз в сутки.", color=0x69ccf0)
         emb4.set_footer(text="Ранг Искусник.")
         emb4.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
         emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=сотворение пищи` - вы создаёте стол с тремя блюдами, которыми может угоститься любой желающий.\n**Стоимость:** 400 монет.\nКоманда: `=сотворение пищи` - вы получаете три эффекта \"Пища\". Повторное применение обновляет количество пищи.\n**Применение** - до 5 раз в сутки.\n\n*Всем доступна команда:*\n\n`=угоститься у @цели` - цель теряет один эффект \"Пища\", а вы получаете от 80 до 90 монет.\n**Применение** - 1 раз в 5 минут.", color=0x69ccf0)
@@ -1073,7 +1069,7 @@ class enclave(commands.Cog):
         emb2 = discord.Embed(title='Книга, написанная на языке демонов.', description = "`=кэлор` (мрак) - вы распространяете вокруг себя мрак, скрывающий всё из виду.\n**Стоимость:** 160 монет.\nКоманда: `=кэлор` - отправка сообщений на основном канале возможна раз в 5 минут.\n**Применение** - до 5 раз в сутки.\n\n`=эраде сарг` (демонические шипы) - вас переполняет энергия Скверны, усиливающая вашу броню страшными наростами.\n**Стоимость:** 170 монет.\nКоманда: `=эраде сарг` - вы получаете эффект защиты от мута (🛡).\n**Применение** - не ограничено.", color=0xa330c9)
         emb2.set_footer(text="Ранг не требуется.")
         emb2.set_thumbnail(url="https://cdn.discordapp.com/emojis/921280848689528852.png")
-        emb3 = discord.Embed(title='Книга, написанная на языке демонов.', description = "`=гором хагуул @цель` (пронзающий взгляд) - энергия Скверны бьёт из ваших глаз в противника.\n**Стоимость:** 120 монет.\nКоманда: `=гором хагуул @цель` - цель теряет 12 единиц опыта, вы получаете отнятый опыт.\n**Применение** - до 3 раз в сутки.", color=0xa330c9)
+        emb3 = discord.Embed(title='Книга, написанная на языке демонов.', description = "`=гором хагуул @цель` (пронзающий взгляд) - энергия Скверны бьёт из ваших глаз в противника.\n**Стоимость:** 120 монет.\nКоманда: `=гором хагуул @цель` - цель теряет 12 единиц опыта, вы получаете отнятый опыт.\n**Применение** - до 5 раз в сутки.", color=0xa330c9)
         emb3.set_footer(text="Ранг Подмастерье.")
         emb3.set_thumbnail(url="https://cdn.discordapp.com/emojis/921280848689528852.png")
         emb4 = discord.Embed(title='Книга, написанная на языке демонов.', description = "`=шах кигон @цель` (печать немоты) - возле вас загорается яркий рисунок печати. Попавшая в неё цель - умолкает ~~навечно~~.\n**Стоимость:** 180 монет.\nКоманда: `=шах кигон @цель` - цель не может отправлять сообщения в основной канал (получает мут). Печать срабатывает через минуту.\n**Применение** - не ограничено.", color=0xa330c9)
@@ -1351,7 +1347,7 @@ class enclave(commands.Cog):
         if ctx.message.channel.id == 583924101970657280:
             g-=10
             p+=10
-        elif ctx.message.channel.id == 583924549716803595 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 584285274956103690:
+        elif ctx.message.channel.category.id == 583924367701049364:
             g+=10
             x-=50
         else:
@@ -1478,7 +1474,7 @@ class enclave(commands.Cog):
         if ctx.message.channel.id == 583924549716803595:
             g+=50
             p+=4
-        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 584285274956103690:
+        elif ctx.message.channel.category.id == 583924367701049364:
             p-=10
             x-=75
         else:
@@ -1616,7 +1612,7 @@ class enclave(commands.Cog):
         g=random.randint(30, 110)
         if ctx.message.channel.id == 583924289393393664:
             g+=50
-        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924549716803595 or ctx.message.channel.id == 584285274956103690:
+        elif ctx.message.channel.category.id == 583924367701049364:
             g-=25
         else:
             return await ctx.send("Для проведения ритуала необходимо много редких ингридиентов. Поищи их в окрестностях Фераласа.")
@@ -1664,12 +1660,12 @@ class enclave(commands.Cog):
                 if targbal>(max_bal-g):
                     g=(max_bal-targbal)
                 await bank.deposit_credits(target, g)
-                m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\n{target.mention} получает {g} монет из чистого золота!"
+                m1=f"*{target.display_name} оказывается первее остальных и принимает дар богов.\n{target.mention} получает {g} монет из чистого золота!*"
             else:
                 if targbal<g:
                     g=targbal
                 await bank.withdraw_credits(target, g)
-                m1=f"{target.display_name} оказывается первее остальных и принимает дар богов.\nДар представляет собой избавление от лишних материальных ценностей.\n{target.mention} недосчитывается {g} золотых монет!"
+                m1=f"*{target.display_name} оказывается первее остальных и принимает дар богов.\nДар представляет собой избавление от лишних материальных ценностей.\n{target.mention} недосчитывается {g} золотых монет!*"
             msg1=discord.Embed(title=f"*{LOA} принимает подношение и предлагает свой дар.*", description=m1, colour=discord.Colour.blue())
             msg1.set_author(name=f"{author.display_name} делает ритуальное подношение.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691626143137812/voodoo.jpg")
@@ -1687,13 +1683,13 @@ class enclave(commands.Cog):
                 if targbal>(max_bal-g):
                     g=(max_bal-targbal)
                 await bank.deposit_credits(target, g)
-                m2=f"{target.display_name} выходит вперёд и принимает благословение аспектов.\n{target.mention} теперь богаче на {g} золотых монет!"
+                m2=f"*{target.display_name} выходит вперёд и принимает благословение аспектов.\n{target.mention} теперь богаче на {g} золотых монет!*"
             elif slw<30:
                 await ctx.channel.edit(slowmode_delay=0)
-                m2="Аспект благословляет это место, рассеивая все вредоносные чары."
+                m2="*Аспект благословляет это место, рассеивая все вредоносные чары.*"
             else:
                 await ctx.channel.edit(slowmode_delay=slw-25)
-                m2="Аспект благословляет это место, ослабляя все действующие вредоносные чары."
+                m2="*Аспект благословляет это место, ослабляя все действующие вредоносные чары.*"
             msg2=discord.Embed(title=f"*{ASP} отзывается на призыв и посылает своё благословение.*", description=m2, colour=discord.Colour.blue())
             msg2.set_author(name=f"{author.display_name} взывает к аспектам.", icon_url=author.avatar_url)
             msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
@@ -1702,20 +1698,20 @@ class enclave(commands.Cog):
             if authbal<g:
                 g=authbal
             if DB=="К'Туна":
-                m3=f"{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.display_name} слабеет на {g} золотых монет."
+                m3=f"*{author.display_name} чувствует на себе взор недремлющего ока.\nОт неприятного взгляда {author.display_name} слабеет на {g} золотых монет.*"
                 await bank.withdraw_credits(author, g)
             elif DB=="Йогг-Сарона":
-                m3=f"{author.display_name} грезит демоном с тысячью лиц.\nОт сковывающего ужаса {author.display_name} чувствует себя хуже на {g} золотых монет."
+                m3=f"*{author.display_name} грезит демоном с тысячью лиц.\nОт сковывающего ужаса {author.display_name} чувствует себя хуже на {g} золотых монет.*"
                 await bank.withdraw_credits(author, g)
             elif DB=="И'Шараджа":
-                m3=f"{author.display_name} видит сон про чёрного семиглазого козла.\nПроснувшись, {author.display_name} замечает пропажу {g} золотых монет."
+                m3=f"*{author.display_name} видит сон про чёрного семиглазого козла.\nПроснувшись, {author.display_name} замечает пропажу {g} золотых монет.*"
                 await bank.withdraw_credits(author, g)
             elif DB=="Н'Зота" and x>80 and GIFT not in author.roles:
-                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.display_name} получает эффект Дар {DB}."
+                m3=f"*{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.display_name} получает эффект Дар {DB}.*"
                 #interactions
                 await self.zadd(who=author, give=GIFT)
             else:
-                m3=f"{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nМоргнув, {author.mention} теряет страшное видение и {g} золотых монет."
+                m3=f"*{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nМоргнув, {author.mention} теряет страшное видение и {g} золотых монет.*"
                 await bank.withdraw_credits(author, g)
             msg3=discord.Embed(title=f"*Магическая активность привлекает внимание древнего бога {DB}!*", description=m3, colour=discord.Colour.blue())
             msg3.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
@@ -1725,7 +1721,7 @@ class enclave(commands.Cog):
             if x>50:
                 if authbal>(max_bal-g):
                     g=(max_bal-authbal)
-                m4=f"Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.display_name} вмиг становится богаче на {g} золотых монет!"
+                m4=f"*Не взирая на помехи, {author.display_name} мастерски заканчивает магический ритуал, превращая лежащий неподалёку булыжник в слиток чистого золота!\n{author.display_name} вмиг становится богаче на {g} золотых монет!*"
                 await bank.deposit_credits(author, g)
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
@@ -1738,7 +1734,7 @@ class enclave(commands.Cog):
             x-=x1
             if x<20 and SHIFT not in author.roles:
                 await self.zadd(who=author, give=SHIFT)
-                m4=f"{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.display_name} получает эффект Временной сдвиг."
+                m4=f"*{author.display_name} теряет концентрацию и теряет накопленную энергию для ритуала.\n{author.display_name} получает эффект Временной сдвиг.*"
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
                 msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
@@ -1747,7 +1743,7 @@ class enclave(commands.Cog):
                 return await author.remove_roles(SHIFT)
             else:
                 await ctx.channel.edit(slowmode_delay=0)
-                m4=f"{author.display_name} теряет концентрацию и энергия ритуала разлетается в разные стороны.\nЧары, наложенные на область, сгорели от переизбытка энергии."
+                m4=f"*{author.display_name} теряет концентрацию и энергия ритуала разлетается в разные стороны.\nЧары, наложенные на область, сгорели от переизбытка энергии.*"
                 msg4=discord.Embed(title=f"*{M} с интересом заглядывает через плечо.*", description=m4, colour=discord.Colour.blue())
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
                 msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
@@ -1764,7 +1760,7 @@ class enclave(commands.Cog):
         if ctx.message.channel.id == 584285274956103690:
             g+=70
             p+=10
-        elif ctx.message.channel.id == 583924101970657280 or ctx.message.channel.id == 583924289393393664 or ctx.message.channel.id == 583924549716803595:
+        elif ctx.message.channel.category.id == 583924367701049364:
             p-=10
         else:
             return await ctx.send("Постигать красоту этого мира приятнее в живописных местах. Окрестности Фераласа как раз такие.")
@@ -1785,7 +1781,7 @@ class enclave(commands.Cog):
                 x1=25
         if x<26:
             p=await self.buffexp(ctx, author, p)
-            msg1=discord.Embed(title=f"*Перед глазами возникает образ {NAA}, словно сотканный из света!*", description=f"Наару дарует видение будущего!\n{author.display_name} становится мудрее на {p} единиц опыта.", colour=discord.Colour.gold())
+            msg1=discord.Embed(title=f"*Перед глазами возникает образ {NAA}, словно сотканный из света!*", description=f"*Наару дарует видение будущего!\n{author.display_name} становится мудрее на {p} единиц опыта.*", colour=discord.Colour.gold())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748363804876860/unknown.png")
             return await ctx.send (embed=msg1)
@@ -1800,7 +1796,7 @@ class enclave(commands.Cog):
         if x<76:
             p=await self.buffexp(ctx, author, -p)
             p1=await self.buffexp(ctx, target, p)
-            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.display_name} получает {p1} единиц опыта.", colour=discord.Colour.dark_purple())
+            msg1=discord.Embed(title=f"*Тёмной звездой в небе появляется {DAA} и вторгается в разум жителей Анклава!*", description=f"*{author.display_name} лишается {p} единиц опыта. Они устремляются в сторону случайного прохожего.\n{target.display_name} получает {p1} единиц опыта.*", colour=discord.Colour.dark_purple())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975747375899508796/unknown.png")
             return await ctx.send (embed=msg1)
@@ -1814,7 +1810,7 @@ class enclave(commands.Cog):
                     return await ctx.send (embed=msg1)
         if (x+x1)>95 and MIR not in author.roles:
             await self.zadd(who=author, give=MIR)
-            msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"{author.display_name} получает эффект Умиротворение.", colour=discord.Colour.teal())
+            msg1=discord.Embed(title=f"*Отдых и покой благотворно влияют на здоровье!*", description=f"*{author.display_name} получает эффект Умиротворение.*", colour=discord.Colour.teal())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975748923639603240/unknown.png")
             await ctx.send (embed=msg1)
@@ -1826,9 +1822,9 @@ class enclave(commands.Cog):
                 slw1=abs(slw1)
             await ctx.channel.edit(slowmode_delay=slw1)
             if slw1<slw:
-                m1="Время слегка замедляется."
+                m1="*Время слегка замедляется.*"
             else:
-                m1="Время слегка ускоряется."
+                m1="*Время слегка ускоряется.*"
             msg1=discord.Embed(title=f"*Свет озаряет местность вокруг и что-то странное происходит со временем!*", description=m1, colour=discord.Colour.lighter_grey())
             msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975750179070283856/unknown.png")
@@ -1839,11 +1835,10 @@ class enclave(commands.Cog):
     async def тренировка(self, ctx):
         author=ctx.author
         authbal=await bank.get_balance(author)
-        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         x=random.randint(1, 100)
         g=random.randint(1, 40)
         p=random.randint(1, 10)
-        if ctx.message.channel.id != 583924101970657280 and ctx.message.channel.id != 583924289393393664 and ctx.message.channel.id != 584285274956103690 and ctx.message.channel.id != 583924549716803595:
+        if ctx.message.channel.category.id != 583924367701049364:
             return await ctx.send("Для тренировки лучше выбрать открытое пространство. Прогуляйся по окрестностям Фераласа.")
         target=random.choice(ctx.message.guild.members)
         while target==author:
@@ -1855,39 +1850,58 @@ class enclave(commands.Cog):
             if WAR in mes.author.roles:
                 x1=25
         if x<19:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
-            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            if authbal<g:
+                g=authbal
+            await bank.withdraw_credits(author, g)
+            msg1=discord.Embed(title=f"*Манекен оказался хитёр и нанёс подлый удар щитом с разворота!*", description=f"*От внезапного удара {author.display_name} теряет {g} золотых монет.*", colour=discord.Colour.dark_green())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах на манекене.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977390777082728488/unknown.png")
             return await ctx.send (embed=msg1)
         if x<38:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
-            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            p=await self.buffexp(ctx, author, p)
+            msg1=discord.Embed(title=f"*Под бешеным натиском манекен разлетается на щепки!*", description=f"*{author.display_name} получает {p} единиц бесценного опыта.*", colour=discord.Colour.dark_green())
+            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах на манекене.", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977390777082728488/unknown.png")
             return await ctx.send (embed=msg1)
         if x<57:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
-            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            if authbal<g:
+                g=authbal
+            await bank.withdraw_credits(author, g)
+            p=await self.buffexp(ctx, author, p)
+            msg1=discord.Embed(title=f"*{author.display_name} допускает фатальную ошибку и упускает инициативу, давая противнику выиграть дуэль!*", description=f"*Понеся потери на {g} золотых монет, {author.display_name} учится на своих ошибках, увеличивая свой опыт на {p} единиц.*", colour=discord.Colour.dark_red())
+            msg1.set_author(name=f"{target.display_name} и {author.display_name} решают провести дуэль и выяснить кто круче раз и навсегда!", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977390971694239754/unknown.png")
             return await ctx.send (embed=msg1)
         if x<76:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
-            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            m1=""
+            m2=""
+            p=await self.buffexp(ctx, author, p)
+            p1=await self.buffexp(ctx, target, p)
+            if p!=0:
+                m1=f"*{author.display_name} гордо получает {p} единиц опыта.*"
+            if p1!=0:
+                m2=f"\n*{target.display_name} получает урок и {p1} единиц опыта.*"
+            msg1=discord.Embed(title=f"*В ходе красочного поединка {author.display_name} одолевает противника с помощью своего мастерства!*", description=m1+m2, colour=discord.Colour.dark_red())
+            msg1.set_author(name=f"{target.display_name} и {author.display_name} решают провести дуэль и выяснить кто круче раз и навсегда!", icon_url=author.avatar_url)
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977390971694239754/unknown.png")
             return await ctx.send (embed=msg1)
         if (x+x1)>100:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
-            msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
-            return await ctx.send (embed=msg1)
+            for r in author.roles:
+                if r.name.startswith("Порча:️"):
+                    await author.remove_roles(r)
+                    msg1=discord.Embed(title=f"*В ходе изнурительной тренировки {author.display_name} превозмогает наложенные проклятия!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.red())
+                    msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
+                    msg1.set_thumbnail(url="")z
+                    return await ctx.send (embed=msg1)
         if (x+x1)>95 and TIR not in author.roles:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.red())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977769615709044766/-2.png")
             return await ctx.send (embed=msg1)
         else:
-            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.dark_orange())
+            msg1=discord.Embed(title=f"*!*", description="", colour=discord.Colour.red())
             msg1.set_author(name=f"{author.display_name} решает размяться и попрактиковаться в боевых искусствах.", icon_url=author.avatar_url)
-            msg1.set_thumbnail(url="")
+            msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/977769615709044766/-2.png")
             return await ctx.send (embed=msg1)
 
     @commands.command()
@@ -2486,7 +2500,7 @@ class enclave(commands.Cog):
         pass
 
     @ободряющий.command(name="клич")
-    @commands.cooldown(3, 86400, commands.BucketType.user)
+    @commands.cooldown(5, 86400, commands.BucketType.user)
     async def ободряющий_клич(self, ctx, user: discord.Member = None):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, id=685724787397361695)
@@ -4159,7 +4173,7 @@ class enclave(commands.Cog):
         pass
 
     @чародейский.command(name="интеллект")
-    @commands.cooldown(3, 86400, commands.BucketType.user)
+    @commands.cooldown(5, 86400, commands.BucketType.user)
     async def чародейский_интеллект(self, ctx, user: discord.Member = None):
         author=ctx.author
         while user is None or user is author:
@@ -4623,7 +4637,7 @@ class enclave(commands.Cog):
         pass
 
     @гором.command(name="хагуул")
-    @commands.cooldown(3, 86400, commands.BucketType.user)
+    @commands.cooldown(5, 86400, commands.BucketType.user)
     async def гором_хагуул(self, ctx, user: discord.Member = None):
         author = ctx.author
         while user is None or user is author:
