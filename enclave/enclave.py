@@ -1801,8 +1801,8 @@ class enclave(commands.Cog):
             msg1.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/975747375899508796/unknown.png")
             return await ctx.send (embed=msg1)
         if (x+x1)>100:
-            async for r in author.roles:
-                if r.name.startswith("Порча:️"):
+            for r in author.roles:
+                if r.name.startswith("Порча"):
                     await author.remove_roles(r)
                     msg1=discord.Embed(title=f"*Элуна посылает своё благословение, уничтожая следы порчи Древних Богов!*", description=f"*{author.display_name} избавляется от эффекта {r}!*", colour=discord.Colour.light_grey())
                     msg1.set_author(name=f"{author.display_name} принимает удобную позу и раскрывает свой разум.", icon_url=author.avatar_url)
