@@ -73,6 +73,10 @@ class enclave(commands.Cog):
     async def баланс(self, ctx: Context):
         author = ctx.author
         authbal=await bank.get_balance(author)
+        GIFT=discord.utils.get(ctx.guild.roles, id=972039576426283048)
+        if GIFT in author.roles:
+            auth=random.randint(-authbal, authbal)
+            return await ctx.send(f"Ввахухн ормз пхакуати {author.display_name}: {auth} йех'глу йахв.")
         await ctx.send(f"Баланс пользователя {author.display_name}: {authbal} золотых монет.")
 
     @commands.command()
