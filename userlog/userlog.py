@@ -96,6 +96,7 @@ class UserLog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        SOUL=discord.utils.get(ctx.guild.roles, id=991895228200001546)
         join = await self.config.guild(member.guild).join()
         if not join:
             return
@@ -126,9 +127,11 @@ class UserLog(commands.Cog):
         )
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
+        await SOUL.edit(name="Собрано душ: "+str(users))
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
+        SOUL=discord.utils.get(ctx.guild.roles, id=991895228200001546)
         leave = await self.config.guild(member.guild).leave()
         if not leave:
             return
@@ -153,3 +156,4 @@ class UserLog(commands.Cog):
         )
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
+        await SOUL.edit(name="Собрано душ: "+str(users))
