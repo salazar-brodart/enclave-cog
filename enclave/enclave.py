@@ -70,14 +70,16 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
-    async def баланс(self, ctx: Context):
+    async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
-        authbal=await bank.get_balance(author)
+        if user is None:
+            user=author
+        userbal=await bank.get_balance(user)
         GIFT=discord.utils.get(ctx.guild.roles, id=972039576426283048)
-        if GIFT in author.roles:
-            auth=random.randint(-authbal, authbal)
-            return await ctx.send(f"Ввахухн ормз пхакуати {author.display_name}: {auth} йех'глу йахв.")
-        await ctx.send(f"Баланс пользователя {author.display_name}: {authbal} золотых монет.")
+        if GIFT in user.roles:
+            bal=random.randint(-userbal, userbal)
+            return await ctx.send(f"Ввахухн ормз пхакуати {user.display_name}: {bal} йех'глу йахв.")
+        await ctx.send(f"Баланс пользователя {user.display_name}: {userbal} золотых монет.")
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
