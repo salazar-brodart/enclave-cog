@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import typing
 import re
 from redbot.core import checks, Config, bank
 import discord
@@ -17,7 +18,7 @@ from redbot.core.i18n import Translator, cog_i18n
 from io import BytesIO
 import functools
 import textwrap
-
+from redbot.core.bot import Red
 
 _ = Translator("enlevel", __file__)
 
@@ -690,3 +691,57 @@ class enlevel(commands.Cog):
         await ctx.send(
             _("Levelup announce is now {}.").format(_("enabled") if status else _("disabled"))
         )
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        SOUL=discord.utils.get(ctx.guild.roles, id=991895228200001546)
+        join = await self.config.guild(member.guild).join()
+        if not join:
+            return
+        channel = self.bot.get_channel(583925220231086091)
+        time = datetime.datetime.utcnow()
+        users = len(member.guild.members)
+        since_created = (time - member.created_at).days
+        user_created = member.created_at.strftime("%Y-%m-%d, %H:%M")
+
+        created_on = f"{user_created} ({since_created} дней назад)"
+
+        embed = discord.Embed(
+            description=f"{member.mention} ({member.name}#{member.discriminator})",
+            colour=discord.Colour.green(),
+            timestamp=member.joined_at,
+        )
+        embed.add_field(name="Всего пользователей:", value=str(users))
+        embed.add_field(name="Аккаунт создан:", value=created_on)
+        embed.set_author(
+            name=f"Приветствую {member.name} в этом месте!",
+            url=member.avatar_url,
+            icon_url=member.avatar_url,
+        )
+        embed.set_thumbnail(url=member.avatar_url)
+        await channel.send(embed=embed)
+        await SOUL.edit(name="Собрано душ: "+str(users))
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        SOUL=discord.utils.get(ctx.guild.roles, id=991895228200001546)
+        leave = await self.config.guild(member.guild).leave()
+        if not leave:
+            return
+        channel = self.bot.get_channel(583925220231086091)
+        time = datetime.datetime.utcnow()
+        users = len(member.guild.members)
+        embed = discord.Embed(
+            description=f"{member.mention} ({member.name}#{member.discriminator})",
+            colour=discord.Colour.red(),
+            timestamp=time,
+        )
+        embed.add_field(name="Осталось пользователей:", value=str(users))
+        embed.set_author(
+            name=f"{member.name} стремительно нас покидает.",
+            url=member.avatar_url,
+            icon_url=member.avatar_url,
+        )
+        embed.set_thumbnail(url=member.avatar_url)
+        await channel.send(embed=embed)
+        await SOUL.edit(name="Собрано душ: "+str(users))
