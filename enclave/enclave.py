@@ -89,7 +89,7 @@ class enclave(commands.Cog):
         author = ctx.author
         for r in author.roles:
                 if r.name.startswith("Квест Ремесло Пронесло"):
-                    await ctx.message.channel.guild.delete_role(r)
+                    return await r.delete()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
