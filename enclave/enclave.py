@@ -72,7 +72,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def тест1(self, ctx: Context):
         author = ctx.author
-        BAR=await ctx.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+        BAR=await bot.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
         await author.add_roles(BAR)
         return await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
         
@@ -88,7 +88,7 @@ class enclave(commands.Cog):
         author = ctx.author
         for r in author.roles:
                 if r.name.startswith("Квест Ремесло Пронесло"):
-                    await ctx.delete_role(r)
+                    await bot.delete_role(r)
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
