@@ -72,7 +72,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def тест1(self, ctx: Context):
         author = ctx.author
-        BAR=await bot.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+        BAR=await self.bot.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
         await author.add_roles(BAR)
         return await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
         
