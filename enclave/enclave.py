@@ -70,6 +70,27 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
+    async def тест1(self, ctx: Context):
+        author = ctx.author
+        BAR=await ctx.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+        await author.add_roles(BAR)
+        return await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
+        
+    @commands.command()
+    async def тест2(self, ctx: Context):
+        author = ctx.author
+        for r in author.roles:
+            if r.name.startswith("Квест Ремесло"):
+                await r.edit(name="Квест Ремесло Пронесло")
+
+    @commands.command()
+    async def тест3(self, ctx: Context):
+        author = ctx.author
+        for r in author.roles:
+                if r.name.startswith("Квест Ремесло Пронесло"):
+                    await ctx.delete_role(r)
+
+    @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
@@ -366,6 +387,196 @@ class enclave(commands.Cog):
             await self.getart(ctx=ctx, art=1)
             await ctx.send (f"*{author.display_name} получает {heal} золотых монет.*")
             return await author.remove_roles(CH)
+
+    @commands.group(name="двойная", autohelp=False)
+    async def двойная(self, ctx: commands.GuildContext):
+        pass
+        
+    @двойная.command(name="специализация")
+    async def двойная_специализация(self, ctx: Context):
+        author=ctx.author
+        C1=discord.utils.get(ctx.guild.roles, id=685724787397361695)#war
+        C2=discord.utils.get(ctx.guild.roles, id=685724790425649157)#hunt
+        C3=discord.utils.get(ctx.guild.roles, id=685724791914758147)#rog
+        C4=discord.utils.get(ctx.guild.roles, id=685724793567444995)#pal
+        C5=discord.utils.get(ctx.guild.roles, id=685724794586398761)#dru
+        C6=discord.utils.get(ctx.guild.roles, id=685724796075769889)#sham
+        C7=discord.utils.get(ctx.guild.roles, id=685724798193762365)#mage
+        C8=discord.utils.get(ctx.guild.roles, id=685724797266952219)#priest
+        C9=discord.utils.get(ctx.guild.roles, id=685724799527551042)#lock
+        C10=discord.utils.get(ctx.guild.roles, id=685724801486290947)#dk
+        C11=discord.utils.get(ctx.guild.roles, id=685724800169410631)#monk
+        C12=discord.utils.get(ctx.guild.roles, id=685724803105161216)#dh
+        R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)#эксперт
+        if R9 not in author.roles:
+            return await ctx.send ("Подучиться ещё надо!")
+        j=0
+        z=C1
+        for i in C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12:
+            if i in author.roles:
+                j+=1
+            if j==1:
+                z=i
+                j+=1
+            if j==3:
+                return await ctx.send (f"Но ты уже {z.name} и {i.name}!")
+        if j==0:
+            return await ctx.send ("Получить роль класса может любой желающий, отправив команду:\n`=выбрать класс`")
+        embed = discord.Embed(description = f'Итак, {author.display_name}, если ты хочешь получить дополнительный класс и доступ к его заклинаниям, тебе необходимо показать свои знания и опытность в военном ремесле!\nТебя ждут 12 испытаний на взаимодействие со всеми классами.\nПредупреждаю, что выполнив эти испытания, ты потеряешь свои ранги мастерства и будешь зарабатывать их заново, но уже с двумя классами.\nПриступим?', colour=discord.Colour.gold())
+        emb0 = discord.Embed(description = f'Попробуй чуть позже.', colour=discord.Colour.gold())
+        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Взять квест!'), Button(style = ButtonStyle.red, label = 'Повременить')]])
+        try:
+            responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
+        except asyncio.TimeoutError:
+            return await msg.edit(embed=emb0, components = [])
+        if responce.component.label == 'Взять квест!':
+            await responce.edit_origin()
+            await ctx.send(f"*{author.display_name} начинает квест Ремесло.*")
+            emb1 = discord.Embed(title = 'Задание:', description = 'Тебе нужно пройти 12 испытаний, по одному на каждый класс.\nДля этого тебе нужно получить любую роль цвета относящегося к нужному классу.\nПолучив одну или несколько ролей, напиши команду `=ремесло` в общем канале, на канале Блескотрона или на любом из каналов Окрестностей Фераласа, чтобы зачесть прогресс в задании.', colour=discord.Colour.gold())
+            await ctx.send(embed=emb1)
+            BAR=await ctx.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+            await author.add_roles(BAR)
+            await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
+            c=1
+            while c<=12:
+                await ctx.create_role(ctx.server, name=author.id+str(c))
+        else:
+            await responce.edit_origin()
+            return await msg.delete()
+
+    @commands.command()
+    async def ремесло(self, ctx: Context):
+        author=ctx.author
+        server=ctx.server
+        NET = '❌'
+        DA = 'V'#исправить
+        Q=0
+        for r in author.roles:
+            if r.name.startswith("Квест Ремесло"):
+                Q=1
+        if Q==0:
+            return await ctx.send("У тебя нет такого квеста.")
+        i=1
+        for H in "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000":
+            for r in author.roles:
+                if r.color==H:
+                    for s in server.roles:
+                        if s.name==author.id+str(i):
+                            if i==1:
+                                cl="воина"
+                            elif i==2:
+                                cl="охотника"
+                            elif i==3:
+                                cl="разбойника"
+                            elif i==4:
+                                cl="друида"
+                            elif i==5:
+                                cl="шамана"
+                            elif i==6:
+                                cl="паладина"
+                            elif i==7:
+                                cl="мага"
+                            elif i==8:
+                                cl="жреца"
+                            elif i==9:
+                                cl="чернокнижника"
+                            elif i==10:
+                                cl="рыцаря смерти"
+                            elif i==11:
+                                cl="монаха"
+                            elif i==12:
+                                cl="охотника на демонов"
+                            else:
+                                return
+                            await ctx.send(f"Испытание {cl} пройдено!")
+                            await ctx.delete_role(s)
+            i+=1
+        C1=DA
+        C2=DA
+        C3=DA
+        C4=DA
+        C5=DA
+        C6=DA
+        C7=DA
+        C8=DA
+        C9=DA
+        C10=DA
+        C11=DA
+        C12=DA
+        z=12
+        cl1=""
+        cl2=""
+        cl3=""
+        cl4=""
+        cl5=""
+        cl6=""
+        cl7=""
+        cl8=""
+        cl9=""
+        cl10=""
+        cl11=""
+        cl12=""
+        for s in server.roles:
+            if s.name==author.id+"1":
+                C1=NET
+                z-=1
+                cl1="\nвоина"
+            if s.name==author.id+"2":
+                C2=NET
+                z-=1
+                cl2="\nохотника"
+            if s.name==author.id+"3":
+                C3=NET
+                z-=1
+                cl3="\nразбойника"
+            if s.name==author.id+"4":
+                C4=NET
+                z-=1
+                cl4="\nдруида"
+            if s.name==author.id+"5":
+                C5=NET
+                z-=1
+                cl5="\nшамана"
+            if s.name==author.id+"6":
+                C6=NET
+                z-=1
+                cl6="\nпаладина"
+            if s.name==author.id+"7":
+                C7=NET
+                z-=1
+                cl7="\nмага"
+            if s.name==author.id+"8":
+                C8=NET
+                z-=1
+                cl8="\nжреца"
+            if s.name==author.id+"9":
+                C9=NET
+                z-=1
+                cl9="\nчернокнижника"
+            if s.name==author.id+"10":
+                C10=NET
+                z-=1
+                cl10="\nрыцаря смерти"
+            if s.name==author.id+"11":
+                C11=NET
+                z-=1
+                cl11="\nмонаха"
+            if s.name==author.id+"12":
+                C12=NET
+                z-=1
+                cl12="\nохотника на демонов"
+        if z==12:
+            for r in author.roles:
+                if r.name.startswith("Квест Ремесло"):
+                    await ctx.delete_role(r)
+            DUAL=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+            await author.add_roles(DUAL)
+            return await ctx.send(f"{author.display_name} получает право выбрать себе второй класс! Это поистине большое достижение!")
+        else:
+            for r in author.roles:
+                if r.name.startswith("Квест Ремесло"):
+                    await r.edit(name="Квест Ремесло"+С1+С2+С3+С4+С5+С6+С7+С8+С9+С10+С11+С12)
+            return await ctx.send(f"Прогресс квеста составляет: {z}/12. Оставшиеся испытания:"+cl1+cl2+cl3+cl4+cl5+cl6+cl7+cl8+cl9+cl10+cl11+cl12)
 
     @commands.group(name="книга", autohelp=False)
     async def книга(self, ctx: commands.GuildContext):
@@ -1927,6 +2138,11 @@ class enclave(commands.Cog):
     async def счета(self, ctx: commands.Context, top: int = 10, show_global: bool = False):
         guild = ctx.guild
         author = ctx.author
+        GIFT=discord.utils.get(ctx.guild.roles, id=972039576426283048)
+        if GIFT in author.roles:
+            abal=await bank.get_balance(author)
+            bal=random.randint(-abal, abal)
+            return await ctx.send(f"Ввахухн ормз пхакуати {author.display_name}: {bal} йех'глу йахв.")
         embed_requested = await ctx.embed_requested()
         footer_message = "Страница {page_num}/{page_len}."
         max_bal = await bank.get_max_balance(ctx.guild)
