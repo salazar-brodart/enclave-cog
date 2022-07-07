@@ -602,7 +602,7 @@ class enclave(commands.Cog):
         else:
             for r in author.roles:
                 if r.name.startswith("Квест Ремесло"):
-                    await r.edit(name="Квест Ремесло"+С1+С2+С3+С4+С5+С6+С7+С8+С9+С10+С11+С12)
+                    await r.edit(name="Квест Ремесло"+C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12)
             return await ctx.send(f"Прогресс квеста составляет: {z}/12. Оставшиеся испытания:"+cl1+cl2+cl3+cl4+cl5+cl6+cl7+cl8+cl9+cl10+cl11+cl12)
 
     @commands.group(name="книга", autohelp=False)
