@@ -96,7 +96,7 @@ class enclave(commands.Cog):
     async def тест3(self, ctx: Context):
         author = ctx.author
         for r in author.roles:
-            if r.name.startswith("Квест Ремесло Пронесло") and r.color==#C79C6E:
+            if r.name.startswith("Квест Ремесло Пронесло") and r.color==0xC79C6E:
                 await ctx.send(f"{r.colour}")
                 return await r.delete()
 
