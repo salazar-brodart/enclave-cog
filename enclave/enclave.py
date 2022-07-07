@@ -81,14 +81,15 @@ class enclave(commands.Cog):
         author = ctx.author
         for r in author.roles:
             if r.name.startswith("Квест Ремесло"):
-                await r.edit(name="Квест Ремесло Пронесло")
+                await r.edit(name="Квест Ремесло Пронесло ✅", colour=C79C6E)
 
     @commands.command()
     async def тест3(self, ctx: Context):
         author = ctx.author
         for r in author.roles:
-                if r.name.startswith("Квест Ремесло Пронесло"):
-                    return await r.delete()
+            if r.name.startswith("Квест Ремесло Пронесло"):
+                await ctx.send(f"{r.colour}")
+                return await r.delete()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
