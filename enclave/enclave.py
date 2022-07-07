@@ -81,7 +81,7 @@ class enclave(commands.Cog):
         author = ctx.author
         for r in author.roles:
             if r.name.startswith("Квест Ремесло"):
-                await r.edit(name="Квест Ремесло Пронесло ✅", colour=C79C6E)
+                await r.edit(name="Квест Ремесло Пронесло ✅", colour=discord.Colour(colorC79C6E))
 
     @commands.command()
     async def тест3(self, ctx: Context):
