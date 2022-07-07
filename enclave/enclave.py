@@ -463,7 +463,7 @@ class enclave(commands.Cog):
             await ctx.send(f"*{author.display_name} начинает {BAR.name}*")
             c=1
             while c<=12:
-                await ctx.guild.create_role(name=author.id+str(c))
+                await ctx.guild.create_role(name=str(author.id)+str(c))
                 с+=1
         else:
             await responce.edit_origin()
@@ -485,8 +485,8 @@ class enclave(commands.Cog):
         for H in 0xC79C6E, 0xABD473, 0xFFF569, 0xFF7D0A, 0x0070DE, 0xF58CBA, 0x69CCF0, 0xFFFFFF, 0x9482C9, 0xC41F3B, 0x00FFBA, 0xA330C9:
             for r in author.roles:
                 if r.color==discord.Colour(H):
-                    for s in server.roles:
-                        if s.name==author.id+str(i):
+                    for s in ctx.guild.roles:
+                        if s.name==str(author.id)+str(i):
                             if i==1:
                                 cl="воина"
                             elif i==2:
@@ -542,52 +542,52 @@ class enclave(commands.Cog):
         cl10=""
         cl11=""
         cl12=""
-        for s in server.roles:
-            if s.name==author.id+"1":
+        for s in ctx.guild.roles:
+            if s.name==str(author.id)+"1":
                 C1=NET
                 z-=1
                 cl1="\n- воина"
-            if s.name==author.id+"2":
+            if s.name==str(author.id)+"2":
                 C2=NET
                 z-=1
                 cl2="\n- охотника"
-            if s.name==author.id+"3":
+            if s.name==str(author.id)+"3":
                 C3=NET
                 z-=1
                 cl3="\n- разбойника"
-            if s.name==author.id+"4":
+            if s.name==str(author.id)+"4":
                 C4=NET
                 z-=1
                 cl4="\n- друида"
-            if s.name==author.id+"5":
+            if s.name==str(author.id)+"5":
                 C5=NET
                 z-=1
                 cl5="\n- шамана"
-            if s.name==author.id+"6":
+            if s.name==str(author.id)+"6":
                 C6=NET
                 z-=1
                 cl6="\n- паладина"
-            if s.name==author.id+"7":
+            if s.name==str(author.id)+"7":
                 C7=NET
                 z-=1
                 cl7="\n- мага"
-            if s.name==author.id+"8":
+            if s.name==str(author.id)+"8":
                 C8=NET
                 z-=1
                 cl8="\n- жреца"
-            if s.name==author.id+"9":
+            if s.name==str(author.id)+"9":
                 C9=NET
                 z-=1
                 cl9="\n- чернокнижника"
-            if s.name==author.id+"10":
+            if s.name==str(author.id)+"10":
                 C10=NET
                 z-=1
                 cl10="\n- рыцаря смерти"
-            if s.name==author.id+"11":
+            if s.name==str(author.id)+"11":
                 C11=NET
                 z-=1
                 cl11="\n- монаха"
-            if s.name==author.id+"12":
+            if s.name==str(author.id)+"12":
                 C12=NET
                 z-=1
                 cl12="\n- охотника на демонов"
