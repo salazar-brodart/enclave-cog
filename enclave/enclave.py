@@ -70,37 +70,6 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
-    async def тест1(self, ctx: Context):
-        author = ctx.author
-        BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
-        await author.add_roles(BAR)
-        return await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
-        
-    @commands.command()
-    async def тест2(self, ctx: Context):
-        author = ctx.author
-        for r in author.roles:
-            if r.name.startswith("Квест Ремесло"):
-                await r.edit(name="Квест Ремесло Пронесло ✅", colour=discord.Colour(0xC79C6E))
-###ABD473 хант
-###FFF569 рога
-###FF7D0A друид 
-###0070DE шам
-###FFFFFF жрец
-###69CCF0 маг
-###9482C9 лок
-###C41F3B дк
-###00FFBA монк
-###A330C9 дх
-    @commands.command()
-    async def тест3(self, ctx: Context):
-        author = ctx.author
-        for r in author.roles:
-            if r.name.startswith("Квест Ремесло Пронесло") and r.color==discord.Colour(0xC79C6E):
-                await ctx.send(f"{r.colour}")
-                return await r.delete()
-
-    @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
@@ -142,9 +111,19 @@ class enclave(commands.Cog):
         C10=discord.utils.get(ctx.guild.roles, id=685724801486290947)#dk
         C11=discord.utils.get(ctx.guild.roles, id=685724800169410631)#monk
         C12=discord.utils.get(ctx.guild.roles, id=685724803105161216)#dh
+        DUAL=discord.utils.get(ctx.guild.roles, id=994502501602709546)#дуалспек
+        j=0
+        z=C1
         for r in C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12:
             if r in author.roles:
-                return await ctx.send(f"У тебя уже есть класс - {r.name}.")
+                j+=1
+            if j==1:
+                z=r
+                j+=1
+            if j==3:
+                return await ctx.send (f"Ты уже {z.name} и {r.name}!")
+        if j==2 and DUAL not in author.roles:
+            return await ctx.send(f"У тебя уже есть класс - {z.name}.")
         war=self.bot.get_emoji(889833858160271370)
         hun=self.bot.get_emoji(889833963592503358)
         rog=self.bot.get_emoji(889833821942460426)
@@ -224,72 +203,108 @@ class enclave(commands.Cog):
                 return await msg.edit(embed=emb0, components = [])
             if responce.component.label == 'Стать воином!':
                 await responce.edit_origin()
+                if C1 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды воин!\n\n\nНет, стоп, так нельзя делать.', color=0xc79c6e)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} принимает решение совершенствоваться в воинском искусстве.*', color=0xc79c6e)
                 emb.set_image(url="http://i.imgur.com/lFMFiku.png")
                 await author.add_roles(C1)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать охотником!':
                 await responce.edit_origin()
+                if C2 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды охотник!\n\n\nНет, стоп, так нельзя делать.', color=0xabd473)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} выходит на охоту.*', color=0xabd473)
                 emb.set_image(url="http://i.imgur.com/sXQsrQZ.png")
                 await author.add_roles(C2)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать разбойником!':
                 await responce.edit_origin()
+                if C3 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды разбойник!\n\n\nНет, стоп, так нельзя делать.', color=0xfff569)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} берёт кинжал и выходит на большую дорогу.*', color=0xfff569)
                 emb.set_image(url="http://i.imgur.com/djdxDht.png")
                 await author.add_roles(C3)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать паладином!':
                 await responce.edit_origin()
+                if C4 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды паладин!\n\n\nНет, стоп, так нельзя делать.', color=0xf58cba)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} становится поборником Света.*', color=0xf58cba)
                 emb.set_image(url="http://i.imgur.com/ckgqohP.png")
                 await author.add_roles(C4)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать друидом!':
                 await responce.edit_origin()
+                if C5 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды друид!\n\n\nНет, стоп, так нельзя делать.', color=0xff7d0a)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} встаёт на стражу природы.*', color=0xff7d0a)
                 emb.set_image(url="http://i.imgur.com/l9O6VDX.png")
                 await author.add_roles(C5)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать шаманом!':
                 await responce.edit_origin()
+                if C6 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды шаман!\n\n\nНет, стоп, так нельзя делать.', color=0x0070de)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} наполняется силой стихий и мудростью предков.*', color=0x0070de)
                 emb.set_image(url="http://i.imgur.com/rRwA2Sn.png")
                 await author.add_roles(C6)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать магом!':
                 await responce.edit_origin()
+                if C7 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды маг!\n\n\nНет, стоп, так нельзя делать.', color=0x69ccf0)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} получает диплом мага.*', color=0x69ccf0)
                 emb.set_image(url="http://i.imgur.com/73HwEut.png")
                 await author.add_roles(C7)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать жрецом!':
                 await responce.edit_origin()
+                if C8 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды жрец!\n\n\nНет, стоп, так нельзя делать.', color=0xffffff)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} доказывает свою крепость веры и посвящает себя духовной жизни.*', color=0xffffff)
                 emb.set_image(url="http://i.imgur.com/6qo1Xbt.png")
                 await author.add_roles(C8)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать чернокнижником!':
                 await responce.edit_origin()
+                if C9 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды чернокнижник!\n\n\nНет, стоп, так нельзя делать.', color=0x9482c9)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} готовится отдать всё, ради силы.*', color=0x9482c9)
                 emb.set_image(url="http://i.imgur.com/rFUdNuY.png")
                 await author.add_roles(C9)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать рыцарем смерти!':
                 await responce.edit_origin()
+                if C10 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды рыцарь смерти!\n\n\nНет, стоп, так нельзя делать.', color=0xc41f3b)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} возвращается к жизни, чтобы упиваться страданиями.*', color=0xc41f3b)
                 emb.set_image(url="http://i.imgur.com/ca1TYsQ.png")
                 await author.add_roles(C10)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать монахом!':
                 await responce.edit_origin()
+                if C11 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды монах!\n\n\nНет, стоп, так нельзя делать.', color=0x00ffba)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} разминает кулаки и готовится к медитации.*', color=0x00ffba)
                 emb.set_image(url="http://i.imgur.com/SQACbXd.png")
                 await author.add_roles(C11)
                 return await msg.edit(embed=emb, components=[])
             elif responce.component.label == 'Стать охотником на демонов!':
                 await responce.edit_origin()
+                if C12 in author.roles:
+                    emb = discord.Embed(title=f'{author.display_name} теперь дважды охотник на демонов!\n\n\nНет, стоп, так нельзя делать.', color=0xa330c9)
+                    return await msg.edit(embed=emb, components=[])
                 emb = discord.Embed(title=f'*{author.display_name} жервует всем, чтобы спасти Азерот.*', color=0xa330c9)
                 emb.set_image(url="http://i.imgur.com/608iTQz.png")
                 await author.add_roles(C12)
@@ -436,20 +451,20 @@ class enclave(commands.Cog):
         emb0 = discord.Embed(description = f'Попробуй чуть позже.', colour=discord.Colour.gold())
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Взять квест!'), Button(style = ButtonStyle.red, label = 'Повременить')]])
         try:
-            responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
+            responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
             return await msg.edit(embed=emb0, components = [])
         if responce.component.label == 'Взять квест!':
             await responce.edit_origin()
-            await ctx.send(f"*{author.display_name} начинает квест Ремесло.*")
             emb1 = discord.Embed(title = 'Задание:', description = 'Тебе нужно пройти 12 испытаний, по одному на каждый класс.\nДля этого тебе нужно получить любую роль цвета относящегося к нужному классу.\nПолучив одну или несколько ролей, напиши команду `=ремесло` в общем канале, на канале Блескотрона или на любом из каналов Окрестностей Фераласа, чтобы зачесть прогресс в задании.', colour=discord.Colour.gold())
             await ctx.send(embed=emb1)
-            BAR=await ctx.create_role(ctx.server, name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
             await author.add_roles(BAR)
-            await ctx.send(f"*{author.display_name} получает роль {BAR.name}*")
+            await ctx.send(f"*{author.display_name} начинает {BAR.name}*")
             c=1
             while c<=12:
-                await ctx.create_role(ctx.server, name=author.id+str(c))
+                await ctx.guild.create_role(name=author.id+str(c))
+                с+=1
         else:
             await responce.edit_origin()
             return await msg.delete()
@@ -457,9 +472,9 @@ class enclave(commands.Cog):
     @commands.command()
     async def ремесло(self, ctx: Context):
         author=ctx.author
-        server=ctx.server
+        R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)#эксперт
         NET = '❌'
-        DA = 'V'#исправить
+        DA = '✅'
         Q=0
         for r in author.roles:
             if r.name.startswith("Квест Ремесло"):
@@ -467,9 +482,9 @@ class enclave(commands.Cog):
         if Q==0:
             return await ctx.send("У тебя нет такого квеста.")
         i=1
-        for H in "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000":
+        for H in 0xC79C6E, 0xABD473, 0xFFF569, 0xFF7D0A, 0x0070DE, 0xF58CBA, 0x69CCF0, 0xFFFFFF, 0x9482C9, 0xC41F3B, 0x00FFBA, 0xA330C9:
             for r in author.roles:
-                if r.color==H:
+                if r.color==discord.Colour(H):
                     for s in server.roles:
                         if s.name==author.id+str(i):
                             if i==1:
@@ -499,7 +514,8 @@ class enclave(commands.Cog):
                             else:
                                 return
                             await ctx.send(f"Испытание {cl} пройдено!")
-                            await ctx.delete_role(s)
+                            await s.delete()
+                            await asyncio.sleep(0.85)
             i+=1
         C1=DA
         C2=DA
@@ -530,57 +546,58 @@ class enclave(commands.Cog):
             if s.name==author.id+"1":
                 C1=NET
                 z-=1
-                cl1="\nвоина"
+                cl1="\n- воина"
             if s.name==author.id+"2":
                 C2=NET
                 z-=1
-                cl2="\nохотника"
+                cl2="\n- охотника"
             if s.name==author.id+"3":
                 C3=NET
                 z-=1
-                cl3="\nразбойника"
+                cl3="\n- разбойника"
             if s.name==author.id+"4":
                 C4=NET
                 z-=1
-                cl4="\nдруида"
+                cl4="\n- друида"
             if s.name==author.id+"5":
                 C5=NET
                 z-=1
-                cl5="\nшамана"
+                cl5="\n- шамана"
             if s.name==author.id+"6":
                 C6=NET
                 z-=1
-                cl6="\nпаладина"
+                cl6="\n- паладина"
             if s.name==author.id+"7":
                 C7=NET
                 z-=1
-                cl7="\nмага"
+                cl7="\n- мага"
             if s.name==author.id+"8":
                 C8=NET
                 z-=1
-                cl8="\nжреца"
+                cl8="\n- жреца"
             if s.name==author.id+"9":
                 C9=NET
                 z-=1
-                cl9="\nчернокнижника"
+                cl9="\n- чернокнижника"
             if s.name==author.id+"10":
                 C10=NET
                 z-=1
-                cl10="\nрыцаря смерти"
+                cl10="\n- рыцаря смерти"
             if s.name==author.id+"11":
                 C11=NET
                 z-=1
-                cl11="\nмонаха"
+                cl11="\n- монаха"
             if s.name==author.id+"12":
                 C12=NET
                 z-=1
-                cl12="\nохотника на демонов"
+                cl12="\n- охотника на демонов"
         if z==12:
             for r in author.roles:
                 if r.name.startswith("Квест Ремесло"):
-                    await ctx.delete_role(r)
-            DUAL=discord.utils.get(ctx.guild.roles, id=000000000000000000)
+                    await r.delete()
+            DUAL=discord.utils.get(ctx.guild.roles, id=994502501602709546)
             await author.add_roles(DUAL)
+            await author.remove_roles(R9)
             return await ctx.send(f"{author.display_name} получает право выбрать себе второй класс! Это поистине большое достижение!")
         else:
             for r in author.roles:
@@ -1370,11 +1387,11 @@ class enclave(commands.Cog):
         emb0 = discord.Embed(title="*Перед вами лежит толстая книга, в которой собрано немало мудростей.*", colour=discord.Colour.gold())
         emb0.set_thumbnail(url="https://static.wikia.nocookie.net/wow/images/1/17/Inv_misc_book_09.png/revision/latest/scale-to-width-down/68?cb=20170402101159&path-prefix=ru")
         emb1 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Подсчёт опыта\".**", description = "На сервере идёт подсчёт опыта за активность каждого участника - от 1 до 3 единиц опыта за сообщение, в зависимости от его размера.\n\nУзнать свой или чужой уровень и количество опыта можно с помощью команды:\n`=уровень` или `=ур`\nОбщий список лидеров:\n`=лидеры`\n\nНа каждом пятом уровне вас ждёт награда в виде какого-то сундука (будет выдана роль <@&696014224442392717>).\nОткрыть его можно с помощью команды:\n`=сундук`\n\nЗа открытие сундука можно получить некоторую сумму золотых монет или повышение ранга мастерства, нужного для применения различных заклинаний.\n\nРангов всего 10:\nУченик -> Подмастерье -> Умелец -> Искусник -> Знаток -> Мастер -> Специалист -> Магистр -> Профессионал -> Эксперт.\nРанг Профессионал может быть получен с шансом 25%, а ранг Эксперт - 22,2%.\n\n*При достижении ранга Эксперт, участник получает новое заклинание для своего класса (по своему выбору).*", colour=discord.Colour.gold())
-        emb2 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Правила магии\".**", description = "Использование магии досупно только на канале <#603151774009786393>, за редким исключением.\nМагию могут применять участники, обладающие классом.\n\nБудьте внимательны при написании команд:\n*Соблюдайте указание целей для тех заклинаний, которые это требуют, и не указывайте там, где это не требуется. Это крайне опасно!*\n*Соблюдайте регистр и пунктуацию, магия очень чувствительна к этому.*\nУ каждого заклинания есть свой кулдаун.\n\nНа канале <#610767915997986816> в закреплённых сообщениях есть информация как приобрести предметы, снимающие те или иные эффекты.\nНапоминание: Если вам срочно нужна помощь, но доступ в <#603151774009786393> закрыт из-за негативного магического эффекта, можете обратиться за помощью в общий канал своей фракции в Окрестностях Фераласа.", colour=discord.Colour.gold())
+        emb2 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Правила магии\".**", description = "Использование магии доступно только на канале <#603151774009786393>, за редким исключением.\nМагию могут применять участники, обладающие классом.\n\nБудьте внимательны при написании команд:\n*Соблюдайте указание целей для тех заклинаний, которые это требуют, и не указывайте там, где это не требуется. Это крайне опасно!*\n*Соблюдайте регистр и пунктуацию, магия очень чувствительна к этому.*\nУ каждого заклинания есть свой кулдаун.\n\nНа канале <#610767915997986816> в закреплённых сообщениях есть информация как приобрести предметы, снимающие те или иные эффекты.\nНапоминание: Если вам срочно нужна помощь, но доступ в <#603151774009786393> закрыт из-за негативного магического эффекта, можете обратиться за помощью в общий канал своей фракции в Окрестностях Фераласа.", colour=discord.Colour.gold())
         emb3 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"О классах\".**", description = "Чтобы выбрать себе класс - введите команду:\n`=выбрать класс`\n\nЧтобы узнать, на что способен ваш класс, введите одну из перечисленных команд, соответствующую интересующему вас классу:\n`=книга воина`,\n`=книга друида`,\n`=книга жреца`,\n`=книга мага`,\n`=книга монаха`,\n`=книга охотника`,\n`=книга паладина`,\n`=книга разбойника`,\n`=книга шамана`,\nа также:\n`=книга тьмы` - для чернокнижника,\n`=книга демонов` - для охотника на демонов\nи\n`=книга смерти` - для рыцаря смерти.", colour=discord.Colour.gold())
         emb4 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Общие команды\".**", description = "**Команды информации:**\n*Использование этих команд доступно на любом канале.*\n\n`=уровень` или `=ур` - узнать свой или чужой прогресс.\n`=лидеры` - список наиболее опытных участников.\n`=баланс` или `=б` - узнать состояние своего или чужого счёта.\n`=счета` - список наиболее богатых участников. Чтобы увидеть больше, нужно указывать число отображаемых участников (например, `=счета 25`).\n\n**Команды эмоций:**\n\n`=бросить @цель` - и так понятно.\n`=обнять @цель` - можно указать силу обнимашек.\n`=ответь <вопрос?>` - задать вопрос старой тортолланке.\n`=выбери <несколько вариантов>` - сделать выбор.\n\n**Команды покупок:**\nДоступны на канале <#610767915997986816>\n\n`=блескотрон` - вызвать интерфейс торгового автомата.\n\n`=купить зелье` - приобрести предмет \"Зелье рассеивания чар\".\n`=выпить зелье` - снять с себя все Эффекты.\n`=купить свиток` - приобрести предмет \"Свиток антимагии\"\n`=прочесть свиток` - снять все чары с канала (отправлять команду нужно на том канале, на который хотите подействовать).\n`=купить пропуск` - приобрести временный VIP-пропуск на закрытые каналы.\n`=выбросить пропуск` - вернуться на общедоступные каналы.", colour=discord.Colour.gold())
-        emb5 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 1.**", description = "Q: Как мне узнать свой уровень?\nA: Написать команду `=уровень` или `=ур`, и подождать пару секунд.\nQ: Там есть шкала опыта, за что я его получаю?\nA: За каждое сообщение на общедоступных каналах (кроме строчилки) - 1 единица опыта. Если сообщение >15 символов - 2 единицы, если >30 - 3.\nQ: Я флужу, как потерпевший, а опыт растёт медленно!\nA: Опыт начисляется раз в 90 секунд.\nQ: Как мне получить роль класса?\nA: Нужно написать команду `=выбрать класс` и выбрать класс, следуя инструкциям.\nQ: Мне постоянно не хватает золота, где его можно взять?!\nA: На данный момент золото можно получить: играя в викторину, получить в наградном уровневом сундуке, выиграть что-нибудь в казино, получить от других участников заклинаниями лечения и усиления, а также монеты выдаются в ходе различных турниров и ивентов на сервере. В планах команды на выполнение поручений и отражение атак огров.\nQ: Почему я должен платить золото за каждое использование заклинаний, они очень дорогие, что за грабительская система?!\nA: Систему придумал и реализовал гоблин.\nQ: Я не могу писать на канале <#603151774009786393>!\nA: Скорее всего вас кто-то заглушил заклинанием, проверьте свои роли на наличие отрицательных эффектов. Можете их рассеять, купив и выпив зелье в <#610767915997986816>, подробности в его закрепах.\nQ: Меня постоянно атакуют и сжигают все мои монеты! Казлы!\nA: Чаще всего атаками наказывают за неадекватное поведение и грубость в чате. Ведите себя дружелюбно и ситуация улучшится.", colour=discord.Colour.gold())
-        emb6 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 2.**", description = "Q: Меня постоянно глушит один недоброжелатель, что делать?\nA: Некоторые классы имеют сейвы, которые дают защиту от мута. Если его у вас нет, вы можете договориться с другим участниками (или подкупить их), чтобы совместно атаковать вашего врага.\nQ: Что за ранги мастерства?\nA: Это уровень владения заклинаниями вашего класса. Каждые 5 уровней вам будет предложен выбор, улучшить ранг или получить некоторую сумму золотых монет.\nQ: Могу ли я передать золото другому участнику?\nA: Только с помощью заклинаний лечения/усиления.\nQ: Можно ли выбрать два разных класса?\nA: Двойная специализация в разработке. К моменту появления первого Эксперта своего класса, она уже должна заработать.", colour=discord.Colour.gold())
+        emb5 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 1.**", description = "Q: Как мне узнать свой уровень?\nA: Написать команду `=уровень` или `=ур`, и подождать пару секунд.\nQ: Там есть шкала опыта, за что я его получаю?\nA: За каждое сообщение на общедоступных каналах (кроме строчилки) - 1 единица опыта. Если сообщение >15 символов - 2 единицы, если >30 - 3.\nQ: Я флужу, как потерпевший, а опыт растёт медленно!\nA: Опыт начисляется раз в 90 секунд.\nQ: Как мне получить роль класса?\nA: Нужно написать команду `=выбрать класс` и выбрать класс, следуя инструкциям.\nQ: Мне постоянно не хватает золота, где его можно взять?!\nA: На данный момент золото можно получить: играя в викторину, получить в наградном уровневом сундуке, выиграть что-нибудь в казино, получить от других участников заклинаниями лечения и усиления, получить от высших сил с помощью специальных команд, а также монеты выдаются в ходе различных турниров и ивентов на сервере. В планах команды на выполнение поручений и отражение атак огров.\nQ: Почему я должен платить золото за каждое использование заклинаний, они очень дорогие, что за грабительская система?!\nA: Систему придумал и реализовал гоблин.\nQ: Я не могу писать на канале <#603151774009786393>!\nA: Скорее всего вас кто-то заглушил заклинанием, проверьте свои роли на наличие отрицательных эффектов. Можете их рассеять, купив и выпив зелье в <#610767915997986816>, подробности в его закрепах.\nQ: Меня постоянно атакуют и сжигают все мои монеты! Казлы!\nA: Чаще всего атаками наказывают за неадекватное поведение и грубость в чате. Ведите себя дружелюбно и ситуация улучшится.", colour=discord.Colour.gold())
+        emb6 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 2.**", description = "Q: Меня постоянно глушит один недоброжелатель, что делать?\nA: Некоторые классы имеют сейвы, которые дают защиту от мута. Если его у вас нет, вы можете договориться с другим участниками (или подкупить их), чтобы совместно атаковать вашего врага.\nQ: Что за ранги мастерства?\nA: Это уровень владения заклинаниями вашего класса. Каждые 5 уровней вам будет предложен выбор, улучшить ранг или получить некоторую сумму золотых монет.\nQ: Могу ли я передать золото другому участнику?\nA: Только с помощью заклинаний лечения/усиления.\nQ: Можно ли выбрать два разных класса?\nA: Для получения двойной специализация используйте команду `=двойная специализация` и выполните соответствующий квест. Для этого требуется ранг Эксперта.", colour=discord.Colour.gold())
         emb7 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Краткая аннотация\".**", description = "Жители Анклава, как и любые другие обитатели Азерота, могут обратиться за помощью к различным могущественным существам, божествам и космологическим силам.\nДля этого существуют следующие команды:\n\n`=зов стихий` - вы взываете к повелителям стихий, в надежде, что они одарят вас своей мудростью. Может добавить опыта или отнять золотых монет.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924101970657280>.\n\n`=пентаграмма душ` - вы создаёте портал для призыва опасной сущности, которая поможет вам разбогатеть. Может прибавить золотых монет (при этом отняв их у кого-то) или отнять опыт.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924549716803595>.\n\n`=ритуал` - вы проводите магический ритуал с непредсказуемым эффектом. Результат может как прибавить золотых монет, так и отнять.\nРекомендуемое место применения для более крупных сумм - <#583924289393393664>.\n\n`=созерцание` - вы умиротворяетесь и раскрываете свой разум. Может принести дополнительный опыт, а может и отнять его.\nРекомендуемое место применения для более сильных эффектов - <#584285274956103690>.\n\n`=тренировка` - вы отрабатываете свои боевые навыки в ряде упражнений. Результаты разнообразны и не зависят от используемого канала.\n\nКаждую команду можно применять не чаще 5 раз за 30 минут для каждого участника сервера.", colour=discord.Colour.gold())
         emb8 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Детальный разбор\".**", description = "`=зов стихий`\n- Может прибавить от 5 до 40 единиц опыта, интервал меняется в зависимости от канала.\n- Может отнять от 0 до 60 золотых монет, интервал меняется в зависимости от канала.\n- Возможно увеличение медленного режима на канале на 5 секунд.\n- В редких случаях можно получить эффект Мажордом огня на 5 минут.\n - Что-то ещё.\n\n`=пентаграмма душ`\n- Может прибавить от 1 до 130 золотых монет.\n- Может отнять от 1 до 22 единиц опыта.\n- Возможно полное отключение медленного режима на канале.\n- Возможно увеличение медленного режима на канале на 10 секунд.\n - Что-то ещё.\n\n`=ритуал`\n- Может как отнять, так и прибавить от 30 до 160 золотых монет.\n- Возможно ослабление медленного режима на канале на 25 секунд.\n- Возможно полное отключение медленного режима на канале.\n- В редких случаях можно получить эффект Временной сдвиг на 5 минут.\n\n`=созерцание`\n- Может прибавить от 0 до 40 единиц опыта.\n- Может передать другому участнику от 0 до 40 единиц вашего опыта.\n- Может прибавить другому участнику от 50 до 150 золотых монет.\n- В редких случаях можно получить эффект Умиротворение на 5 минут.\n- Возможно увеличение или уменьшение медленного режима на канале на несколько секунд.\n- Что-то ещё.\n\n`=тренировка`\n- Может прибавить от 1 до 10 единиц опыта.\n- Может отнять от 1 до 40 золотых монет.\n- Возможны оба первых эффекта одновременно.\n- Может прибавить от 1 до 10 единиц опыта вам и другому участнику.\n- Может отнять от 1 до 10 единиц опыта.\n- В редких случаях можно получить эффект Переутомление на 5 минут.\n- Что-то ещё.", colour=discord.Colour.gold())
         emb9 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Об эффектах\".**", description = "**Мажордом огня.**\nЭффект позволяет применять заклинания Огненный шар и Выброс лавы не зависимо от класса и ранга мастерства (но требуют монет на применение согласно стоимости). Присутствие в чате шаманов увеличивает шанс на получение эффекта.\n\n**Временной сдвиг.**\nЭффект позволяет применять заклинания Тёмный пакт и Безумие не зависимо от класса и ранга мастерства (но требуют монет на применение согласно стоимости). Присутствие в чате магов увеличивает шанс на получение эффекта.\n\n**Умиротворение.**\nЭффект позволяет применять заклинания Медитация и Обновление не зависимо от класса и ранга мастерства (но требуют монет на применение согласно стоимости). Присутствие в чате паладинов увеличивает шанс на получение эффекта.\n\n**Переутомление.**\nЭффект позволяет применять заклинание Притвориться мёртвым не зависимо от класса и ранга мастерства (но требует монет на применение согласно стоимости). Присутствие в чате воинов увеличивает шанс на получение эффекта.\n\n**Дар Нзота.**\nОдин из эффектов порчи, позволяет применять заклинание Осквернение не зависимо от класса и ранга мастерства (но требует монет на применение согласно стоимости). Имеет тайные негативные свойства.", colour=discord.Colour.gold())
@@ -4136,7 +4153,7 @@ class enclave(commands.Cog):
         authbal=await bank.get_balance(author)
         cst=220
         if authbal<cst:
-            return await ctx.send (f"*Взывать к Тьме, имея на счету лишь {authbal} золотых монет - чревато нежелательными последствиями.")
+            return await ctx.send (f"*Взывать к Тьме, имея на счету лишь {authbal} золотых монет - чревато нежелательными последствиями.*")
         await bank.withdraw_credits(author, cst)
         await ctx.send(f"*Липкие щупальца обвивают голову {user.display_name}, погружая разум в безумие.*")
         await self.delarm(ctx=ctx, user=user)
