@@ -464,7 +464,7 @@ class enclave(commands.Cog):
             c=1
             while c<=12:
                 await ctx.guild.create_role(name=str(author.id)+str(c))
-                с+=1
+                c+=1
         else:
             await responce.edit_origin()
             return await msg.delete()
