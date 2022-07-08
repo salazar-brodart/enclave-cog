@@ -73,7 +73,7 @@ class enclave(commands.Cog):
     @tasks.loop(seconds=5.0, count=5)
     async def slow_count(self):
         room=self.bot.get_channel(709367217229398016)
-        await room.send(str(slow_count.current_loop))
+        await room.send("Не всё.")
 
     @slow_count.after_loop
     async def after_slow_count():
@@ -86,7 +86,7 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def тест2(self):
-        await self.slow_count.start()
+        self.slow_count.start()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
