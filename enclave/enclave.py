@@ -71,12 +71,14 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @tasks.loop(seconds=5.0, count=5)
-    async def slow_count(self, ctx):
-        ctx.send(str(slow_count.current_loop))
+    async def slow_count(self):
+        room=self.bot.get_channel(709367217229398016)
+        await room.send(str(slow_count.current_loop))
 
     @slow_count.after_loop
     async def after_slow_count():
-        ctx.send("Всё.")
+        room=self.bot.get_channel(709367217229398016)
+        await room.send("Всё.")
 
     @slow_count.before_loop
     async def before_slow_count():
