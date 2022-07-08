@@ -84,11 +84,11 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def тест1(self, ctx: Context):
-        await slow_count.start(ctx)
+        await slow_count.start()
 
     @commands.command()
     async def тест2(self, ctx: Context):
-        await self.slow_count.start(ctx)
+        await self.slow_count.start()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
