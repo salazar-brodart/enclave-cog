@@ -80,9 +80,9 @@ class enclave(commands.Cog):
         room=self.bot.get_channel(709367217229398016)
         await room.send("Всё.")
 
-    @slow_count.before_loop
-    async def before_slow_count():
-        await self.bot.wait_until_ready()
+#    @slow_count.before_loop
+#    async def before_slow_count():
+#        await self.bot.wait_until_ready()
 
     @commands.command()
     async def тест2(self):
