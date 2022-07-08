@@ -84,7 +84,7 @@ class enclave(commands.Cog):
     async def before_slow_count():
         await self.bot.wait_until_ready()
 
-    self.slow_count.start()
+    self.bot.slow_count.start()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
