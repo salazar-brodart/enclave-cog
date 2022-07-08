@@ -75,7 +75,7 @@ class enclave(commands.Cog):
         ctx.send(str(slow_count.current_loop))
 
     @slow_count.after_loop
-    async def after_slow_count(self, ctx):
+    async def after_slow_count():
         ctx.send("Всё.")
 
     @slow_count.before_loop
@@ -83,11 +83,7 @@ class enclave(commands.Cog):
         await self.bot.wait_until_ready()
 
     @commands.command()
-    async def тест1(self, ctx: Context):
-        await slow_count.start()
-
-    @commands.command()
-    async def тест2(self, ctx: Context):
+    async def тест2(self):
         await self.slow_count.start()
 
     @commands.command()
