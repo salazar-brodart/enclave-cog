@@ -91,6 +91,56 @@ class enclave(commands.Cog):
         except discord.ext.commands.errors.CommandOnCooldown:
             await ctx.send("Вы слишком устали. Съешьте ещё этих мягких сурамарских манабулок, да выпейте маначаю.")
 
+    @commands.command()
+    @commands.cooldown(2, 43200, commands.BucketType.user)
+    async def поручение(self, ctx: Context):
+#        if ctx.message.channel.id != 603151774009786393:
+#            return await ctx.send("Тут квестов нет! Поищи в другом месте.")
+        author=ctx.author
+        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
+        OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        x=random.randint(1, 100)
+        if x<=15:
+            await self.ogroquest(ctx=ctx, user=author)
+        elif x<=25:
+            embed = discord.Embed(title = f'*{author.display_name}.*', colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-15 золотых)')]])
+        elif x<=35:
+            await ctx.send(f"LOREM")
+        elif x<=45:
+            await ctx.send(f"LOREM")
+        elif x<=55:
+            await ctx.send(f"LOREM")
+        elif x<=65:
+            await ctx.send(f"LOREM")
+        elif x<=75:
+            await ctx.send(f"LOREM")
+        elif x<=85:
+            await ctx.send(f"LOREM")
+        else:
+            await ctx.send(f"LOREM IPSUM")
+            await self.getfood(ctx=ctx, user=JOLA)
+        if SIT.name=="Готовится атака на лагерь":
+            return self.ogrotack(ctx=ctx)
+        else:
+            S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            SI=random.choice(S)
+            SIT.edit(name=SI)
+        
+    async def ogroquest(self, ctx: commands.GuildContext, user: discord.Member):
+        OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        return
+
+    async def ogrotack(self, ctx: commands.GuildContext):
+        OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        t=random.randint(60, 1800)
+        await asyncio.sleep(t)
+        return await ctx.send(f"LOREM")
+
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
         pass
@@ -467,7 +517,7 @@ class enclave(commands.Cog):
             emb1 = discord.Embed(title = 'Задание:', description = 'Тебе нужно пройти 12 испытаний, по одному на каждый класс.\nДля этого тебе нужно получить любую роль цвета относящегося к нужному классу.\nПолучив одну или несколько ролей, напиши команду `=ремесло` в общем канале, на канале Блескотрона или на любом из каналов Окрестностей Фераласа, чтобы зачесть прогресс в задании.', colour=discord.Colour.gold())
             await msg.edit(embed=embed, components = [])
             await ctx.send(embed=emb1)
-            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌')
+            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌', color==discord.Colour(0xA58E8E))
             await author.add_roles(BAR)
             await ctx.send(f"*{author.display_name} начинает {BAR.name}*")
             c=1
