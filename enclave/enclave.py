@@ -3,7 +3,6 @@ import random
 import time
 import discord
 from math import ceil
-from discord.ext import tasks
 from discord.utils import get
 from redbot.core import commands, bank, Config
 from redbot.core.bot import Red
@@ -69,22 +68,6 @@ class enclave(commands.Cog):
         self.profiles = UserProfile()
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
-
-    @tasks.loop(seconds=5.0, count=5)
-    async def slow_count(self):
-        room=self.bot.get_channel(709367217229398016)
-        await room.send("Не всё.")
-
-    @slow_count.after_loop
-    async def after_slow_count():
-        room=self.bot.get_channel(709367217229398016)
-        await room.send("Всё.")
-
-    @slow_count.before_loop
-    async def before_slow_count():
-        await self.bot.wait_until_ready()
-
-#    self.bot.slow_count.start()
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
