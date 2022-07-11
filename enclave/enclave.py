@@ -1680,11 +1680,11 @@ class enclave(commands.Cog):
         
         msg8=discord.Embed(title="*Мать-Скала Теразан вне себя от злости!*", description=f"- Смертные погубили моё дитя! Почувствуйте же мой гнев!\n"+m8, colour=discord.Colour.gold())
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
-        msg8.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
+        msg8.set_thumbnail(url="https://media.discordapp.net/attachments/921279850956877834/994826649172455564/6ab88924a18fab31.jpeg")
         
         msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты тревожишь Мать-Скалу?! Тогда получи моё благославение!\n"+m9, colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
-        msg9.set_thumbnail(url="https://rpwiki.ru/images/thumb/d/d6/Теразан.jpg/250px-Теразан.jpg")
+        msg9.set_thumbnail(url="https://media.discordapp.net/attachments/921279850956877834/994826788846977105/56862d84d9f4edba.jpeg")
         
         mass=[msg1, msg3, msg4, msg5, msg6, msg7, msg8, msg9]
         embed=random.choice(mass)
