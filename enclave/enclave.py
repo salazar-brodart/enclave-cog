@@ -82,6 +82,16 @@ class enclave(commands.Cog):
         await ctx.send(f"Баланс пользователя {user.display_name}: {userbal} золотых монет.")
 
     @commands.command()
+    async def тест(self, ctx: Context):
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        if SIT.name=="Готовится атака на лагерь":
+            return self.ogrotack(ctx=ctx)
+        else:
+            S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            SI=random.choice(S)
+            SIT.edit(name=SI)
+
+    @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
