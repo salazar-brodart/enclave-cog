@@ -89,7 +89,7 @@ class enclave(commands.Cog):
         else:
             S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
-            SIT.edit(name=SI)
+            await SIT.edit(name=SI)
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
