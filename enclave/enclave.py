@@ -83,6 +83,7 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def тест(self, ctx: Context):
+        author= ctx.author
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         embed = discord.Embed(title = f'*{author.display_name}.*', colour=discord.Colour.random())
         embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
