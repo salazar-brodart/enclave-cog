@@ -84,12 +84,11 @@ class enclave(commands.Cog):
     @commands.command()
     async def тест(self, ctx: Context):
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        if SIT.name=="Готовится атака на лагерь":
-            await self.ogrotack(ctx=ctx)
-        else:
-            S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
-            SI=random.choice(S)
-            await SIT.edit(name=SI)
+        embed = discord.Embed(title = f'*{author.display_name}.*', colour=discord.Colour.random())
+        embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-15 золотых)')]])
+ 
+
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
