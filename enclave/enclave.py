@@ -5238,6 +5238,8 @@ class enclave(commands.Cog):
         if targbal>(max_bal-heal2):
             heal2=(max_bal-targbal)
         heal=heal1+heal2
+        await bank.deposit_credits(author, heal1)
+        await bank.deposit_credits(user, heal2)
         await author.remove_roles(ALE)
         await ctx.send (f"*{author.display_name} откупоривает бочонок доброго эля за {heal} золотых монет и приглашает {user.mention} распить его. {author.display_name} и {user.display_name} теперь лучшие друзья!*")
 
