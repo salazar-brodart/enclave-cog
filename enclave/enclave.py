@@ -85,7 +85,7 @@ class enclave(commands.Cog):
     async def тест(self, ctx: Context):
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         if SIT.name=="Готовится атака на лагерь":
-            return self.ogrotack(ctx=ctx)
+            await self.ogrotack(ctx=ctx)
         else:
             S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
