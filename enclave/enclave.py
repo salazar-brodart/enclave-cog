@@ -599,7 +599,7 @@ class enclave(commands.Cog):
             emb1 = discord.Embed(title = 'Задание:', description = 'Тебе нужно пройти 12 испытаний, по одному на каждый класс.\nДля этого тебе нужно получить любую роль цвета относящегося к нужному классу.\nПолучив одну или несколько ролей, напиши команду `=ремесло` в общем канале, на канале Блескотрона или на любом из каналов Окрестностей Фераласа, чтобы зачесть прогресс в задании.', colour=discord.Colour.gold())
             await msg.edit(embed=embed, components = [])
             await ctx.send(embed=emb1)
-            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌', color==discord.Colour(0xA58E8E))
+            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌', color=discord.Colour(0xA58E8E))
             await author.add_roles(BAR)
             await ctx.send(f"*{author.display_name} начинает {BAR.name}*")
             c=1
