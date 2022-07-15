@@ -82,16 +82,6 @@ class enclave(commands.Cog):
         await ctx.send(f"Баланс пользователя {user.display_name}: {userbal} золотых монет.")
 
     @commands.command()
-    async def тест(self, ctx: Context):
-        author= ctx.author
-        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        embed = discord.Embed(title = f'*{author.display_name}.*', colour=discord.Colour.random())
-        embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
-        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-15 золотых)')]])
- 
-
-
-    @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def скрин(self, ctx: Context):
         x=random.randint(1, 1467)
@@ -102,11 +92,19 @@ class enclave(commands.Cog):
             await ctx.send("Вы слишком устали. Съешьте ещё этих мягких сурамарских манабулок, да выпейте маначаю.")
 
     @commands.command()
-    @commands.cooldown(2, 43200, commands.BucketType.user)
+    @commands.cooldown(1, 60, commands.BucketType.user)
+    async def обстановка(self, ctx: Context):
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        return await ctx.send(f"{SIT.name}.")
+
+    @commands.command()
+#    @commands.cooldown(2, 43200, commands.BucketType.user)
     async def поручение(self, ctx: Context):
 #        if ctx.message.channel.id != 603151774009786393:
 #            return await ctx.send("Тут квестов нет! Поищи в другом месте.")
         author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
@@ -114,42 +112,116 @@ class enclave(commands.Cog):
         if x<=15:
             await self.ogroquest(ctx=ctx, user=author)
         elif x<=25:
-            embed = discord.Embed(title = f'*{author.display_name}.*', colour=discord.Colour.random())
+            P=[("Орки отмечали славную победу"), ("Дворфы отмечали некий праздник"), ("Пандарены просто квасили")]
+            P1=random.choice(P)
+            PO=[(P1+" несколько дней подряд и оставили гору грязной посуды. Можешь её перемыть, "), ("Огры распотрошили и зажарили козу возле стен лагеря, забрызгав кровью нашу посуду, мирно стоящую рядом. Надо отправить кого-то разобраться с этими ограми, а ты пока помой посуду, "), ("Этим утром несколько шалдорай соревновались в стихосложении, и с ними участвовал один тролль из Гурубаши. Не знаю что он им рассказал, но после них осталась куча заплёванных кубков. Уберёшь за ними, "), ("Одинокий странник пришёл этой ночью в лагерь. Он был болен, и я готовила ему тортолланские снадобья, чтобы снять лихорадку. Сейчас он спит, но я не могу отойти от него. Помоешь мои склянки, "), ("Мехагном устроил мелкий ремонт прямо посреди лагеря! Попробуй отмыть от машинного масла эти ёмкости, "), ("Не знаю, чем занималась эта парочка отрёкшихся, но все мои столовые приборы теперь в какой-то вонючей жиже! Тебе нужно срочно это помыть! Сможешь, ")]
+            POS=random.choice(PO)
+            embed = discord.Embed(title = POS+f"{author.display_name}?", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
-            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-15 золотых)')]])
+            emb0=discord.Embed(title = "Ну и свинство!", colour=discord.Colour.random())
+            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
+            try:
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
+            except asyncio.TimeoutError:
+                await msg.edit(embed=emb0, components = [])
+            if responce.component.label == 'Отмыть с энтузиазмом!':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*'Потому что мыть посуду - это тоже подвиг ратный...' - напевая песенку себе под нос, {author.display_name} принимается за работу.*")
+                await asyncio.sleep(5)
+                g=random.randint(20, 40)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"Какая чистота, смотреть приятно! Держи {g} монеток, {author.display_name}!")
+            elif responce.component.label == 'Нехотя помыть':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*С мыслями, что водный элементаль справился бы лучше, {author.display_name} начинает тереть посуду щёткой.*")
+                await asyncio.sleep(5)
+                g=random.randint(1, 30)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"И так сойдёт! Держи {g} монеток, {author.display_name}!")
+            elif responce.component.label == 'Нанять вульпера (-25 золотых)':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name} показывает пробегающему мимо вульперу мешочек с золотом и кивает в сторону грязной посуды.*")
+                g=random.randint(1, 40)
+                if authbal<25:
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Вульпер перемыл всю посуду и ждёт награды.")
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Отличная работа! Думаю, ты заслужил это. Держи {10*g} монеток!\n*Отдаёт награду вульперу.*")
+                else:
+                    await bank.withdraw_credits(author, 25)
+                    await asyncio.sleep(5)
+                    await ctx.send(f"*Мистер вульпер всё отмыл, никому не навредил!\n*{author.display_name} отдаёт вульперу 25 монет.*")
+                    await asyncio.sleep(5)
+                    if authbal>(max_bal-g):
+                        g=(max_bal-authbal)
+                    await bank.deposit_credits(author, g)
+                    await ctx.send(f"Отличная работа, чувствуется рука мастера! Держи {g} монеток, {author.display_name}!")
+            else:
+                await responce.edit_origin()
+                await msg.edit(embed=emb0, components = [])
         elif x<=35:
-            await ctx.send(f"LOREM")
+            C=[("таурен"), ("дреней"), ("демон")]
+            CC=[("игровыми автоматами"), ("призывом стихий"), ("любовными методиками")]
+            C1=random.choice(C)
+            C2=random.choice(CC)
+            CL=[("Опять какой-то "+C1+" растоптал своими копытами мои клумбы! Прибери, пожалуйста, то, что от них осталось."), ("Какой-то сетрак сбросил шкуру прямо перед моим шатром! Гадость! Убери, убери, убери!"), ("Огры опять потрошили козу возле стен лагеря и всё забрызгали. Надо отправить кого-то разобраться с этими ограми, а ты пока ототри стены."), (""), ("Всюду следы кошачьих лап! Даже на потолке! Опять эти друидские шуточки?! Отмыть немедля!"), ("Один гоблин (не будем называть имя) экспериментировал с "+C2+". Нужно оттереть гарь и копоть со стен. Начни с того места, где запечатлелся гоблинский силуэт."), ("У меня от здешней сырости весь панцирь мхом порос! Поможешь его счистить?")]
+            CLE=random.choice(CL)
+            embed = discord.Embed(title = CLE, colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Прибрать на совесть!'), Button(style = ButtonStyle.green, label = 'Замаскировать бардак')], [Button(style = ButtonStyle.red, label = 'Гордо протопать мимо'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
         elif x<=45:
-            await ctx.send(f"LOREM")
+            embed = discord.Embed(title = "Анклаву нужен герой! "+f"{author.display_name}?", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поспешить на помощь!'), Button(style = ButtonStyle.green, label = 'Убедить кого-то помочь')], [Button(style = ButtonStyle.red, label = 'Проигнорировать'), Button(style = ButtonStyle.blue, label = 'Соврать, что всё сделано')]])
         elif x<=55:
-            await ctx.send(f"LOREM")
+            embed = discord.Embed(title = f"Мне срочно нужен (материал)! На складе пусто, а новые поставки не скоро! Вся надежда на тебя, {author.display_name}!", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Добыть всё нужное'), Button(style = ButtonStyle.green, label = 'Купить на аукционе (-100 золотых)')], [Button(style = ButtonStyle.red, label = 'Отмахнуться'), Button(style = ButtonStyle.blue, label = 'Убедить, что это не нужно')]])
         elif x<=65:
-            await ctx.send(f"LOREM")
+            embed = discord.Embed(title = f"К нам тут заглянул бродячий торговец и предлагает (экзотических питомцев). Всегда мечтала о таком (малютке), можешь купить, {author.display_name}?", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Купить (-200 золотых)'), Button(style = ButtonStyle.green, label = 'Выторговать')], [Button(style = ButtonStyle.blue, label = 'Украсть'), Button(style = ButtonStyle.red, label = 'Отказаться')]])
         elif x<=75:
-            await ctx.send(f"LOREM")
+            embed = discord.Embed(title = "Возле лагеря стало опасно ходить из-за"+f"{author.display_name}?", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Устроить охоту'), Button(style = ButtonStyle.green, label = 'Расставить ловушки')], [Button(style = ButtonStyle.red, label = 'Не марать руки'), Button(style = ButtonStyle.blue, label = 'Соврать, что все убиты')]])
         elif x<=85:
-            await ctx.send(f"LOREM")
+            embed = discord.Embed(title = f"Пока Оззи отдыхает на Дымящихся озёрах, мы решили перевести часть средств сиротским домам Азерота. Не хочешь присоединиться, {author.display_name}?", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Пожертвовать 1000 золотых'), Button(style = ButtonStyle.green, label = 'Пожертвовать 100 золотых')], [Button(style = ButtonStyle.green, label = 'Пожертвовать 10 золотых'), Button(style = ButtonStyle.red, label = 'Рассказать всё Оззи!')]])
         else:
-            await ctx.send(f"LOREM IPSUM")
+            embed = discord.Embed(title = "Пока что всё в лагере идёт своим чередом, никакая помощь не требуется."+f"{author.display_name}?", colour=discord.Colour.random())
+            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             await self.getfood(ctx=ctx, user=JOLA)
+            await ctx.send(embed=embed)
         if SIT.name=="Готовится атака на лагерь":
-            return self.ogrotack(ctx=ctx)
+            return await self.ogrotack(ctx=ctx)
         else:
             S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
-            SIT.edit(name=SI)
+            await SIT.edit(name=SI)
         
     async def ogroquest(self, ctx: commands.GuildContext, user: discord.Member):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        await ctx.send(f"Убей всех огров.")
         return
 
     async def ogrotack(self, ctx: commands.GuildContext):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        t=random.randint(60, 1800)
+        t=random.randint(6, 18)
         await asyncio.sleep(t)
-        return await ctx.send(f"LOREM")
+        await ctx.send(f"Огры атакуют!")
+        await SIT.edit(name="Спокойная обстановка")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
@@ -527,7 +599,7 @@ class enclave(commands.Cog):
             emb1 = discord.Embed(title = 'Задание:', description = 'Тебе нужно пройти 12 испытаний, по одному на каждый класс.\nДля этого тебе нужно получить любую роль цвета относящегося к нужному классу.\nПолучив одну или несколько ролей, напиши команду `=ремесло` в общем канале, на канале Блескотрона или на любом из каналов Окрестностей Фераласа, чтобы зачесть прогресс в задании.', colour=discord.Colour.gold())
             await msg.edit(embed=embed, components = [])
             await ctx.send(embed=emb1)
-            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌', color=discord.Colour(0xA58E8E))
+            BAR=await ctx.guild.create_role(name='Квест Ремесло: ❌❌❌❌❌❌❌❌❌❌❌❌', color==discord.Colour(0xA58E8E))
             await author.add_roles(BAR)
             await ctx.send(f"*{author.display_name} начинает {BAR.name}*")
             c=1
@@ -1079,7 +1151,7 @@ class enclave(commands.Cog):
         emb3 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=огненный шар @цель` - поджигает противника вместе с его средствами.\n**Стоимость:** 100 монет.\nКоманда: `=огненный шар @цель` - цель теряет от 80 до 90 золотых монет.\n**Применение** - до 10 раз в сутки.", color=0x69ccf0)
         emb3.set_footer(text="Ранг Подмастерье.")
         emb3.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
-        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=чародейский интеллект @цель` - вы усиливаете умственные способности цели.\n**Стоимость:** 100 монет.\nКоманда: `=чародейский интеллект @цель` - цель получает 25 единиц опыта.\n**Применение** - до 5 раз в сутки.", color=0x69ccf0)
+        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=чародейский интеллект @цель` - вы усиливаете умственные способности цели.\n**Стоимость:** 250 монет.\nКоманда: `=чародейский интеллект @цель` - цель получает 25 единиц опыта.\n**Применение** - до 5 раз в сутки.", color=0x69ccf0)
         emb4.set_footer(text="Ранг Искусник.")
         emb4.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
         emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=сотворение пищи` - вы создаёте стол с тремя блюдами, которыми может угоститься любой желающий.\n**Стоимость:** 400 монет.\nКоманда: `=сотворение пищи` - вы получаете три эффекта \"Пища\". Повторное применение обновляет количество пищи.\n**Применение** - до 5 раз в сутки.\n\n*Всем доступна команда:*\n\n`=угоститься у @цели` - цель теряет один эффект \"Пища\", а вы получаете от 80 до 90 монет.\n**Применение** - 1 раз в 5 минут.", color=0x69ccf0)
