@@ -118,7 +118,7 @@ class enclave(commands.Cog):
             POS=random.choice(PO)
             embed = discord.Embed(title = POS+f"{author.display_name}?", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
-            emb0=discord.Embed(title = "Ну и свинство!", colour=discord.Colour.random())
+            emb0=discord.Embed(title = "*Грязная посуда бунтует!*\nНу и свинство!", colour=discord.Colour.random())
             emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
@@ -154,11 +154,11 @@ class enclave(commands.Cog):
                     await asyncio.sleep(5)
                     await ctx.send(f"Вульпер перемыл всю посуду и ждёт награды.")
                     await asyncio.sleep(5)
-                    await ctx.send(f"Отличная работа! Думаю, ты заслужил это. Держи {10*g} монеток!\n*Отдаёт награду вульперу.*")
+                    await ctx.send(f"Отличная работа! Думаю, ты заслужил это. Держи {12*g} монеток!\n*Отдаёт награду вульперу.*")
                 else:
                     await bank.withdraw_credits(author, 25)
                     await asyncio.sleep(5)
-                    await ctx.send(f"*Мистер вульпер всё отмыл, никому не навредил!\n*{author.display_name} отдаёт вульперу 25 монет.*")
+                    await ctx.send(f"*Мистер вульпер всё отмыл, никому не навредил!*\n*{author.display_name} отдаёт вульперу 25 монет.*")
                     await asyncio.sleep(5)
                     if authbal>(max_bal-g):
                         g=(max_bal-authbal)
@@ -168,19 +168,119 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 await msg.edit(embed=emb0, components = [])
         elif x<=35:
-            C=[("таурен"), ("дреней"), ("демон")]
+            C=[("таурен"), ("дреней"), ("демон"), ("шухало")]
             CC=[("игровыми автоматами"), ("призывом стихий"), ("любовными методиками")]
             C1=random.choice(C)
             C2=random.choice(CC)
-            CL=[("Опять какой-то "+C1+" растоптал своими копытами мои клумбы! Прибери, пожалуйста, то, что от них осталось."), ("Какой-то сетрак сбросил шкуру прямо перед моим шатром! Гадость! Убери, убери, убери!"), ("Огры опять потрошили козу возле стен лагеря и всё забрызгали. Надо отправить кого-то разобраться с этими ограми, а ты пока ототри стены."), (""), ("Всюду следы кошачьих лап! Даже на потолке! Опять эти друидские шуточки?! Отмыть немедля!"), ("Один гоблин (не будем называть имя) экспериментировал с "+C2+". Нужно оттереть гарь и копоть со стен. Начни с того места, где запечатлелся гоблинский силуэт."), ("У меня от здешней сырости весь панцирь мхом порос! Поможешь его счистить?")]
+            CL=[("Опять какой-то "+C1+" растоптал своими копытами мои клумбы! Прибери, пожалуйста, то, что от них осталось."), ("Какой-то сетрак сбросил шкуру прямо перед моим шатром! Гадость! Убери, убери, убери!"), ("Огры опять потрошили козу возле стен лагеря и всё забрызгали. Надо отправить кого-то разобраться с этими ограми, а ты пока ототри стены."), ("Всюду следы кошачьих лап! Даже на потолке! Опять эти друидские шуточки?! Отмыть немедля!"), ("Один гоблин (не будем называть имя) экспериментировал с "+C2+". После этого взрыва нужно оттереть гарь и копоть со стен. Начни с того места, где запечатлелся гоблинский силуэт."), ("Кто-то рассыпал целый мешок пауков! Нужно срочно их собрать, пока не разбежались!")]
             CLE=random.choice(CL)
             embed = discord.Embed(title = CLE, colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0=discord.Embed(title = "Ну и свинство!\n*Джола Древняя принимается за уборку.*", colour=discord.Colour.random())
+            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Прибрать на совесть!'), Button(style = ButtonStyle.green, label = 'Замаскировать бардак')], [Button(style = ButtonStyle.red, label = 'Гордо протопать мимо'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
+            try:
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
+            except asyncio.TimeoutError:
+                await msg.edit(embed=emb0, components = [])
+            if responce.component.label == 'Прибрать на совесть!':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name}, держа швабру наперевес, устремляется на место проишествия!*")
+                await asyncio.sleep(5)
+                g=random.randint(20, 40)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"Большое тебе спасибо! Держи {g} монеток в знак благодарности, {author.display_name}!")
+            elif responce.component.label == 'Замаскировать бардак':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name} небрежно откупоривает пузырёк с зельем невидимости и обильно поливает устроенный беспорядок.*")
+                await asyncio.sleep(5)
+                g=random.randint(1, 30)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"Так гораздо лучше! Но что это за... запах?! Ладно, вот твои монетки, {author.display_name}, аж {g} штук!")
+            elif responce.component.label == 'Нанять вульпера (-25 золотых)':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name} ловит за шиворот пробегающего мимо вульпера и указывает на беспорядок.*")
+                g=random.randint(1, 40)
+                if authbal<25:
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Вульпер весьма ловко всё прибрал и ожидает похвалы.")
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Большое тебе спасибо! Думаю, ты заслужил это. Держи {12*g} монеток!\n*Отдаёт награду вульперу.*")
+                else:
+                    await bank.withdraw_credits(author, 25)
+                    await asyncio.sleep(5)
+                    await ctx.send(f"*Мистер вульпер всё отмыл, никому не навредил!*\n*{author.display_name} отдаёт вульперу 25 монет.*")
+                    await asyncio.sleep(5)
+                    if authbal>(max_bal-g):
+                        g=(max_bal-authbal)
+                    await bank.deposit_credits(author, g)
+                    await ctx.send(f"Что бы мы без тебя делали! Держи {g} монеток в знак благодарности, {author.display_name}!")
+            else:
+                await responce.edit_origin()
+                await msg.edit(embed=emb0, components = [])
         elif x<=45:
-            embed = discord.Embed(title = "Анклаву нужен герой! "+f"{author.display_name}?", colour=discord.Colour.random())
+            H=[("Птенец гиппогрифа застрял на макушке векового древа и не может освободиться!"), (""), (""), (""), (""), ("")]
+            NH=random.choice(H)
+            embed = discord.Embed(title = "Анклаву срочно нужен герой! "+NH, colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            G=[("из пяти одинаковых с виду друидов"), ("лесорубов с заточенными топорами"), ("охотников за головами"), ("приключенцев в разноцветной одежде"), ("диких варгов")]
+            GR=random.choice(G)
+            emb0=discord.Embed(title = "*Пробегающая мимо группа "+GR+" неким образом решила проблему.*", colour=discord.Colour.random())
+            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поспешить на помощь!'), Button(style = ButtonStyle.green, label = 'Убедить кого-то помочь')], [Button(style = ButtonStyle.red, label = 'Проигнорировать'), Button(style = ButtonStyle.blue, label = 'Соврать, что всё сделано')]])
+            try:
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
+            except asyncio.TimeoutError:
+                await msg.edit(embed=emb0, components = [])
+            if responce.component.label == 'Поспешить на помощь!':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name}, держа швабру наперевес, устремляется на место проишествия!*")
+                await asyncio.sleep(5)
+                g=random.randint(20, 40)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"Большое тебе спасибо! Держи {g} монеток в знак благодарности, {author.display_name}!")
+            elif responce.component.label == 'Убедить кого-то помочь':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name} небрежно откупоривает пузырёк с зельем невидимости и обильно поливает устроенный беспорядок.*")
+                await asyncio.sleep(5)
+                g=random.randint(1, 30)
+                if authbal>(max_bal-g):
+                    g=(max_bal-authbal)
+                await bank.deposit_credits(author, g)
+                await ctx.send(f"Так гораздо лучше! Но что это за... запах?! Ладно, вот твои монетки, {author.display_name}, аж {g} штук!")
+            elif responce.component.label == 'Соврать, что всё сделано':
+                await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
+                await ctx.send(f"*{author.display_name} ловит за шиворот пробегающего мимо вульпера и указывает на беспорядок.*")
+                g=random.randint(1, 40)
+                if authbal<25:
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Вульпер весьма ловко всё прибрал и ожидает похвалы.")
+                    await asyncio.sleep(5)
+                    await ctx.send(f"Большое тебе спасибо! Думаю, ты заслужил это. Держи {12*g} монеток!\n*Отдаёт награду вульперу.*")
+                else:
+                    await bank.withdraw_credits(author, 25)
+                    await asyncio.sleep(5)
+                    await ctx.send(f"*Мистер вульпер всё отмыл, никому не навредил!*\n*{author.display_name} отдаёт вульперу 25 монет.*")
+                    await asyncio.sleep(5)
+                    if authbal>(max_bal-g):
+                        g=(max_bal-authbal)
+                    await bank.deposit_credits(author, g)
+                    await ctx.send(f"Что бы мы без тебя делали! Держи {g} монеток в знак благодарности, {author.display_name}!")
+            else:
+                await responce.edit_origin()
+                await msg.edit(embed=emb0, components = [])
         elif x<=55:
             embed = discord.Embed(title = f"Мне срочно нужен (материал)! На складе пусто, а новые поставки не скоро! Вся надежда на тебя, {author.display_name}!", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
@@ -2915,7 +3015,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393:
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
-        while user is None or user is author:
+        while user is None:
             user = random.choice(ctx.message.guild.members)
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=5:
@@ -3674,8 +3774,8 @@ class enclave(commands.Cog):
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} обходит лужу стороной.*")
             return await ctx.message.delete()
-        if ctx.message.channel.id != 603151774009786393:
-            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nНайди более подходящее место.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=3:
             return await ctx.send (f"*{author.display_name} не находит в себе достаточно сил, чтобы противостоять чужой магии.*")
@@ -4212,8 +4312,8 @@ class enclave(commands.Cog):
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} грезит образом наару.*")
             return await ctx.message.delete()
-        if ctx.message.channel.id != 603151774009786393:
-            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nНайди более подходящее место.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=1:
             return await ctx.send (f"*{author.display_name} благославляет землю под ногами, но это ничего не меняет.*")
@@ -4586,7 +4686,7 @@ class enclave(commands.Cog):
     @commands.cooldown(5, 86400, commands.BucketType.user)
     async def чародейский_интеллект(self, ctx, user: discord.Member = None):
         author=ctx.author
-        while user is None or user is author:
+        while user is None:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, id=685724798193762365)
         if CLS not in author.roles:
@@ -4777,7 +4877,7 @@ class enclave(commands.Cog):
                 heal=(max_bal-authbal)
             await user.remove_roles(BIS)
             await bank.deposit_credits(author, heal)
-            await ctx.send (f"*{author.display_name} берёт со стола аппетитный манабисквит и с упоением уплетает, восстанавливая сил на {heal} золотых монет.*")
+            await ctx.send (f"*{author.display_name} берёт со стола аппетитный манакексик и с упоением уплетает, восстанавливая сил на {heal} золотых монет.*")
         else:
             await ctx.send (f"*{author.display_name} протягивает руку к столу, но она сжимает лишь пустоту.*")
 
@@ -5568,8 +5668,8 @@ class enclave(commands.Cog):
 
     @прочесть.command(name="свиток")
     async def прочесть_свиток(self, ctx):
-#        if ctx.message.channel.id != 603151774009786393:
-#            return await ctx.send("Защитные чары не позволяют использовать здесь этот свиток. Иди в <#603151774009786393> и читай там.")
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("Защитные чары не позволяют использовать здесь этот свиток. Найди более подходящее место.")
         author=ctx.author
         SCR=discord.utils.get(ctx.guild.roles, id=686206326371516498)
         if SCR in author.roles:
