@@ -2310,6 +2310,10 @@ class enclave(commands.Cog):
         msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
         msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
         t=random.randint(5, 15)
+        x1=0
+        async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+            if MAG in mes.author.roles:
+                x1=31
         if ANN==LOA:
             msg=await ctx.send (embed=msg1)
             await asyncio.sleep(t)
@@ -2320,11 +2324,13 @@ class enclave(commands.Cog):
                     target=mes.author
             targbal=await bank.get_balance(target)
             if x>50:
+                g+=x1
                 if targbal>(max_bal-g):
                     g=(max_bal-targbal)
                 await bank.deposit_credits(target, g)
                 m1=f"*{target.display_name} оказывается первее остальных и принимает дар богов.\n{target.mention} получает {g} монет из чистого золота!*"
             else:
+                g-=x1
                 if targbal<g:
                     g=targbal
                 await bank.withdraw_credits(target, g)
@@ -2343,6 +2349,7 @@ class enclave(commands.Cog):
                     target=mes.author
             targbal=await bank.get_balance(target)
             if x>50:
+                g+=x1
                 if targbal>(max_bal-g):
                     g=(max_bal-targbal)
                 await bank.deposit_credits(target, g)
@@ -2358,6 +2365,7 @@ class enclave(commands.Cog):
             msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
             return await msg.edit(embed=msg2)
         elif ANN==DB:
+            g-=x1
             if authbal<g:
                 g=authbal
             if DB=="К'Туна":
@@ -2390,10 +2398,6 @@ class enclave(commands.Cog):
                 msg4.set_author(name=f"{author.display_name} начинает сложный магический ритуал.", icon_url=author.avatar_url)
                 msg4.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691588469882910/magic.jpg")
                 return await ctx.send (embed=msg4)
-            x1=0
-            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
-                if MAG in mes.author.roles:
-                    x1=31
             x-=x1
             if x<20 and SHIFT not in author.roles:
                 await self.zadd(who=author, give=SHIFT)
