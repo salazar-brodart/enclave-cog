@@ -284,7 +284,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [])
         elif x<=55:
             M=[("стопка шелкового материала"), ("сотня медных слитков"), ("партия железной руды"), ("бутылка красного даларанского вина"), ("пачка тонкого пергамента"), ("якорь-трава"), ("механическая белка"), ("чародейская пыль"), ("плотная кожа"), ("сотня мифриловых слитков"), ("пара рулонов льняного материала"), ("бутылка белого даларанского вина"), ("бутылка пиратского рома"), ("океаническая рыба"), ("пыльца магорозы")]
-            MA=random.choice(M)
+            MT=random.choice(M)
             embed = discord.Embed(title = f"Мне срочно нужна {MT}! На складе пусто, а новые поставки не скоро! Вся надежда на тебя, {author.display_name}!", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             emb0=discord.Embed(title = "Эх, ладно, обойдусь.\n*Грустно вздохнув, Джола бредёт в свой шатёр.*", colour=discord.Colour.random())
