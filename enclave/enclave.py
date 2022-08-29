@@ -389,7 +389,7 @@ class enclave(commands.Cog):
             if responce.component.label == 'Устроить охоту':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
-                await ctx.send(f"*{author.display_name} не ходит на охоту, потому что слово 'охотиться' подразумевает возможность неудачи. {author.display_name} ходит убивать. У {N} просто нет шансов.*")
+                await ctx.send(f"*{author.display_name} не ходит на охоту, потому что слово 'охотиться' подразумевает возможность неудачи. {author.display_name} ходит убивать. У {EN} просто нет шансов.*")
                 await asyncio.sleep(5)
                 g=random.randint(100, 170)
                 if authbal>(max_bal-g):
@@ -397,7 +397,7 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(author, g)
                 p=random.randint(7, 15)
                 p=await self.buffexp(ctx, author, p)
-                await ctx.send(f"Даже дышать стало легче! Это благодарность от всех путников, что к нам добираются!\n*{author.display_name} набирает {p} единиц опыта и ловко ловит мешочек со {g} золотыми монетами!*")
+                await ctx.send(f"Даже дышать стало легче! Эта благодарность от всех путников, что к нам добираются!\n*{author.display_name} набирает {p} единиц опыта и ловко ловит мешочек со {g} золотыми монетами!*")
             elif responce.component.label == 'Расставить ловушки':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -466,10 +466,11 @@ class enclave(commands.Cog):
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
+        #смена обстановки
         if SIT.name=="Готовится атака на лагерь":
             return
         else:
-            S=[("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            S=[("Спокойная обстановка"), ("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
             await SIT.edit(name=SI)
             if SIT.name=="Готовится атака на лагерь":
@@ -483,11 +484,188 @@ class enclave(commands.Cog):
 
     async def ogrotack(self, ctx: commands.GuildContext):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
+        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        t=random.randint(1, 10)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        t=random.randint(1, 10) #увеличить до 30-600
         await asyncio.sleep(t)
-        await ctx.send(f"Огры атакуют!")
-        await SIT.edit(name="Спокойная обстановка")
+        x=random.randint(1, 100)
+        if x>85:
+            name="Вождь огров"
+            HP=random.randint(550, 650)
+            ARM=await ctx.guild.create_role(name="🛡️: Непробиваемая броня", color=discord.Colour(0xc79c6e))
+            g=random.randint(450, 550)
+            p=random.randint(45, 55)
+            slw=300
+            mut=0
+            admg=1
+        elif x>50:
+            name="Огр-маг"
+            HP=random.randint(350, 450)
+            ARM=await ctx.guild.create_role(name="🛡️: Магический щит", color=discord.Colour(0x69ccf0))
+            g=random.randint(350, 450)
+            p=random.randint(35, 45)
+            slw=0
+            mut=1
+            admg=0
+        elif x>0:
+            name="Огр-воин"
+            HP=random.randint(200, 300)
+            ARM=await ctx.guild.create_role(name="🛡️: Кожаная броня", color=discord.Colour(0xfff569))
+            g=random.randint(250, 350)
+            p=random.randint(25, 35)
+            slw=0
+            mut=0
+            admg=0
+        await OGR.edit(nick=name)
+        await OGR.add_roles(ARM)
+        await bank.set_balance(OGR, HP)
+        embed = discord.Embed(title = "ТРЕВОГА! На лагерь напали! @here, к оружию!", description = f"{OGR.display_name} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
+        await ctx.send(embed=embed)
+        await asyncio.sleep(100)
+        HP=await bank.get_balance(OGR)
+        if HP>0:
+            target=random.choice(ctx.message.guild.members)
+            while target==JOLA:
+                target=random.choice(ctx.message.guild.members)
+            targbal=await bank.get_balance(target)
+            dmg=50
+            if targbal<dmg:
+                dmg=targbal
+            #await bank.withdraw_credits(target, dmg)
+            await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention}, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {HP} здоровья!")
+        else:
+            HEX=''
+            if ARM not in OGR.roles:
+                g+=300
+                p+=10
+                HEX=f' превращён в {OGR.display_name} и'
+            KILLER=None
+            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+                if mes.author!=ctx.bot.user and t!=0:
+                    KILLER=mes.author
+                    t=0
+            embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            try:
+                responce = await self.bot.wait_for("button_click", timeout=100)
+            except:
+                await msg.edit(embed=embed, components = [])
+            if responce.component.label == 'Забрать добычу!':
+                await responce.edit_origin()
+                NEEDER = lambda message: message.author
+                if KILLER is None:
+                    KILLER = NEEDER
+                needbal=await bank.get_balance(NEEDER)
+                if needbal>(max_bal-g):
+                    g=(max_bal-needbal)
+                await bank.deposit_credits(NEEDER, g)
+                p=await self.buffexp(ctx, KILLER, p)
+                await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
+            await SIT.edit(name="Спокойная обстановка")
+            return await ARM.delete()
+        await asyncio.sleep(100)
+        HP=await bank.get_balance(OGR)
+        if HP>0:
+            target=random.choice(ctx.message.guild.members)
+            while target==JOLA:
+                target=random.choice(ctx.message.guild.members)
+            targbal=await bank.get_balance(target)
+            dmg=50
+            if targbal<dmg:
+                dmg=targbal
+            #await bank.withdraw_credits(target, dmg)
+            await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {HP} здоровья!")
+        else:
+            HEX=''
+            if ARM not in OGR.roles:
+                g+=300
+                p+=10
+                HEX=f' превращён в {OGR.display_name} и'
+            KILLER=None
+            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+                if mes.author!=ctx.bot.user and t!=0:
+                    KILLER=mes.author
+                    t=0
+            embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            try:
+                responce = await self.bot.wait_for("button_click", timeout=100)
+            except:
+                await msg.edit(embed=embed, components = [])
+            if responce.component.label == 'Забрать добычу!':
+                await responce.edit_origin()
+                NEEDER = lambda message: message.author
+                if KILLER is None:
+                    KILLER = NEEDER
+                needbal=await bank.get_balance(NEEDER)
+                if needbal>(max_bal-g):
+                    g=(max_bal-needbal)
+                await bank.deposit_credits(NEEDER, g)
+                p=await self.buffexp(ctx, KILLER, p)
+                await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
+            await SIT.edit(name="Спокойная обстановка")
+            return await ARM.delete()
+        await asyncio.sleep(100)
+        HP=await bank.get_balance(OGR)
+        if HP>0:
+            target=random.choice(ctx.message.guild.members)
+            while target==JOLA:
+                target=random.choice(ctx.message.guild.members)
+            targbal=await bank.get_balance(target)
+            if admg>0:
+                dmg=targbal//20
+            else:
+                dmg=50
+            if targbal<dmg:
+                dmg=targbal
+            #await bank.withdraw_credits(target, dmg)
+            if mut>0:
+                NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
+                MR=random.choice(NEMS)
+                MRZ=discord.utils.get(ctx.guild.roles, id=MR)
+                #await target.add_roles(MRZ)
+                M=f', а напоследок накладывает мерзкое заклинание {MRZ.name}'
+            else:
+                M=''
+            if slw>0:
+                S=', и швыряет об стену, проламывая её и засыпая всё вокруг обломками'
+                await ctx.channel.edit(slowmode_delay=ctx.channel.slowmode_delay+slw)
+            else:
+                S=''
+            await ctx.send(f"*{OGR.display_name} трясёт {target.mention} в воздухе, вытряхивая {dmg} золотых монет*"+M+S+f"!\n\n{OGR.display_name} покидает лагерь живым.")
+            await SIT.edit(name="Спокойная обстановка")
+            return await ARM.delete()
+        else:
+            HEX=''
+            if ARM not in OGR.roles:
+                g+=300
+                p+=10
+                HEX=f' превращён в {OGR.display_name} и'
+            KILLER=None
+            async for mes in ctx.message.channel.history(limit=5,oldest_first=False):
+                if mes.author!=ctx.bot.user and t!=0:
+                    KILLER=mes.author
+                    t=0
+            embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            try:
+                responce = await self.bot.wait_for("button_click", timeout=100)
+            except:
+                await msg.edit(embed=embed, components = [])
+            if responce.component.label == 'Забрать добычу!':
+                await responce.edit_origin()
+                NEEDER = lambda message: message.author
+                if KILLER is None:
+                    KILLER = NEEDER
+                needbal=await bank.get_balance(NEEDER)
+                if needbal>(max_bal-g):
+                    g=(max_bal-needbal)
+                await bank.deposit_credits(NEEDER, g)
+                p=await self.buffexp(ctx, KILLER, p)
+                await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
+            await SIT.edit(name="Спокойная обстановка")
+            return await ARM.delete()
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
