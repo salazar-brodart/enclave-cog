@@ -666,6 +666,20 @@ class enclave(commands.Cog):
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
+        
+    @commands.command()
+    async def тест(self, ctx: Context):
+        author = ctx.author
+        embed = discord.Embed(title = "ПОБЕДА!", colour=discord.Colour.green())
+        await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+        try:
+            responce = await self.bot.wait_for("button_click", timeout=100)
+        except:
+            await msg.edit(embed=embed, components = [])
+        if responce.component.label == 'Забрать добычу!':
+            await responce.edit_origin()
+            NEEDER = lambda message: message.author
+            await ctx.send(f"{NEEDER.display_name}")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
