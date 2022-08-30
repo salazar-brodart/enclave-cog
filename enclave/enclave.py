@@ -678,7 +678,7 @@ class enclave(commands.Cog):
             await msg.edit(embed=embed, components = [])
         if responce.component.label == 'Забрать добычу!':
             await responce.edit_origin()
-            lambda message: NEEDER = message.author
+            F = lambda message: NEEDER = message.author
             await ctx.send(f"{NEEDER.display_name}")
 
     @commands.group(name="выбрать", autohelp=False)
