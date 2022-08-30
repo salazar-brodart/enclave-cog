@@ -486,7 +486,7 @@ class enclave(commands.Cog):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
         t=random.randint(1, 10) #увеличить до 30-600
         await asyncio.sleep(t)
         x=random.randint(1, 100)
