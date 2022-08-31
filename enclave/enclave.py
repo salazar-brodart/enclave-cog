@@ -109,7 +109,6 @@ class enclave(commands.Cog):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         x=random.randint(1, 100)
-        #добавить 15 картинок
         if x<=15:
             await self.ogroquest(ctx=ctx, user=author)
         elif x<=25:
@@ -118,9 +117,9 @@ class enclave(commands.Cog):
             PO=[(P1+" несколько дней подряд и оставили гору грязной посуды. Можешь её перемыть, "), ("Огры распотрошили и зажарили козу возле стен лагеря, забрызгав кровью нашу посуду, мирно стоящую рядом. Надо отправить кого-то разобраться с этими ограми, а ты пока помой посуду, "), ("Этим утром несколько шалдорай соревновались в стихосложении, и с ними участвовал один тролль из Гурубаши. Не знаю что он им рассказал, но после них осталась куча заплёванных кубков. Уберёшь за ними, "), ("Одинокий странник пришёл этой ночью в лагерь. Он был болен, и я готовила ему тортолланские снадобья, чтобы снять лихорадку. Сейчас он спит, но я не могу отойти от него. Помоешь мои склянки, "), ("Мехагном устроил мелкий ремонт прямо посреди лагеря! Попробуй отмыть от машинного масла эти ёмкости, "), ("Не знаю, чем занималась эта парочка отрёкшихся, но все мои столовые приборы теперь в какой-то вонючей жиже! Тебе нужно срочно это помыть! Сможешь, ")]
             POS=random.choice(PO)
             embed = discord.Embed(title = POS+f"{author.display_name}?", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png")
             emb0=discord.Embed(title = "*Грязная посуда превращается в посудного голема и убегает из лагеря!*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014562804860194936/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -176,9 +175,9 @@ class enclave(commands.Cog):
             CL=[("Опять какой-то "+C1+" растоптал своими копытами мои клумбы! Прибери, пожалуйста, то, что от них осталось."), ("Какой-то сетрак сбросил шкуру прямо перед моим шатром! Гадость! Убери, убери, убери!"), ("Огры опять потрошили козу возле стен лагеря и всё забрызгали. Надо отправить кого-то разобраться с этими ограми, а ты пока ототри стены."), ("Всюду следы кошачьих лап! Даже на потолке! Опять эти друидские шуточки?! Отмыть немедля!"), ("Один гоблин (не будем называть имя) экспериментировал с "+C2+". После этого взрыва нужно оттереть гарь и копоть со стен. Начни с того места, где запечатлелся гоблинский силуэт."), ("Кто-то рассыпал целый мешок пауков! Нужно срочно их собрать, пока не разбежались!")]
             CLE=random.choice(CL)
             embed = discord.Embed(title = CLE, colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014565420658860143/unknown.png")
             emb0=discord.Embed(title = "Ну и свинство! Сама всё уберу!\n*Джола Древняя принимается за уборку.*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014563179994550323/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Прибрать на совесть!'), Button(style = ButtonStyle.green, label = 'Замаскировать бардак')], [Button(style = ButtonStyle.red, label = 'Гордо протопать мимо'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -232,11 +231,11 @@ class enclave(commands.Cog):
             H=[("Птенец гиппогрифа застрял на макушке векового древа и не может освободиться!"), ("Кто-то не закрыл за собой портал в Круговерть пустоты! Это нужно исправить!"), (f"Местные жители видели поблизости {EN}! Вот бы кто с этим разобрался!"), ("Дети местных жителей сбежали поиграть в лес и до сих пор не вернулись, а уже темнеет!"), ("Лесных зверей поразила некая хворь! Наши алхимики разработали вакцину, нужно спасти столько, сколько возможно!"), ("Лесных зверей поразила некая хворь! Алхимики Королевской Фармацевтической Компании утверждают, что она будет распространяться и дальше. Нужно убить всех больных зверей до единого!")]
             NH=random.choice(H)
             embed = discord.Embed(title = "Анклаву срочно нужен герой! "+NH, colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014565635616948272/unknown.png")
             G=[("из пяти одинаковых с виду друидов"), ("лесорубов с заточенными топорами"), ("охотников за головами"), ("приключенцев в разноцветной одежде"), ("диких варгов")]
             GR=random.choice(G)
             emb0=discord.Embed(title = "*Пробегающая мимо группа "+GR+" неким образом решила проблему.*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014565920594739330/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поспешить на помощь!'), Button(style = ButtonStyle.green, label = 'Убедить кого-то помочь')], [Button(style = ButtonStyle.red, label = 'Проигнорировать'), Button(style = ButtonStyle.blue, label = 'Соврать, что всё сделано')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -286,9 +285,9 @@ class enclave(commands.Cog):
             M=[("стопка шелкового материала"), ("сотня медных слитков"), ("партия железной руды"), ("бутылка красного даларанского вина"), ("пачка тонкого пергамента"), ("якорь-трава"), ("механическая белка"), ("чародейская пыль"), ("плотная кожа"), ("сотня мифриловых слитков"), ("пара рулонов льняного материала"), ("бутылка белого даларанского вина"), ("бутылка пиратского рома"), ("океаническая рыба"), ("пыльца магорозы")]
             MT=random.choice(M)
             embed = discord.Embed(title = f"Мне срочно нужна {MT}! На складе пусто, а новые поставки не скоро! Вся надежда на тебя, {author.display_name}!", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014567945663434802/unknown.png")
             emb0=discord.Embed(title = "Эх, ладно, обойдусь.\n*Грустно вздохнув, Джола бредёт в свой шатёр.*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014569081099276339/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Добыть всё нужное'), Button(style = ButtonStyle.green, label = 'Купить на аукционе (-100 золотых)')], [Button(style = ButtonStyle.red, label = 'Отмахнуться'), Button(style = ButtonStyle.blue, label = 'Убедить, что это не нужно')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -330,9 +329,9 @@ class enclave(commands.Cog):
             S=[("экзотических питомцев. Этот малютка бы как раз пополнил мою коллекцию! Может купишь его мне"), ("новую броню. Тебе бы как раз пригодилась, сколько можно ходить в старой"), ("надёжное оружие. Советую прикупить, возможно нам скоро придётся пустить его в ход. Да"), ("выносливых ездовых животных. Нам бы в хозяйстве пригодились, но хватит ли у нас золота"), ("изысканные блюда из Пандарии. Ароматы просто сногсшибательные! Тащи скорее сюда золото! Слышишь"), ("ящик какого-то сомнительного пойла. Даже не думай покупать это! Эй, куда ты руки тянешь")]
             SP=random.choice(S)
             embed = discord.Embed(title = "К нам тут заглянул бродячий торговец и предлагает купить "+SP+f", {author.display_name}?", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014569762585587782/unknown.png")
             emb0=discord.Embed(title = "*Бродячий торговец вздохнул и пошёл своей дорогой.*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014570031008448512/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Купить (-200 золотых)'), Button(style = ButtonStyle.green, label = 'Выторговать')], [Button(style = ButtonStyle.blue, label = 'Украсть'), Button(style = ButtonStyle.red, label = 'Отказаться')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -378,9 +377,9 @@ class enclave(commands.Cog):
             N=[("стаи варгов"), ("диких гиппогрифов"), ("шайки похитителей"), ("одного подозрительного кролика"), ("полчищ бешеных белок"), ("множества ядовитых змей"), ("бродячих йети"), ("призраков высокорождённых"), ("злобных медведей")]
             EN=random.choice(N)
             embed = discord.Embed(title = "Возле лагеря стало опасно ходить из-за "+EN+f". Можешь что-нибудь с этим сделать, {author.display_name}?", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014573762005434388/unknown.png")
             emb0=discord.Embed(title = "Порой приходиться брать безопасность лагеря в свои руки!\n*Джола Древняя берёт в руки тяжёлую палицу и выходит на охоту!*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014570633033695312/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Устроить охоту'), Button(style = ButtonStyle.green, label = 'Расставить ловушки')], [Button(style = ButtonStyle.red, label = 'Не марать руки'), Button(style = ButtonStyle.blue, label = 'Соврать, что все убиты')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -425,9 +424,9 @@ class enclave(commands.Cog):
             D=[("пожертвовать часть средств сиротским домам Азерота"), ("перевести часть средств в фонд Д.Э.Г.О.Ж."), ("скинуться и купить воздушный шар"), ("скинуться, чтобы отомстить Оззи и его подкрученному игровому автомату"), ("отложить немного денег на подарок Оззи"), ("отложить деньги на капитальный ремонт нашего храма"), ("построить замок из золотых монет"), ("сделать бассейн, наполненный золотыми монетами")]
             DON=random.choice(D)
             embed = discord.Embed(title = "Пока местная знать отдыхает на Дымящихся озёрах, мы решили "+DON+f"! Не хочешь присоединиться, {author.display_name}?", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014574355704971366/unknown.png")
             emb0=discord.Embed(title = f"*{author.display_name} ловит себя на мысли, что не горит желанием расставаться со своими деньгами.*", colour=discord.Colour.random())
-            emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            emb0.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014574824867233792/unknown.png")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Дать 1000 золотых'), Button(style = ButtonStyle.green, label = 'Дать 100 золотых')], [Button(style = ButtonStyle.green, label = 'Дать 10 золотых'), Button(style = ButtonStyle.red, label = 'Рассказать всё Оззи!')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
@@ -463,7 +462,7 @@ class enclave(commands.Cog):
                 await ctx.send(f"*Джола Древняя молча наблюдает, как {author.display_name}, хохоча и выкрикивая 'Всё расскажу, всё расскажу', улетает на гиппогрифе в сторону Дымящихся озёр.*")
         else:
             embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материлизует возле себя стол, наполненный ароматной выпечкой.*", colour=discord.Colour.random())
-            embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
         #смена обстановки
