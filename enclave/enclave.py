@@ -461,7 +461,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
                 await ctx.send(f"*Джола Древняя молча наблюдает, как {author.display_name}, хохоча и выкрикивая 'Всё расскажу, всё расскажу', улетает на гиппогрифе в сторону Дымящихся озёр.*")
         else:
-            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материлизует возле себя стол, наполненный ароматной выпечкой.*", colour=discord.Colour.random())
+            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматной выпечкой.*", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
@@ -5169,14 +5169,14 @@ class enclave(commands.Cog):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=5:
-            return await ctx.send (f"*{author.display_name} материлизует возле себя стол, наполненный различными камнями и угольками.*")
+            return await ctx.send (f"*{author.display_name} материализует возле себя стол, наполненный различными камнями и угольками.*")
         authbal=await bank.get_balance(author)
         cst=400
         if authbal<cst:
             return await ctx.send (f"*{author.display_name} собирается накормить всех вокруг, но обнаруживает что одежда совершенно не подходит для готовки!*")
         await bank.withdraw_credits(author, cst)
         await self.getfood(ctx=ctx, user=author)
-        await ctx.send (f"*{author.display_name} материлизует возле себя стол, наполненный ароматной выпечкой. Любой желающий может угоститься.*")
+        await ctx.send (f"*{author.display_name} материализует возле себя стол, наполненный ароматной выпечкой. Любой желающий может угоститься.*")
 
     @commands.group(name="угоститься", autohelp=False)
     async def угоститься(self, ctx: commands.GuildContext):
