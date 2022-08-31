@@ -119,7 +119,7 @@ class enclave(commands.Cog):
             POS=random.choice(PO)
             embed = discord.Embed(title = POS+f"{author.display_name}?", colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
-            emb0=discord.Embed(title = "*Грязная посуда бунтует!*\nНу и свинство!", colour=discord.Colour.random())
+            emb0=discord.Embed(title = "*Грязная посуда превращается в посудного голема и убегает из лагеря!*", colour=discord.Colour.random())
             emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
@@ -177,7 +177,7 @@ class enclave(commands.Cog):
             CLE=random.choice(CL)
             embed = discord.Embed(title = CLE, colour=discord.Colour.random())
             embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
-            emb0=discord.Embed(title = "Ну и свинство!\n*Джола Древняя принимается за уборку.*", colour=discord.Colour.random())
+            emb0=discord.Embed(title = "Ну и свинство! Сама всё уберу!\n*Джола Древняя принимается за уборку.*", colour=discord.Colour.random())
             emb0.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Прибрать на совесть!'), Button(style = ButtonStyle.green, label = 'Замаскировать бардак')], [Button(style = ButtonStyle.red, label = 'Гордо протопать мимо'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
@@ -523,17 +523,17 @@ class enclave(commands.Cog):
         embed = discord.Embed(title = "ТРЕВОГА! На лагерь напали! @here, к оружию!", description = f"{OGR.display_name} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
         await ctx.send(embed=embed)
         await asyncio.sleep(100)
-        HP=await bank.get_balance(OGR)
-        if HP>0:
+        HPС=await bank.get_balance(OGR)
+        if HPС>0:
             target=random.choice(ctx.message.guild.members)
             while target==JOLA:
                 target=random.choice(ctx.message.guild.members)
             targbal=await bank.get_balance(target)
-            dmg=50
+            dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
             #await bank.withdraw_credits(target, dmg)
-            await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention}, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {HP} здоровья!")
+            await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention}, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
             if ARM not in OGR.roles:
@@ -553,7 +553,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
-                NEEDER = lambda message: message.author
+                NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
                 needbal=await bank.get_balance(NEEDER)
@@ -565,17 +565,17 @@ class enclave(commands.Cog):
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
         await asyncio.sleep(100)
-        HP=await bank.get_balance(OGR)
-        if HP>0:
+        HPС=await bank.get_balance(OGR)
+        if HPС>0:
             target=random.choice(ctx.message.guild.members)
             while target==JOLA:
                 target=random.choice(ctx.message.guild.members)
             targbal=await bank.get_balance(target)
-            dmg=50
+            dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
             #await bank.withdraw_credits(target, dmg)
-            await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {HP} здоровья!")
+            await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
             if ARM not in OGR.roles:
@@ -595,7 +595,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
-                NEEDER = lambda message: message.author
+                NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
                 needbal=await bank.get_balance(NEEDER)
@@ -607,8 +607,8 @@ class enclave(commands.Cog):
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
         await asyncio.sleep(100)
-        HP=await bank.get_balance(OGR)
-        if HP>0:
+        HPС=await bank.get_balance(OGR)
+        if HPС>0:
             target=random.choice(ctx.message.guild.members)
             while target==JOLA:
                 target=random.choice(ctx.message.guild.members)
@@ -616,9 +616,9 @@ class enclave(commands.Cog):
             if admg>0:
                 dmg=targbal//20
             else:
-                dmg=50
-            if targbal<dmg:
-                dmg=targbal
+                dmg=random.randint(50, 150)
+                if targbal<dmg:
+                    dmg=targbal
             #await bank.withdraw_credits(target, dmg)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
@@ -655,7 +655,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
-                NEEDER = lambda message: message.author
+                NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
                 needbal=await bank.get_balance(NEEDER)
@@ -666,20 +666,6 @@ class enclave(commands.Cog):
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
-        
-    @commands.command()
-    async def тест(self, ctx: Context):
-        author = ctx.author
-        embed = discord.Embed(title = "ПОБЕДА!", colour=discord.Colour.green())
-        await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
-        try:
-            responce = await self.bot.wait_for("button_click", timeout=100)
-        except:
-            await msg.edit(embed=embed, components = [])
-        if responce.component.label == 'Забрать добычу!':
-            await responce.edit_origin()
-            #F = lambda message: NEEDER = message.author
-            #await ctx.send(f"{NEEDER.display_name}")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
