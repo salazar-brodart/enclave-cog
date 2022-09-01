@@ -488,6 +488,7 @@ class enclave(commands.Cog):
         max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
         t=random.randint(1, 10) #увеличить до 30-600
         await asyncio.sleep(t)
+        online=[]
         x=random.randint(1, 100)
         if x>85:
             name="Вождь огров"
@@ -498,6 +499,9 @@ class enclave(commands.Cog):
             slw=300
             mut=0
             admg=1
+            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            at=random.randint(1, 3)
         elif x>50:
             name="Огр-маг"
             HP=random.randint(350, 450)
@@ -507,6 +511,9 @@ class enclave(commands.Cog):
             slw=0
             mut=1
             admg=0
+            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            at=random.randint(1, 3)
         elif x>0:
             name="Огр-воин"
             HP=random.randint(200, 300)
@@ -516,23 +523,31 @@ class enclave(commands.Cog):
             slw=0
             mut=0
             admg=0
+            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
+            at=random.randint(1, 3)
         await OGR.edit(nick=name)
         await OGR.add_roles(ARM)
         await bank.set_balance(OGR, HP)
-        embed = discord.Embed(title = "ТРЕВОГА! На лагерь напали! @here, к оружию!", description = f"{OGR.display_name} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
+        embed = discord.Embed(title = f"ТРЕВОГА! {OGR.display_name} напал на лагерь! @here, к оружию!", description = f"{OGR.mention} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
+        embed.set_thumbnail(url=face)
         await ctx.send(embed=embed)
         await asyncio.sleep(100)
+        #первая атака
         HPС=await bank.get_balance(OGR)
         if HPС>0:
-            target=random.choice(ctx.message.guild.members)
-            while target==JOLA:
-                target=random.choice(ctx.message.guild.members)
+            async for mes in ctx.message.channel.history(limit=100,oldest_first=False):
+                if mes.author!=ctx.bot.user and mes.author not in online:
+                    online.append(mes.author)
+            target=random.choice(online)
             targbal=await bank.get_balance(target)
             dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
             #await bank.withdraw_credits(target, dmg)
-            await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention}, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            await ctx.send(file=file)
+            await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
             if ARM not in OGR.roles:
@@ -545,6 +560,7 @@ class enclave(commands.Cog):
                     KILLER=mes.author
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            embed.set_thumbnail(url=loot)
             await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
@@ -564,16 +580,20 @@ class enclave(commands.Cog):
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
         await asyncio.sleep(100)
+        #вторая атака
         HPС=await bank.get_balance(OGR)
         if HPС>0:
-            target=random.choice(ctx.message.guild.members)
-            while target==JOLA:
-                target=random.choice(ctx.message.guild.members)
+            async for mes in ctx.message.channel.history(limit=100,oldest_first=False):
+                if mes.author!=ctx.bot.user and mes.author not in online:
+                    online.append(mes.author)
+            target=random.choice(online)
             targbal=await bank.get_balance(target)
             dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
             #await bank.withdraw_credits(target, dmg)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -587,6 +607,7 @@ class enclave(commands.Cog):
                     KILLER=mes.author
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            embed.set_thumbnail(url=loot)
             await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
@@ -606,19 +627,23 @@ class enclave(commands.Cog):
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
         await asyncio.sleep(100)
+        #последняя атака
         HPС=await bank.get_balance(OGR)
         if HPС>0:
-            target=random.choice(ctx.message.guild.members)
-            while target==JOLA:
-                target=random.choice(ctx.message.guild.members)
+            async for mes in ctx.message.channel.history(limit=100,oldest_first=False):
+                if mes.author!=ctx.bot.user and mes.author not in online:
+                    online.append(mes.author)
+            target=random.choice(online)
             targbal=await bank.get_balance(target)
             if admg>0:
                 dmg=targbal//20
             else:
-                dmg=random.randint(50, 150)
+                dmg=random.randint(100, 200)
                 if targbal<dmg:
                     dmg=targbal
             #await bank.withdraw_credits(target, dmg)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
                 MR=random.choice(NEMS)
@@ -647,6 +672,7 @@ class enclave(commands.Cog):
                     KILLER=mes.author
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
+            embed.set_thumbnail(url=loot)
             await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
