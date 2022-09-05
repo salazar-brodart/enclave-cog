@@ -765,6 +765,8 @@ class enclave(commands.Cog):
     @commands.command()
     async def защитник(self, ctx: Context):
         author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
@@ -774,19 +776,62 @@ class enclave(commands.Cog):
         i=0
         for r in author.roles:
             if r.name.startswith("Квест Защитник"):
-                i=1
+                i=20
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
         async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
             if mes.author==JOLA and SIT.name=="Спокойная обстановка":
-                if mes.content.startswith(f"{author.display_name} 1") or f"{author.display_name} 2" in mes.content:
-                    await ctx.send("Всё норм.")
-                else:
-                    await ctx.send("Не норм.")
+                if mes.content.startswith(f"{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes.content:
+                    while i<23:
+                        for s in ctx.guild.roles and i<23:
+                            if s.name==str(author.id)+str(i):
+                                await s.delete()
+                                await ctx.send("Атака отражена успешно!")
+                                i=23
+                        i+=1
+        C1=DA
+        C2=DA
+        C3=DA
+        sm=""
+        z=3
+        for s in ctx.guild.roles:
+            if s.name==str(author.id)+"20":
+                    C1=NET
+                    z-=1
+            if s.name==str(author.id)+"21":
+                    C2=NET
+                    z-=1
+            if s.name==str(author.id)+"22":
+                    C3=NET
+                    z-=1
+        if z==3:
+            for r in author.roles:
+                if r.name.startswith("Квест Защитник"):
+                    await r.delete()
+            p=100
+            p=await self.buffexp(ctx, author, p)
+            g=700
+            if authbal>(max_bal-g):
+                g=(max_bal-authbal)
+            await bank.deposit_credits(author, g)
+            return await ctx.send(f"{author.display_name} проявляет подлинный героизм, защищая своих товарищей!\n*{author.display_name} получает {p} единиц опыта и увесистый кошелёк с {g} золотыми монетами!*")
+        else:
+            if z==0:
+                sm='целых три атаки'
+            elif z==1:
+                sm='две атаки'
+            else:
+                sm='всего одну атаку'
+            for r in author.roles:
+                if r.name.startswith("Квест Защитник"):
+                    await r.edit(name="Квест Защитник: "+C1+C2+C3)
+            return await ctx.send(f"Я не вижу мёртвых врагов! Тебе ещё предстоит отразить {sm}!")
 
     @commands.command()
     async def эрудит(self, ctx: Context):
         author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
             return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
         NET = '❌'
@@ -794,9 +839,67 @@ class enclave(commands.Cog):
         i=0
         for r in author.roles:
             if r.name.startswith("Квест Эрудит"):
-                i=1
+                i=23
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
+        async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
+            if mes.author==JOLA and mes.content.startswith(f"Мои поздравления, {author.display_name}!"):
+                while i<28:
+                    for s in ctx.guild.roles and i<28:
+                        if s.name==str(author.id)+str(i):
+                            await s.delete()
+                            await ctx.send("Победа учтена!")
+                            i=28
+                    i+=1
+        C1=DA
+        C2=DA
+        C3=DA
+        C4=DA
+        C5=DA
+        sm=""
+        z=5
+        for s in ctx.guild.roles:
+            if s.name==str(author.id)+"23":
+                    C1=NET
+                    z-=1
+            if s.name==str(author.id)+"24":
+                    C2=NET
+                    z-=1
+            if s.name==str(author.id)+"25":
+                    C3=NET
+                    z-=1
+            if s.name==str(author.id)+"26":
+                    C4=NET
+                    z-=1
+            if s.name==str(author.id)+"27":
+                    C5=NET
+                    z-=1
+        if z==5:
+            for r in author.roles:
+                if r.name.startswith("Квест Эрудит"):
+                    await r.delete()
+            p=50
+            p=await self.buffexp(ctx, author, p)
+            g=500
+            if authbal>(max_bal-g):
+                g=(max_bal-authbal)
+            await bank.deposit_credits(author, g)
+            return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами и {p} единиц опыта!*")
+        else:
+            if z==0:
+                sm='целых пять раз'
+            elif z==1:
+                sm='четыре раза'
+            elif z==2:
+                sm='три раза'
+            elif z==3:
+                sm='два раза'
+            else:
+                sm='всего один раз'
+            for r in author.roles:
+                if r.name.startswith("Квест Эрудит"):
+                    await r.edit(name="Квест Эрудит: "+C1+C2+C3+C4+C5)
+            return await ctx.send(f"Нужно победить ещё {sm}! Не расслабляйся!")
 
     @commands.command()
     async def оратор(self, ctx: Context):
@@ -1349,7 +1452,7 @@ class enclave(commands.Cog):
         else:
             for r in author.roles:
                 if r.name.startswith("Квест Ремесло"):
-                    await r.edit(name="Квест Ремесло"+C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12)
+                    await r.edit(name="Квест Ремесло: "+C1+C2+C3+C4+C5+C6+C7+C8+C9+C10+C11+C12)
             return await ctx.send(f"Прогресс квеста составляет: {z}/12. Оставшиеся испытания:"+cl1+cl2+cl3+cl4+cl5+cl6+cl7+cl8+cl9+cl10+cl11+cl12)
 
     @commands.group(name="книга", autohelp=False)
