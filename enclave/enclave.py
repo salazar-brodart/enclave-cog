@@ -70,12 +70,6 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
-    async def тест(self, ctx: Context):
-        author = ctx.author
-        tdy = await self.profiles.data.member(author).today()
-        await ctx.send(str(tdy))
-
-    @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
@@ -467,7 +461,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
                 await ctx.send(f"*Джола Древняя молча наблюдает, как {author.display_name}, хохоча и выкрикивая 'Всё расскажу, всё расскажу', улетает на гиппогрифе в сторону Дымящихся озёр.*")
         else:
-            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматной выпечкой.*", colour=discord.Colour.random())
+            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматной выпечкой.*", color=0xdc7dff)
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
@@ -482,10 +476,80 @@ class enclave(commands.Cog):
                 return await self.ogrotack(ctx=ctx)
         
     async def ogroquest(self, ctx: commands.GuildContext, user: discord.Member):
+        dfns=self.bot.get_emoji(889833858160271370)
+        vikt=self.bot.get_emoji(889833963592503358)
+        spam=self.bot.get_emoji(889833821942460426)
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        await ctx.send(f"Убей всех огров, {user.display_name}.")
-        return
+        embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", colour=discord.Colour.random())
+        embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+        msg = await ctx.send(embed=embed, components=[Select(placeholder="Выбрать квест:", options=[SelectOption(label="Защита лагеря", value="Защита", emoji=dfns), SelectOption(label="Викторина", value="Викторина", emoji=vikt), SelectOption(label="Конкурс ораторов", value="Конкурс", emoji=spam)])])
+        emb0 = discord.Embed(title = '*Перерыв на обед!*')
+        emb0.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+        while True:
+            try:
+                interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=60)
+            except asyncio.TimeoutError:
+                return await msg.edit(embed=emb0, components = [])
+            await interaction.edit_origin()
+            if interaction.values[0] == 'Защита':
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "Анклаву Солнца и Луны необходим защитник!\n\nЦель: отразить три атаки на лагерь.", colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Встать на защиту лагеря'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
+            elif interaction.values[0] == 'Викторина':
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "Джола Древняя в таинственном шатре проводит викторину на знание различных фактов. Самый эрудированный получит особый приз!\n\nЦель: победить в пяти викторинах.", colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Пойти в шатёр'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
+            elif interaction.values[0] == 'Конкурс':
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 100 сообщений за один день.", colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
+            else:
+                return
+            try:
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=60)
+            except asyncio.TimeoutError:
+                return await msg.edit(embed=emb0, components = [])
+            if responce.component.label == 'Встать на защиту лагеря':
+                await responce.edit_origin()
+                for r in author.roles:
+                    if r.name.startswith("Квест Защитник"):
+                        return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
+                QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
+                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.*', colour=discord.Colour.random())
+                await user.add_roles(QST)
+                c=20
+                while c<=22:
+                    await ctx.guild.create_role(name=str(user.id)+str(c))
+                    c+=1
+                return await msg.edit(embed=embed, components=[])
+            elif responce.component.label == 'Пойти в шатёр':
+                await responce.edit_origin()
+                for r in author.roles:
+                    if r.name.startswith("Квест Эрудит"):
+                        return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
+                QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
+                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.*', colour=discord.Colour.random())
+                await user.add_roles(QST)
+                c=23
+                while c<=27:
+                    await ctx.guild.create_role(name=str(user.id)+str(c))
+                    c+=1
+                return await msg.edit(embed=embed, components=[])
+            elif responce.component.label == 'Принять участие':
+                await responce.edit_origin()
+                for r in author.roles:
+                    if r.name.startswith("Квест Оратор"):
+                        return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
+                tdy = await self.profiles.data.member(user).today()
+                QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy), color=discord.Colour(0xA58E8E))
+                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 100 сообщений за один день.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.*', colour=discord.Colour.random())
+                await user.add_roles(QST)
+                return await msg.edit(embed=embed, components=[])
+            else:
+                await responce.edit_origin()
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", colour=discord.Colour.random())
+                await msg.edit(embed=embed, components=[Select(placeholder="Выбрать квест:", options=[SelectOption(label="Защита лагеря", value="Защита", emoji=dfns), SelectOption(label="Викторина", value="Викторина", emoji=vikt), SelectOption(label="Конкурс ораторов", value="Конкурс", emoji=spam)])])
 
     async def ogrotack(self, ctx: commands.GuildContext):
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
@@ -697,6 +761,56 @@ class enclave(commands.Cog):
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
+
+    @commands.command()
+    async def защитник(self, ctx: Context):
+        author=ctx.author
+        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
+        NET = '❌'
+        DA = '✅'
+        i=0
+        for r in author.roles:
+            if r.name.startswith("Квест Защитник"):
+                i=1
+        if i==0:
+            return await ctx.send("У тебя нет такого квеста.")
+        async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
+            if mes.author==JOLA and SIT.name=="Спокойная обстановка":
+                if mes.startswith(f"{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes:
+                    await ctx.send("Всё норм.")
+                else:
+                    await ctx.send("Не норм.")
+
+    @commands.command()
+    async def эрудит(self, ctx: Context):
+        author=ctx.author
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
+        NET = '❌'
+        DA = '✅'
+        i=0
+        for r in author.roles:
+            if r.name.startswith("Квест Эрудит"):
+                i=1
+        if i==0:
+            return await ctx.send("У тебя нет такого квеста.")
+
+    @commands.command()
+    async def оратор(self, ctx: Context):
+        author=ctx.author
+        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
+            return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
+        NET = '❌'
+        DA = '✅'
+        i=0
+        for r in author.roles:
+            if r.name.startswith("Квест Оратор"):
+                i=1
+        if i==0:
+            return await ctx.send("У тебя нет такого квеста.")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
@@ -1094,13 +1208,12 @@ class enclave(commands.Cog):
         R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)#эксперт
         NET = '❌'
         DA = '✅'
-        Q=0
+        i=0
         for r in author.roles:
             if r.name.startswith("Квест Ремесло"):
-                Q=1
-        if Q==0:
+                i=1
+        if i==0:
             return await ctx.send("У тебя нет такого квеста.")
-        i=1
         for H in 0xC79C6E, 0xABD473, 0xFFF569, 0xFF7D0A, 0x0070DE, 0xF58CBA, 0x69CCF0, 0xFFFFFF, 0x9482C9, 0xC41F3B, 0x00FFBA, 0xA330C9:
             for r in author.roles:
                 if r.color==discord.Colour(H):
