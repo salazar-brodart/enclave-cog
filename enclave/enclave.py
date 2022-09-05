@@ -501,7 +501,7 @@ class enclave(commands.Cog):
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Пойти в шатёр'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             elif interaction.values[0] == 'Конкурс':
-                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 100 сообщений за один день.", colour=discord.Colour.random())
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 25 сообщений за один день.", colour=discord.Colour.random())
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             else:
@@ -542,8 +542,8 @@ class enclave(commands.Cog):
                     if r.name.startswith("Квест Оратор"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
                 tdy = await self.profiles.data.member(user).today()
-                QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy), color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 100 сообщений за один день.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.*', colour=discord.Colour.random())
+                QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/25', color=discord.Colour(0xA58E8E))
+                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.*', colour=discord.Colour.random())
                 await user.add_roles(QST)
                 return await msg.edit(embed=embed, components=[])
             else:
@@ -779,7 +779,7 @@ class enclave(commands.Cog):
             return await ctx.send("У тебя нет такого квеста.")
         async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
             if mes.author==JOLA and SIT.name=="Спокойная обстановка":
-                if f"{author.display_name} забирает с тела противника всю добычу" in mes:
+                if mes.content.startswith(f"{author.display_name} 1") or f"{author.display_name} 2" in mes.content:
                     await ctx.send("Всё норм.")
                 else:
                     await ctx.send("Не норм.")
@@ -801,16 +801,31 @@ class enclave(commands.Cog):
     @commands.command()
     async def оратор(self, ctx: Context):
         author=ctx.author
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
             return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
-        NET = '❌'
-        DA = '✅'
         i=0
         for r in author.roles:
             if r.name.startswith("Квест Оратор"):
                 i=1
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
+        tdy = await self.profiles.data.member(author).today()
+        if tdy>=25:
+            for r in author.roles:
+                if r.name.startswith("Квест Оратор"):
+                    await r.delete()
+            g=1000
+            if authbal>(max_bal-g):
+                g=(max_bal-authbal)
+            await bank.deposit_credits(author, g)
+            await ctx.send(f"Победитель в конкурсе ораторского искусства - {author.display_name}! Вот уж кто уболтает любого и избежит наказания за спам! Держи свою награду!\n*{author.display_name} получает медаль и {g} золотых монет!*")
+        else:
+            for r in author.roles:
+                if r.name.startswith("Квест Оратор"):
+                    await r.edit(name='Квест Оратор: '+str(tdy)+'/25')
+            return await ctx.send(f"Нужно ещё поднажать, у тебя {tdy} из 25!")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
