@@ -779,7 +779,7 @@ class enclave(commands.Cog):
             return await ctx.send("У тебя нет такого квеста.")
         async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
             if mes.author==JOLA and SIT.name=="Спокойная обстановка":
-                if mes.startswith(f"{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes:
+                if f"{author.display_name} забирает с тела противника всю добычу" in mes:
                     await ctx.send("Всё норм.")
                 else:
                     await ctx.send("Не норм.")
