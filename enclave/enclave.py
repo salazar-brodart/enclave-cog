@@ -70,6 +70,12 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     @commands.command()
+    async def тест(self, ctx: Context):
+        author = ctx.author
+        tdy = await self.profiles.data.member(author).today()
+        await ctx.send(str(tdy))
+
+    @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
