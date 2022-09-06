@@ -16,8 +16,6 @@ from .enlevel import enlevel
 from discord_components import DiscordComponents, Button, ButtonStyle, Select, SelectOption
 
 class enclave(commands.Cog):
-    global answer
-    answer = lambda s: s
     ANS = [
         ("Боги говорят - да, а Древние Боги говорят - ск'яхф ки'плаф ф'магг."),
         ("Это твёрдо, как мой панцирь!"),
@@ -107,7 +105,6 @@ class enclave(commands.Cog):
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
-        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         x=random.randint(1, 100)
         if x<=15:
             await self.ogroquest(ctx=ctx, user=author)
@@ -125,6 +122,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Отмыть с энтузиазмом!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -183,6 +181,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Прибрать на совесть!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -241,6 +240,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Поспешить на помощь!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -293,6 +293,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Добыть всё нужное':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -337,6 +338,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Купить (-200 золотых)':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -385,6 +387,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Устроить охоту':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -432,6 +435,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
             except asyncio.TimeoutError:
                 await msg.edit(embed=emb0, components = [])
+                return await self.action(ctx=ctx)
             if responce.component.label == 'Дать 1000 золотых':
                 await responce.edit_origin()
                 if authbal<1000:
@@ -465,16 +469,20 @@ class enclave(commands.Cog):
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
-        #смена обстановки
+            return await self.action(ctx=ctx)
+        return await self.action(ctx=ctx)
+
+    async def action(self, ctx: commands.GuildContext):
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         if SIT.name=="Готовится атака на лагерь":
             return
         else:
-            S=[("Спокойная обстановка"), ("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            S=[("Тучи сгущаются"), ("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
             await SIT.edit(name=SI)
             if SIT.name=="Готовится атака на лагерь":
                 return await self.ogrotack(ctx=ctx)
-        
+
     async def ogroquest(self, ctx: commands.GuildContext, user: discord.Member):
         dfns=self.bot.get_emoji(889833858160271370)
         vikt=self.bot.get_emoji(889833963592503358)
@@ -614,9 +622,9 @@ class enclave(commands.Cog):
             dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
-            #await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
-            await ctx.send(file=file)
+            await bank.withdraw_credits(target, dmg)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            #await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -636,6 +644,8 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
                 await msg.edit(embed=embed, components = [])
+                await SIT.edit(name="Спокойная обстановка")
+                return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 NEEDER = responce.user
@@ -661,9 +671,9 @@ class enclave(commands.Cog):
             dmg=random.randint(50, 100)
             if targbal<dmg:
                 dmg=targbal
-            #await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
-            await ctx.send(file=file)
+            await bank.withdraw_credits(target, dmg)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            #await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -683,6 +693,8 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
                 await msg.edit(embed=embed, components = [])
+                await SIT.edit(name="Спокойная обстановка")
+                return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 NEEDER = responce.user
@@ -711,9 +723,9 @@ class enclave(commands.Cog):
                 dmg=random.randint(100, 200)
                 if targbal<dmg:
                     dmg=targbal
-            #await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
-            await ctx.send(file=file)
+            await bank.withdraw_credits(target, dmg)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            #await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
                 MR=random.choice(NEMS)
@@ -748,6 +760,8 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
                 await msg.edit(embed=embed, components = [])
+                await SIT.edit(name="Спокойная обстановка")
+                return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 NEEDER = responce.user
@@ -787,6 +801,7 @@ class enclave(commands.Cog):
                             if s.name==str(author.id)+str(i):
                                 await s.delete()
                                 await ctx.send("Атака отражена успешно!")
+                                await self.action(ctx=ctx)
                                 i=23
                         i+=1
         C1=DA
@@ -2770,7 +2785,6 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(target, g)
                 m1=f"*{target.display_name} оказывается первее остальных и принимает дар богов.\n{target.mention} получает {g} монет из чистого золота!*"
             else:
-                g-=x1
                 if targbal<g:
                     g=targbal
                 await bank.withdraw_credits(target, g)
@@ -2805,7 +2819,6 @@ class enclave(commands.Cog):
             msg2.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/972691648398102648/asp.jpg")
             return await msg.edit(embed=msg2)
         elif ANN==DB:
-            g-=x1
             if authbal<g:
                 g=authbal
             if DB=="К'Туна":
@@ -2819,7 +2832,6 @@ class enclave(commands.Cog):
                 await bank.withdraw_credits(author, g)
             elif DB=="Н'Зота" and x>80 and GIFT not in author.roles:
                 m3=f"*{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nСохранив самообладание, {author.display_name} слышит голос, шепчущий из тьмы.\n{author.display_name} получает эффект Дар {DB}.*"
-                #interactions
                 await self.zadd(who=author, give=GIFT)
             else:
                 m3=f"*{author.display_name} смотрит на тысячу глаз, открывшихся в темноте.\nМоргнув, {author.mention} теряет страшное видение и {g} золотых монет.*"
@@ -4215,11 +4227,6 @@ class enclave(commands.Cog):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         if BAF not in author.roles:
             return await ctx.send (f"*{author.display_name} пытается грезит наяву, но ничего не выходит.*")
-#        cur_time = calendar.timegm(ctx.message.created_at.utctimetuple())
-#        next_payday = await self.config.user(author).next_payday()
-#        if cur_time < next_payday:
-#            dtime = self.display_time(next_payday - cur_time)
-#            return await ctx.send(f"На сегодня достаточно. Следующий раз будет через {dtime}")
         amount=random.randint(50, 60)
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
@@ -4227,8 +4234,6 @@ class enclave(commands.Cog):
             amount=(max_bal-authbal)
         await bank.deposit_credits(author, amount)
         xp=await self.buffexp(ctx, author, 10)
-#        next_payday = cur_time + await self.config.PAYDAY_TIME()
-#        await self.config.user(author).next_payday.set(next_payday)
         await ctx.send(f"*Пребывая в Изумрудном сне, {author.display_name} наблюдает пророческое видение. Полезное знание позволяет усилиться на {amount} золотых монет и стать опытнее на {xp} единиц.*")
 
     @commands.command()
@@ -4974,11 +4979,6 @@ class enclave(commands.Cog):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         if BAF not in author.roles:
             return await ctx.send (f"*Нужно добиться большего единения с Бездной, чтобы призвать её в наш мир.*")
-#        cur_time = calendar.timegm(ctx.message.created_at.utctimetuple())
-#        next_payday = await self.config.user(author).next_payday()
-#        if cur_time < next_payday:
-#            dtime = self.display_time(next_payday - cur_time)
-#            return await ctx.send(f"Окружающему миру нужно восстановиться. Следующий прорыв Бездны возможен через {dtime}")
         amount=random.randint(190, 210)
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
@@ -4986,8 +4986,6 @@ class enclave(commands.Cog):
             amount=(max_bal-authbal)
         await bank.deposit_credits(author, amount)
         xp=await self.buffexp(ctx, author, -15)
-#        next_payday = cur_time + await self.config.PAYDAY_TIME()
-#        await self.config.user(author).next_payday.set(next_payday)
         await ctx.send(f"*{author.display_name} взывает к Бездне, теряя {xp} единиц опыта. Несколько тёмных щупалец прорывают реальность и высасывают энергию из окружающего мира на {amount} золотых монет.*")
 
     @commands.command()
@@ -5664,7 +5662,6 @@ class enclave(commands.Cog):
             return await ctx.send (f"*{user.display_name} источает слишком много жизненной силы.")
         await bank.withdraw_credits(author, cst)
         await ctx.send(f"*{author.display_name} призывает некротические энергии, чтобы умертвить и переродить {user.display_name} в качестве прислужника.*")
-#        await self.delarm(ctx=ctx, user=user)
         await ctx.send(f"*{user.display_name} теперь {user.mention}.*")
         await user.edit(reason=get_audit_reason(ctx.author, None), nick="💀 Живая мертвечина")
         await self.getarm(user=user, role=ARM)
