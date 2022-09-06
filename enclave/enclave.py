@@ -648,6 +648,7 @@ class enclave(commands.Cog):
                 return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
                 NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
@@ -697,6 +698,7 @@ class enclave(commands.Cog):
                 return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
                 NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
@@ -764,6 +766,7 @@ class enclave(commands.Cog):
                 return await ARM.delete()
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
+                await msg.edit(embed=embed, components = [])
                 NEEDER = responce.user
                 if KILLER is None:
                     KILLER = NEEDER
