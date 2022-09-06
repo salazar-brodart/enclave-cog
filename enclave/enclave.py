@@ -610,7 +610,7 @@ class enclave(commands.Cog):
         embed = discord.Embed(title = f"ТРЕВОГА! {OGR.display_name} напал на лагерь! @here, к оружию!", description = f"{OGR.mention} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
         embed.set_thumbnail(url=face)
         await ctx.send(embed=embed)
-        await asyncio.sleep(100)
+        await asyncio.sleep(90)
         #первая атака
         HPС=await bank.get_balance(OGR)
         if HPС>0:
@@ -639,7 +639,7 @@ class enclave(commands.Cog):
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
             embed.set_thumbnail(url=loot)
-            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
@@ -689,7 +689,7 @@ class enclave(commands.Cog):
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
             embed.set_thumbnail(url=loot)
-            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
@@ -710,7 +710,7 @@ class enclave(commands.Cog):
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
             await SIT.edit(name="Спокойная обстановка")
             return await ARM.delete()
-        await asyncio.sleep(100)
+        await asyncio.sleep(110)
         #последняя атака
         HPС=await bank.get_balance(OGR)
         if HPС>0:
@@ -757,7 +757,7 @@ class enclave(commands.Cog):
                     t=0
             embed = discord.Embed(title = "ПОБЕДА!", description = f"{name}"+HEX+" повержен!", colour=discord.Colour.green())
             embed.set_thumbnail(url=loot)
-            await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
+            msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Забрать добычу!')])
             try:
                 responce = await self.bot.wait_for("button_click", timeout=100)
             except:
