@@ -524,7 +524,7 @@ class enclave(commands.Cog):
                     if r.name.startswith("Квест Защитник"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.*', colour=discord.Colour.random())
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.', colour=discord.Colour.random())
                 await user.add_roles(QST)
                 c=20
                 while c<=22:
@@ -537,7 +537,7 @@ class enclave(commands.Cog):
                     if r.name.startswith("Квест Эрудит"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.*', colour=discord.Colour.random())
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.', colour=discord.Colour.random())
                 await user.add_roles(QST)
                 c=23
                 while c<=27:
@@ -551,7 +551,7 @@ class enclave(commands.Cog):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
                 tdy = await self.profiles.data.member(user).today()
                 QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/25', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'*{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.*', colour=discord.Colour.random())
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.', colour=discord.Colour.random())
                 await user.add_roles(QST)
                 return await msg.edit(embed=embed, components=[])
             else:
@@ -800,8 +800,8 @@ class enclave(commands.Cog):
             if mes.author==JOLA and SIT.name=="Спокойная обстановка":
                 if mes.content.startswith(f"{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes.content:
                     while i<23:
-                        for s in ctx.guild.roles and i<23:
-                            if s.name==str(author.id)+str(i):
+                        for s in ctx.guild.roles:
+                            if s.name==str(author.id)+str(i) and i<23:
                                 await s.delete()
                                 await ctx.send("Атака отражена успешно!")
                                 await self.action(ctx=ctx)
@@ -864,8 +864,8 @@ class enclave(commands.Cog):
         async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
             if mes.author==JOLA and mes.content.startswith(f"Мои поздравления, {author.display_name}!"):
                 while i<28:
-                    for s in ctx.guild.roles and i<28:
-                        if s.name==str(author.id)+str(i):
+                    for s in ctx.guild.roles:
+                        if s.name==str(author.id)+str(i) and i<28:
                             await s.delete()
                             await ctx.send("Победа учтена!")
                             i=28
