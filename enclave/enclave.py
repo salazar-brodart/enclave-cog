@@ -520,7 +520,7 @@ class enclave(commands.Cog):
                 return await msg.edit(embed=emb0, components = [])
             if responce.component.label == 'Встать на защиту лагеря':
                 await responce.edit_origin()
-                for r in author.roles:
+                for r in user.roles:
                     if r.name.startswith("Квест Защитник"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
@@ -533,7 +533,7 @@ class enclave(commands.Cog):
                 return await msg.edit(embed=embed, components=[])
             elif responce.component.label == 'Пойти в шатёр':
                 await responce.edit_origin()
-                for r in author.roles:
+                for r in user.roles:
                     if r.name.startswith("Квест Эрудит"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
@@ -546,7 +546,7 @@ class enclave(commands.Cog):
                 return await msg.edit(embed=embed, components=[])
             elif responce.component.label == 'Принять участие':
                 await responce.edit_origin()
-                for r in author.roles:
+                for r in user.roles:
                     if r.name.startswith("Квест Оратор"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
                 tdy = await self.profiles.data.member(user).today()
