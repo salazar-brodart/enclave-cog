@@ -798,7 +798,7 @@ class enclave(commands.Cog):
             return await ctx.send("У тебя нет такого квеста.")
         async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
             if mes.author==JOLA and SIT.name=="Спокойная обстановка":
-                if mes.content.startswith(f"{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes.content:
+                if mes.content.startswith(f"*{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes.content:
                     while i<23:
                         for s in ctx.guild.roles:
                             if s.name==str(author.id)+str(i) and i<23:
@@ -862,7 +862,7 @@ class enclave(commands.Cog):
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
         async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
-            if mes.author==JOLA and mes.content.startswith(f"Мои поздравления, {author.display_name}!"):
+            if mes.author==JOLA and mes.content.startswith(f"Мои поздравления, **{author.display_name}**!"):
                 while i<28:
                     for s in ctx.guild.roles:
                         if s.name==str(author.id)+str(i) and i<28:
