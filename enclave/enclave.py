@@ -567,10 +567,10 @@ class enclave(commands.Cog):
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
-        t=random.randint(60, 600)
+        t=random.randint(6, 7)
         await asyncio.sleep(t)
         online=[]
-        x=random.randint(1, 100)
+        x=random.randint(51, 85)
         if x>85:
             name="Вождь огров"
             HP=random.randint(550, 650)
@@ -626,8 +626,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
-            await ctx.send(file=file)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            #await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -676,8 +676,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
-            await ctx.send(file=file)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            #await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -729,8 +729,8 @@ class enclave(commands.Cog):
                 if targbal<dmg:
                     dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
-            await ctx.send(file=file)
+            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            #await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
                 MR=random.choice(NEMS)
