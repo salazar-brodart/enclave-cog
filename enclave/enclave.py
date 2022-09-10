@@ -610,7 +610,7 @@ class enclave(commands.Cog):
         await OGR.edit(nick=name)
         await OGR.add_roles(ARM)
         await bank.set_balance(OGR, HP)
-        embed = discord.Embed(title = f"ТРЕВОГА! {OGR.display_name} напал на лагерь! @here, к оружию!", description = f"{OGR.mention} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
+        embed = discord.Embed(title = f"ТРЕВОГА! {name} напал на лагерь! @here, к оружию!", description = f"{OGR.mention} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
         embed.set_thumbnail(url=face)
         await ctx.send(embed=embed)
         await asyncio.sleep(90)
