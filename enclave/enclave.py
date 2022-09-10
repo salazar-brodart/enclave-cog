@@ -90,16 +90,16 @@ class enclave(commands.Cog):
             await ctx.send("Вы слишком устали. Съешьте ещё этих мягких сурамарских манабулок, да выпейте маначаю.")
 
     @commands.command()
-    @commands.cooldown(1, 60, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def обстановка(self, ctx: Context):
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         return await ctx.send(f"{SIT.name}.")
 
     @commands.command()
-#    @commands.cooldown(2, 43200, commands.BucketType.user)
+    @commands.cooldown(3, 43200, commands.BucketType.user)
     async def поручение(self, ctx: Context):
-#        if ctx.message.channel.id != 603151774009786393:
-#            return await ctx.send("Тут квестов нет! Поищи в другом месте.")
+        #if ctx.message.channel.id != 603151774009786393:
+        #    return await ctx.send("Тут квестов нет! Поищи в другом месте.")
         author=ctx.author
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
@@ -470,7 +470,7 @@ class enclave(commands.Cog):
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
             return await self.action(ctx=ctx)
-        return await self.action(ctx=ctx)
+        return await self.ogrotack(ctx=ctx)
 
     async def action(self, ctx: commands.GuildContext):
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
@@ -525,6 +525,7 @@ class enclave(commands.Cog):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.', colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
                 await user.add_roles(QST)
                 c=20
                 while c<=22:
@@ -538,6 +539,7 @@ class enclave(commands.Cog):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.', colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
                 await user.add_roles(QST)
                 c=23
                 while c<=27:
@@ -552,6 +554,7 @@ class enclave(commands.Cog):
                 tdy = await self.profiles.data.member(user).today()
                 QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/25', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.', colour=discord.Colour.random())
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
                 await user.add_roles(QST)
                 return await msg.edit(embed=embed, components=[])
             else:
@@ -564,7 +567,7 @@ class enclave(commands.Cog):
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
-        t=random.randint(1, 10) #увеличить до 30-600
+        t=random.randint(60, 600)
         await asyncio.sleep(t)
         online=[]
         x=random.randint(1, 100)
@@ -623,8 +626,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -673,8 +676,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -726,13 +729,13 @@ class enclave(commands.Cog):
                 if targbal<dmg:
                     dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
                 MR=random.choice(NEMS)
                 MRZ=discord.utils.get(ctx.guild.roles, id=MR)
-                #await target.add_roles(MRZ)
+                await target.add_roles(MRZ)
                 M=f', а напоследок накладывает мерзкое заклинание {MRZ.name}'
             else:
                 M=''
