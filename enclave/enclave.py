@@ -98,8 +98,8 @@ class enclave(commands.Cog):
     @commands.command()
     @commands.cooldown(3, 43200, commands.BucketType.user)
     async def поручение(self, ctx: Context):
-        #if ctx.message.channel.id != 603151774009786393:
-        #    return await ctx.send("Тут квестов нет! Поищи в другом месте.")
+        if ctx.message.channel.id != 603151774009786393:
+            return await ctx.send("Тут квестов нет! Поищи в другом месте.")
         author=ctx.author
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
@@ -470,7 +470,7 @@ class enclave(commands.Cog):
             await self.getfood(ctx=ctx, user=JOLA)
             await ctx.send(embed=embed)
             return await self.action(ctx=ctx)
-        return await self.ogrotack(ctx=ctx)
+        return await self.action(ctx=ctx)
 
     async def action(self, ctx: commands.GuildContext):
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
@@ -484,13 +484,13 @@ class enclave(commands.Cog):
                 return await self.ogrotack(ctx=ctx)
 
     async def ogroquest(self, ctx: commands.GuildContext, user: discord.Member):
-        dfns=self.bot.get_emoji(889833858160271370)
-        vikt=self.bot.get_emoji(889833963592503358)
-        spam=self.bot.get_emoji(889833821942460426)
+        dfns=self.bot.get_emoji(620973876456980490)
+        vikt=self.bot.get_emoji(625192051042156565)
+        spam=self.bot.get_emoji(606134527034916874)
         OGR=discord.utils.get(ctx.guild.members, id=991900847783039026)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", colour=discord.Colour.random())
-        embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1018139866808197210/unknown.png")
         msg = await ctx.send(embed=embed, components=[Select(placeholder="Выбрать квест:", options=[SelectOption(label="Защита лагеря", value="Защита", emoji=dfns), SelectOption(label="Викторина", value="Викторина", emoji=vikt), SelectOption(label="Конкурс ораторов", value="Конкурс", emoji=spam)])])
         emb0 = discord.Embed(title = '*Перерыв на обед!*')
         emb0.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
@@ -502,15 +502,15 @@ class enclave(commands.Cog):
             await interaction.edit_origin()
             if interaction.values[0] == 'Защита':
                 embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "Анклаву Солнца и Луны необходим защитник!\n\nЦель: отразить три атаки на лагерь.", colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620973876456980490.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Встать на защиту лагеря'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             elif interaction.values[0] == 'Викторина':
                 embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "Джола Древняя в таинственном шатре проводит викторину на знание различных фактов. Самый эрудированный получит особый приз!\n\nЦель: победить в пяти викторинах.", colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/625192051042156565.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Пойти в шатёр'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             elif interaction.values[0] == 'Конкурс':
                 embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 25 сообщений за один день.", colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/606134527034916874.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             else:
                 return
@@ -525,7 +525,7 @@ class enclave(commands.Cog):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.', colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620973876456980490.png")
                 await user.add_roles(QST)
                 c=20
                 while c<=22:
@@ -539,7 +539,7 @@ class enclave(commands.Cog):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.', colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/625192051042156565.png")
                 await user.add_roles(QST)
                 c=23
                 while c<=27:
@@ -554,7 +554,7 @@ class enclave(commands.Cog):
                 tdy = await self.profiles.data.member(user).today()
                 QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/25', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.', colour=discord.Colour.random())
-                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+                embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/606134527034916874.png")
                 await user.add_roles(QST)
                 return await msg.edit(embed=embed, components=[])
             else:
@@ -567,10 +567,11 @@ class enclave(commands.Cog):
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
-        t=random.randint(6, 7)
+        t=random.randint(60, 600)
         await asyncio.sleep(t)
         online=[]
-        x=random.randint(51, 85)
+        x=random.randint(1, 100)
+        lootogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018178253288120400/loot_2.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018178253850152970/loot_3.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018178254416380005/loot.jpg")]
         if x>85:
             name="Вождь огров"
             HP=random.randint(550, 650)
@@ -580,9 +581,10 @@ class enclave(commands.Cog):
             slw=300
             mut=0
             admg=1
-            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            at=random.randint(1, 3)
+            faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018179673559158845/lord_1.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179673789833346/lord_1.png"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179674041483365/lord_1.webp"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179674267996210/lord_2.jpg")]
+            face=random.choice(faceogr)
+            loot=random.choice(lootogr)
+            at=random.randint(1, 4)
         elif x>50:
             name="Огр-маг"
             HP=random.randint(350, 450)
@@ -592,9 +594,10 @@ class enclave(commands.Cog):
             slw=0
             mut=1
             admg=0
-            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            at=random.randint(1, 3)
+            faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018196988266827806/6_-_mage.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018196987826409472/5_-_mage.jpg")]
+            face=random.choice(faceogr)
+            loot=random.choice(lootogr)
+            at=random.randint(8, 11)
         elif x>0:
             name="Огр-воин"
             HP=random.randint(200, 300)
@@ -604,13 +607,14 @@ class enclave(commands.Cog):
             slw=0
             mut=0
             admg=0
-            face="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            loot="https://cdn.discordapp.com/attachments/921279850956877834/1014563911019802664/unknown.png"
-            at=random.randint(1, 3)
+            faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018180027197698109/war_2.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180026774061178/war_1.png"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180026442723478/war_1.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180025935216670/war_2.png")]
+            face=random.choice(faceogr)
+            loot=random.choice(lootogr)
+            at=random.randint(4, 7)
         await OGR.edit(nick=name)
         await OGR.add_roles(ARM)
         await bank.set_balance(OGR, HP)
-        embed = discord.Embed(title = f"ТРЕВОГА! {name} напал на лагерь! @here, к оружию!", description = f"{OGR.mention} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
+        embed = discord.Embed(title = f"ТРЕВОГА! {name} напал на лагерь! @here, к оружию!", description = f"{name} проник на территорию Анклава Солнца и Луны и угрожает его жителям!\nСостояние его здоровья можно оценить в {HP} монет, а защищает его {ARM.name}!\nНужно срочно дать ему отпор!", colour=discord.Colour.red())
         embed.set_thumbnail(url=face)
         await ctx.send(embed=embed)
         await asyncio.sleep(90)
@@ -626,8 +630,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -676,8 +680,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
             HEX=''
@@ -729,8 +733,8 @@ class enclave(commands.Cog):
                 if targbal<dmg:
                     dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            #file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
-            #await ctx.send(file=file)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
                 MR=random.choice(NEMS)
