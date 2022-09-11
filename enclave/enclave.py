@@ -584,7 +584,7 @@ class enclave(commands.Cog):
             faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018179673559158845/lord_1.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179673789833346/lord_1.png"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179674041483365/lord_1.webp"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018179674267996210/lord_2.jpg")]
             face=random.choice(faceogr)
             loot=random.choice(lootogr)
-            at=random.randint(1, 4)
+            at=[1, 2, 3, 4]
         elif x>50:
             name="Огр-маг"
             HP=random.randint(350, 450)
@@ -597,7 +597,7 @@ class enclave(commands.Cog):
             faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018196988266827806/6_-_mage.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018196987826409472/5_-_mage.jpg")]
             face=random.choice(faceogr)
             loot=random.choice(lootogr)
-            at=random.randint(8, 11)
+            at=[8, 9, 10, 11]
         elif x>0:
             name="Огр-воин"
             HP=random.randint(200, 300)
@@ -610,7 +610,7 @@ class enclave(commands.Cog):
             faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018180027197698109/war_2.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180026774061178/war_1.png"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180026442723478/war_1.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018180025935216670/war_2.png")]
             face=random.choice(faceogr)
             loot=random.choice(lootogr)
-            at=random.randint(4, 7)
+            at=[4, 5, 6, 7]
         await OGR.edit(nick=name)
         await OGR.add_roles(ARM)
         await bank.set_balance(OGR, HP)
@@ -630,7 +630,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="First.jpg")
+            att=random.choice(at)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="First.jpg")
             await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} с размаху бьёт {target.mention} в живот, заставляя потерять {dmg} золотых монет!*\n\nВсем срочно атаковать врага! У него ещё осталось {(100*HPС)//HP}% здоровья!")
         else:
@@ -680,7 +681,8 @@ class enclave(commands.Cog):
             if targbal<dmg:
                 dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Second.jpg")
+            att=random.choice(at)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="Second.jpg")
             await ctx.send(file=file)
             await ctx.send(f"*{OGR.display_name} лупит {target.mention}, выбивая зубы и {dmg} золотых монет!*\n\nЭто наш последний шанс! Все в атаку! Осталось добить {(100*HPС)//HP}% здоровья!")
         else:
@@ -733,7 +735,8 @@ class enclave(commands.Cog):
                 if targbal<dmg:
                     dmg=targbal
             await bank.withdraw_credits(target, dmg)
-            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(at)+".jpg", filename="Last.jpg")
+            att=random.choice(at)
+            file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="Last.jpg")
             await ctx.send(file=file)
             if mut>0:
                 NEMS=[(687886232336072741), (687889161046327364), (685725960368160787), (687897801836724235), (687902497137885214), (687899619392225320), (687894891237605376)]
