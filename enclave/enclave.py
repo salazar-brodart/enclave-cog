@@ -861,8 +861,6 @@ class enclave(commands.Cog):
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
-        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
-            return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
         NET = '❌'
         DA = '✅'
         i=0
