@@ -398,7 +398,7 @@ class rutriviaSession:
             await bank.deposit_credits(author, g)
             return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами и {p} единиц опыта!*")
         else:
-            elif z==1:
+            if z==1:
                 sm='четыре раза'
             elif z==2:
                 sm='три раза'
