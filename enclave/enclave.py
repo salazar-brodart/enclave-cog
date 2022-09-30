@@ -3,6 +3,7 @@ import random
 import time
 import discord
 from math import ceil
+from discord.ext import tasks
 from discord.utils import get
 from redbot.core import commands, bank, Config
 from redbot.core.bot import Red
@@ -66,6 +67,24 @@ class enclave(commands.Cog):
         self.profiles = UserProfile()
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
+
+    @tasks.loop(hours=3)
+    async def task_action(self, ctx: commands.GuildContext):
+        await self.action(ctx=ctx)
+
+    @task_action.before_loop
+    async def task_action(self):
+        await self.bot.wait_until_ready()
+
+    @commands.command()
+    async def test(self, ctx: Context):
+        x=random.randint(1, 2)
+        if x==1:
+            await ctx.send("1")
+            return
+        else:
+            await ctx.send("2")
+            return await self.test(ctx=ctx)
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
@@ -480,6 +499,8 @@ class enclave(commands.Cog):
             S=[("Тучи сгущаются"), ("Обстановка накаляется"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Равновесие нарушено"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
             SI=random.choice(S)
             await SIT.edit(name=SI)
+            embed = discord.Embed(title = "Разведка докладывает:", description = f"{SIT.name}!", colour=discord.Colour.random())
+            await ctx.send(embed=embed)
             if SIT.name=="Готовится атака на лагерь":
                 return await self.ogrotack(ctx=ctx)
 
@@ -509,7 +530,7 @@ class enclave(commands.Cog):
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/625192051042156565.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Пойти в шатёр'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             elif interaction.values[0] == 'Конкурс':
-                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 25 сообщений за один день.", colour=discord.Colour.random())
+                embed = discord.Embed(title=f"{user.display_name} подходит к доске объявлений, чтобы найти себе работу.", description = "В Анклаве Солнца и Луны проходит конкурс ораторского искусства.\n\nЦель: Отправить 50 сообщений за один день.", colour=discord.Colour.random())
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/606134527034916874.png")
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие'), Button(style = ButtonStyle.red, label = 'Вернуться к объявлениям.')]])
             else:
@@ -524,7 +545,7 @@ class enclave(commands.Cog):
                     if r.name.startswith("Квест Защитник"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: Спокойная обстановка в лагере.\n\nПосле каждой отраженной атаки с упоминанием твоего участия - используй команду `=защитник`.', colour=discord.Colour.random())
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: получить добычу или опыт от убийства противника.', colour=discord.Colour.random())
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/620973876456980490.png")
                 await user.add_roles(QST)
                 c=20
@@ -538,7 +559,7 @@ class enclave(commands.Cog):
                     if r.name.startswith("Квест Эрудит"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.\n\nИспользуй команду `=эрудит` после каждой победы в викторине __незамедлительно__.', colour=discord.Colour.random())
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.', colour=discord.Colour.random())
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/625192051042156565.png")
                 await user.add_roles(QST)
                 c=23
@@ -551,9 +572,10 @@ class enclave(commands.Cog):
                 for r in user.roles:
                     if r.name.startswith("Квест Оратор"):
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
+                await self.data.member(user).today.set(0)
                 tdy = await self.profiles.data.member(user).today()
-                QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/25', color=discord.Colour(0xA58E8E))
-                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 25 сообщений за один день.\nОбязательное условие: сообщения должны приносить опыт.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.', colour=discord.Colour.random())
+                QST=await ctx.guild.create_role(name='Квест Оратор: '+str(tdy)+'/50', color=discord.Colour(0xA58E8E))
+                embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: Отправить 50 сообщений за один день.\n\nКогда будет готово, или чтобы проверить прогресс, отправь команду `=оратор`.', colour=discord.Colour.random())
                 embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/606134527034916874.png")
                 await user.add_roles(QST)
                 return await msg.edit(embed=embed, components=[])
@@ -576,7 +598,7 @@ class enclave(commands.Cog):
             name="Вождь огров"
             HP=random.randint(550, 850)
             ARM=await ctx.guild.create_role(name="🛡️: Непробиваемая броня", color=discord.Colour(0xc79c6e))
-            g=random.randint(450, 950)
+            g=random.randint(650, 950)
             p=random.randint(45, 55)
             slw=300
             mut=0
@@ -589,11 +611,11 @@ class enclave(commands.Cog):
             name="Огр-маг"
             HP=random.randint(350, 650)
             ARM=await ctx.guild.create_role(name="🛡️: Магический щит", color=discord.Colour(0x69ccf0))
-            g=random.randint(350, 450)
+            g=random.randint(450, 750)
             p=random.randint(35, 45)
             slw=0
             mut=1
-            admg=0
+            admg=1
             faceogr=[("https://cdn.discordapp.com/attachments/921279850956877834/1018196988266827806/6_-_mage.jpg"), ("https://cdn.discordapp.com/attachments/921279850956877834/1018196987826409472/5_-_mage.jpg")]
             face=random.choice(faceogr)
             loot=random.choice(lootogr)
@@ -602,7 +624,7 @@ class enclave(commands.Cog):
             name="Огр-воин"
             HP=random.randint(200, 300)
             ARM=await ctx.guild.create_role(name="🛡️: Кожаная броня", color=discord.Colour(0xfff569))
-            g=random.randint(250, 350)
+            g=random.randint(300, 400)
             p=random.randint(25, 35)
             slw=0
             mut=0
@@ -626,9 +648,14 @@ class enclave(commands.Cog):
                     online.append(mes.author)
             target=random.choice(online)
             targbal=await bank.get_balance(target)
-            dmg=random.randint(50, 100)
-            if targbal<dmg:
-                dmg=targbal
+            if admg>0:
+                dmg=random.randint(100, 200)+targbal//20
+                if targbal<dmg:
+                    dmg=targbal
+            else:
+                dmg=random.randint(100, 500)
+                if targbal<dmg:
+                    dmg=targbal
             await bank.withdraw_credits(target, dmg)
             att=random.choice(at)
             file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="First.jpg")
@@ -666,8 +693,17 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(NEEDER, g)
                 p=await self.buffexp(ctx, KILLER, p)
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
-            await SIT.edit(name="Спокойная обстановка")
-            return await ARM.delete()
+            await ARM.delete()
+            await self.defender(ctx=ctx, user=KILLER)
+            if KILLER!=NEEDER:
+                await self.defender(ctx=ctx, user=NEEDER)
+            S=[("Тучи сгущаются"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            SI=random.choice(S)
+            await SIT.edit(name=SI)
+            if SIT.name=="Готовится атака на лагерь":
+                await ctx.send("Неподалёку замечен ещё один противник! Не расслабляться!")
+                return await self.ogrotack(ctx=ctx)
+            return
         await asyncio.sleep(100)
         #вторая атака
         HPС=await bank.get_balance(OGR)
@@ -677,9 +713,14 @@ class enclave(commands.Cog):
                     online.append(mes.author)
             target=random.choice(online)
             targbal=await bank.get_balance(target)
-            dmg=random.randint(50, 100)
-            if targbal<dmg:
-                dmg=targbal
+            if admg>0:
+                dmg=random.randint(100, 200)+targbal//10
+                if targbal<dmg:
+                    dmg=targbal
+            else:
+                dmg=random.randint(100, 500)
+                if targbal<dmg:
+                    dmg=targbal
             await bank.withdraw_credits(target, dmg)
             att=random.choice(at)
             file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="Second.jpg")
@@ -717,8 +758,17 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(NEEDER, g)
                 p=await self.buffexp(ctx, KILLER, p)
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
-            await SIT.edit(name="Спокойная обстановка")
-            return await ARM.delete()
+            await ARM.delete()
+            await self.defender(ctx=ctx, user=KILLER)
+            if KILLER!=NEEDER:
+                await self.defender(ctx=ctx, user=NEEDER)
+            S=[("Тучи сгущаются"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            SI=random.choice(S)
+            await SIT.edit(name=SI)
+            if SIT.name=="Готовится атака на лагерь":
+                await ctx.send("Неподалёку замечен ещё один противник! Не расслабляться!")
+                return await self.ogrotack(ctx=ctx)
+            return
         await asyncio.sleep(110)
         #последняя атака
         HPС=await bank.get_balance(OGR)
@@ -729,9 +779,11 @@ class enclave(commands.Cog):
             target=random.choice(online)
             targbal=await bank.get_balance(target)
             if admg>0:
-                dmg=targbal//20
+                dmg=random.randint(100, 200)+targbal//5
+                if targbal<dmg:
+                    dmg=targbal
             else:
-                dmg=random.randint(100, 200)
+                dmg=random.randint(100, 500)
                 if targbal<dmg:
                     dmg=targbal
             await bank.withdraw_credits(target, dmg)
@@ -786,18 +838,23 @@ class enclave(commands.Cog):
                 await bank.deposit_credits(NEEDER, g)
                 p=await self.buffexp(ctx, KILLER, p)
                 await ctx.send(f"*{KILLER.display_name} наносит врагу смертельный удар и получает {p} единиц опыта!*\n\n*{NEEDER.display_name} забирает с тела противника всю добычу и становится богаче на {g} золотых монет!*")
-            await SIT.edit(name="Спокойная обстановка")
-            return await ARM.delete()
+            await ARM.delete()
+            await self.defender(ctx=ctx, user=KILLER)
+            if KILLER!=NEEDER:
+                await self.defender(ctx=ctx, user=NEEDER)
+            S=[("Тучи сгущаются"), ("Напряжённая обстановка"), ("Опасная обстановка"), ("Затишье перед бурей"), ("Готовится атака на лагерь")]
+            SI=random.choice(S)
+            await SIT.edit(name=SI)
+            if SIT.name=="Готовится атака на лагерь":
+                await ctx.send("Неподалёку замечен ещё один противник! Не расслабляться!")
+                return await self.ogrotack(ctx=ctx)
+            return
 
-    @commands.command()
-    async def защитник(self, ctx: Context):
-        author=ctx.author
+    async def defender(self, ctx: commands.GuildContext, user: discord.Member):
+        author=user
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
-        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        if ctx.message.channel.id != 603151774009786393 and ctx.message.channel.id != 610767915997986816 and ctx.message.channel.category.id != 583924367701049364:
-            return await ctx.send("Нам нужно серьёзно поговорить. Давай переместимся в более удобное для этого место.")
         NET = '❌'
         DA = '✅'
         i=0
@@ -805,17 +862,13 @@ class enclave(commands.Cog):
             if r.name.startswith("Квест Защитник"):
                 i=20
         if i==0:
-            return await ctx.send("У тебя нет такого квеста.")
-        async for mes in ctx.message.channel.history(limit=10,oldest_first=False):
-            if mes.author==JOLA and SIT.name=="Спокойная обстановка":
-                if mes.content.startswith(f"*{author.display_name} наносит врагу смертельный удар") or f"{author.display_name} забирает с тела противника всю добычу" in mes.content:
-                    while i<23:
-                        for s in ctx.guild.roles:
-                            if s.name==str(author.id)+str(i) and i<23:
-                                await s.delete()
-                                await ctx.send("Атака отражена успешно!")
-                                i=24
-                        i+=1
+            return
+        while i<23:
+            for s in ctx.guild.roles:
+                if s.name==str(author.id)+str(i) and i<23:
+                    await s.delete()
+                    i=23
+            i+=1
         C1=DA
         C2=DA
         C3=DA
@@ -843,92 +896,14 @@ class enclave(commands.Cog):
             await bank.deposit_credits(author, g)
             return await ctx.send(f"{author.display_name} проявляет подлинный героизм, защищая своих товарищей!\n*{author.display_name} получает {p} единиц опыта и увесистый кошелёк с {g} золотыми монетами!*")
         else:
-            if z==0:
-                sm='целых три атаки'
-            elif z==1:
+            if z==1:
                 sm='две атаки'
             else:
                 sm='всего одну атаку'
             for r in author.roles:
                 if r.name.startswith("Квест Защитник"):
                     await r.edit(name="Квест Защитник: "+C1+C2+C3)
-            if i==24:
-                await ctx.send(f"Неподалёку замечен ещё один противник, не расслабляйся! Тебе нужно отразить ещё {sm}!")
-                return await self.action(ctx=ctx)
-            return await ctx.send(f"Опасность ещё не миновала! Тебе ещё предстоит отразить {sm}!")
-
-    @commands.command()
-    async def эрудит(self, ctx: Context):
-        author=ctx.author
-        authbal=await bank.get_balance(author)
-        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
-        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
-        NET = '❌'
-        DA = '✅'
-        i=0
-        for r in author.roles:
-            if r.name.startswith("Квест Эрудит"):
-                i=23
-        if i==0:
-            return await ctx.send("У тебя нет такого квеста.")
-        async for mes in ctx.message.channel.history(limit=2,oldest_first=False):
-            if mes.author==JOLA and mes.content.startswith(f"Мои поздравления, **{author.display_name}**!"):
-                while i<28:
-                    for s in ctx.guild.roles:
-                        if s.name==str(author.id)+str(i) and i<28:
-                            await s.delete()
-                            await ctx.send("Победа учтена!")
-                            i=28
-                    i+=1
-        C1=DA
-        C2=DA
-        C3=DA
-        C4=DA
-        C5=DA
-        sm=""
-        z=5
-        for s in ctx.guild.roles:
-            if s.name==str(author.id)+"23":
-                    C1=NET
-                    z-=1
-            if s.name==str(author.id)+"24":
-                    C2=NET
-                    z-=1
-            if s.name==str(author.id)+"25":
-                    C3=NET
-                    z-=1
-            if s.name==str(author.id)+"26":
-                    C4=NET
-                    z-=1
-            if s.name==str(author.id)+"27":
-                    C5=NET
-                    z-=1
-        if z==5:
-            for r in author.roles:
-                if r.name.startswith("Квест Эрудит"):
-                    await r.delete()
-            p=50
-            p=await self.buffexp(ctx, author, p)
-            g=500
-            if authbal>(max_bal-g):
-                g=(max_bal-authbal)
-            await bank.deposit_credits(author, g)
-            return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами и {p} единиц опыта!*")
-        else:
-            if z==0:
-                sm='целых пять раз'
-            elif z==1:
-                sm='четыре раза'
-            elif z==2:
-                sm='три раза'
-            elif z==3:
-                sm='два раза'
-            else:
-                sm='всего один раз'
-            for r in author.roles:
-                if r.name.startswith("Квест Эрудит"):
-                    await r.edit(name="Квест Эрудит: "+C1+C2+C3+C4+C5)
-            return await ctx.send(f"Нужно победить ещё {sm}! Не расслабляйся!")
+            return await ctx.send(f"{author.display_name} успешно отражает атаку и продвигается в своём задании {r.name}! Нужно отразить ещё {sm}!")
 
     @commands.command()
     async def оратор(self, ctx: Context):
@@ -944,7 +919,7 @@ class enclave(commands.Cog):
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
         tdy = await self.profiles.data.member(author).today()
-        if tdy>=25:
+        if tdy>=50:
             for r in author.roles:
                 if r.name.startswith("Квест Оратор"):
                     await r.delete()
@@ -956,8 +931,8 @@ class enclave(commands.Cog):
         else:
             for r in author.roles:
                 if r.name.startswith("Квест Оратор"):
-                    await r.edit(name='Квест Оратор: '+str(tdy)+'/25')
-            return await ctx.send(f"Нужно ещё поднажать, у тебя {tdy} из 25!")
+                    await r.edit(name='Квест Оратор: '+str(tdy)+'/50')
+            return await ctx.send(f"Нужно ещё поднажать, у тебя {tdy} из 50!")
 
     @commands.group(name="выбрать", autohelp=False)
     async def выбрать(self, ctx: commands.GuildContext):
@@ -1688,6 +1663,7 @@ class enclave(commands.Cog):
         emb1.add_field(name="Заклинание: Свет небес", value="Ранг: Не требуется.\nЦена: 120\nДействие: Даёт ~70 монет.", inline=True)
         emb1.add_field(name="Заклинание: Божественный щит", value="Ранг: Подмастерье.\nЦена: 120\nДействие: Даёт защиту от мута.", inline=True)
         emb1.add_field(name="Заклинание: Освящение", value="Ранг: Искусник.\nЦена: 360\nДействие: Снимает чары с области.", inline=True)
+        emb1.add_field(name="Заклинание: Аура мщения", value="Ранг: Знаток.\nЦена: 500\nДействие: Выдает эффект \"Аура мщения\".", inline=True)
         emb1.add_field(name="Заклинание: Перековка светом (Порицание, Правосудие света)", value="Ранг: Мастер.\nЦена: 200\nДействие: Выдает эффект \"Озарение\".", inline=True)
         emb1.add_field(name="Заклинание: Возложение рук", value="Ранг: Магистр.\nЦена: 50% монет на счету\nДействие: Даёт 35% от монет на счету.", inline=True)
         emb1.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833946043514880.png")
@@ -1706,7 +1682,10 @@ class enclave(commands.Cog):
         emb6 = discord.Embed(title='Манускрипт заклинаний.\nГлава \"Орден паладинов и перековка светом\".', description = "`=возложение рук @цель` - вы спасаете жизнь своему союзнику.\n**Стоимость:**  - половина всех имеющихся у вас монет.\nКоманда: `=возложение рук @цель` - цель получает 35% от вашего баланса.\n**Применение** - 2 раза в сутки.", color=0xf58cba)
         emb6.set_footer(text="Ранг Магистр.")
         emb6.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833946043514880.png")
-        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
+        emb7 = discord.Embed(title='Манускрипт заклинаний.\nГлава \"Орден паладинов и перековка светом\".', description = "`=аура мщения` - вы усиливаете союзников аурой мщения.\n**Стоимость:** 500 монет.\nКоманда: `=перековка светом` - вы получаете эффект \"Аура мщения\".\n**Применение** - не ограничено.\n\n*Всем доступна команда:*\n\n`=печать мщения @паладин` - заклинатель получает эффект \"Печать мщения\", суммируется до 5 раз.\n**Стоимость:** паладин теряет 100 монет, но получает 10 опыта. Аура может погаснуть.\n**Применение** - до 2 раз в час.\n\n*С эффектом Печати доступно:*\n\nКоманда: `=священное возмездие @цель` - цель теряет от 100 до 500 монет своего баланса (зависит от мощности печати).\n**Стоимость:** бесплатно.\n**Применение** - до 10 раз в 5 часов.", color=0xf58cba)
+        emb7.set_footer(text="Ранг Знаток.")
+        emb7.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833946043514880.png")
+        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Знаток", value="4"), SelectOption(label="Мастер", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
@@ -1714,16 +1693,19 @@ class enclave(commands.Cog):
         await interaction.edit_origin()
         i=int(interaction.values[0])
         while True:
-            if i%5 == 1:
+            if i%6 == 1:
                 emb0=emb2
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 2:
+            elif i%6 == 2:
                 emb0=emb3
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 3:
+            elif i%6 == 3:
                 emb0=emb4
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 4:
+            elif i%6 == 4:
+                emb0=emb7
+                await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
+            elif i%6 == 5:
                 emb0=emb5
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             else:
@@ -1813,6 +1795,7 @@ class enclave(commands.Cog):
         emb1.add_field(name="Заклинание: Удар бури", value="Ранг: Не требуется.\nЦена: 60\nДействие: Отнимает ~70 монет.", inline=True)
         emb1.add_field(name="Заклинание: Волна исцеления", value="Ранг: Не требуется.\nЦена: 140\nДействие: Даёт ~90 монет.", inline=True)
         emb1.add_field(name="Заклинание: Сглаз", value="Ранг: Подмастерье.\nЦена: 190\nДействие: Снимает защиту от мута.", inline=True)
+        emb1.add_field(name="Заклинание: Ясновидение", value="Ранг: Умелец.\nЦена: 200\nДействие: Даёт 20 единиц опыта.", inline=True)
         emb1.add_field(name="Заклинание: Выброс лавы", value="Ранг: Искусник.\nЦена: 2500\nДействие: Отнимает ~3000 монет. Может поджечь.", inline=True)
         emb1.add_field(name="Заклинание: Раскол", value="Ранг: Мастер.\nЦена: 360\nДействие: Замедляет отправку сообщений на канале.", inline=True)
         emb1.add_field(name="Заклинание: Цепное исцеление", value="Ранг: Магистр.\nЦена: 5500\nДействие: Даёт ~3500 монет. Лечит до пяти целей.", inline=True)
@@ -1832,7 +1815,10 @@ class enclave(commands.Cog):
         emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Шаманизм, основные понятия и язык стихий\".', description = "`=цепное исцеление @цель` - вы вызываете поток исцеляющей энергии, восстанавливающий силы вашим союзникам.\n**Стоимость:** 5500 монет.\nКоманда: `=цепное исцеление @цель` - цель получает от 3500 до 3600 золотых монет, затем вторая цель (случайная, как и все последующие) получает от 800 до 900 монет, третья - от 600 до 700, четвёртая от 400 до 500 и пятая - от 200 до 300. Случайные цели могут повторяться не подряд, включая самого заклинателя.\n**Применение** - 2 раза в сутки.", color=0x0070de)
         emb6.set_footer(text="Ранг Магистр.")
         emb6.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833872785805323.png")
-        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
+        emb7 = discord.Embed(title='Книга заклинаний.\nГлава \"Шаманизм, основные понятия и язык стихий\".', description = "`=ясновидение @цель` - вы призваете видение, дарующее знания и опыт.\n**Стоимость:** 200 монет.\nКоманда: `=ясновидение @цель` - цель получает 20 единиц опыта.\n**Применение** - до 5 раз в 12 часов.", color=0x0070de)
+        emb7.set_footer(text="Ранг Умелец.")
+        emb7.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833872785805323.png")
+        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Умелец", value="3"), SelectOption(label="Искусник", value="4"), SelectOption(label="Мастер", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
@@ -1840,16 +1826,19 @@ class enclave(commands.Cog):
         await interaction.edit_origin()
         i=int(interaction.values[0])
         while True:
-            if i%5 == 1:
+            if i%6 == 1:
                 emb0=emb2
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 2:
+            elif i%6 == 2:
                 emb0=emb3
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 3:
+            elif i%6 == 3:
+                emb0=emb7
+                await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
+            elif i%6 == 4:
                 emb0=emb4
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 4:
+            elif i%6 == 5:
                 emb0=emb5
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             else:
@@ -1939,7 +1928,7 @@ class enclave(commands.Cog):
         emb1.add_field(name="Заклинание: Слово силы: щит", value="Ранг: Не требуется.\nЦена: 70\nДействие: Даёт ~50 монет.", inline=True)
         emb1.add_field(name="Заклинание: Слово тьмы: молчание", value="Ранг: Не требуется.\nЦена: 250\nДействие: Выдаёт мут.", inline=True)
         emb1.add_field(name="Заклинание: Священная земля", value="Ранг: Подмастерье.\nЦена: 320\nДействие: Снимает чары с области.", inline=True)
-        emb1.add_field(name="Заклинание: Молитва исцеления", value="Ранг: Искусник.\nЦена: 6000\nДействие: Даёт ~4000 монет.", inline=True)
+        emb1.add_field(name="Заклинание: Молитва исцеления", value="Ранг: Искусник.\nЦена: 4000\nДействие: Даёт ~2750 монет.", inline=True)
         emb1.add_field(name="Заклинание: Облик Бездны (Воззвание)", value="Ранг: Мастер.\nЦена: 650\nДействие: Выдаёт эффект \"Облик Бездны\".", inline=True)
         emb1.add_field(name="Заклинание: Слово тьмы: безумие", value="Ранг: Магистр.\nЦена: 220\nДействие: Снимает защиту от мута.", inline=True)
         emb1.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
@@ -1949,7 +1938,7 @@ class enclave(commands.Cog):
         emb3 = discord.Embed(title='Книга заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=священная земля` - вы создаёте участок святой земли, на которой не действуют любые чары.\n**Стоимость:** 320 монет.\nКоманда: `=священная земля` - вы снимаете все негативные чары (замедляющие отправку сообщений), действующие на текущую область.\n**Применение** - до 5 раз в 5 часов.", color=0xffffff)
         emb3.set_footer(text="Ранг Подмастерье.")
         emb3.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
-        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=молитва исцеления @цель` - вы возносите молитву богам, чтобы исцелить духовные и телесные раны вашего союзника.\n**Стоимость:** 6000 монет.\nКоманда: `=молитва исцеления @цель` - цель получает от 4000 до 4100 золотых монет.\n**Применение** - 1 раз в минуту.", color=0xffffff)
+        emb4 = discord.Embed(title='Книга заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=молитва исцеления @цель` - вы возносите молитву богам, чтобы исцелить духовные и телесные раны вашего союзника.\n**Стоимость:** 4000 монет.\nКоманда: `=молитва исцеления @цель` - цель получает от 2500 до 3000 золотых монет.\n**Применение** - 1 раз в минуту.", color=0xffffff)
         emb4.set_footer(text="Ранг Искусник.")
         emb4.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
         emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=облик бездны` - любое дело становится проще, когда у вас есть парочка вспомогательных щупалец. Раз в день вам доступно воззвание к Бездне.\n**Стоимость:** 650 монет.\nКоманда: `=облик бездны` - вы принимаете облик Бездны.\n**Применение** - не ограничено.\n\n*В облике Бездны становится доступно:*\n\nКоманда: `=воззвание` - вы получаете от 190 до 210 монет и теряете 15 единиц опыта. Облик Бездны не отменяется.\n**Применение** - 1 раз в 12 часов.", color=0xffffff)
@@ -2144,7 +2133,7 @@ class enclave(commands.Cog):
         emb5 = discord.Embed(title='Книга заклинаний.\nГлава \"Рукопашный бой и энергия Ци\".', description = "`=рука копьё @цель` - вы наносите резкий удар в горло противника.\n**Стоимость:** 200 монет.\nКоманда: `=рука копьё @цель` - цель хрипит и не может отправлять сообщения в основном канале (получает мут).\n**Применение** - не ограничено.", color=0x00ffba)
         emb5.set_footer(text="Ранг Мастер.")
         emb5.set_thumbnail(url="https://cdn.discordapp.com/emojis/921280924782571550.png")
-        emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Рукопашный бой и энергия Ци\".', description = "`=духовное путешествие`- вы создаёте астрального двойника, который отправляется в небывалое путешествие.\n**Стоимость:** - 10% от вашего баланса плюс 10000 монет.\nКоманда: `=духовное путешествие` - вы переходите в состояние \"Астрал\".\n**Применение** - не ограничено.\n\n*Находясь в состоянии Астрала, монаху доступна команда:*\n\n`=возвращение` - вы меняетесь местами со своим астральным духом.\n`=возвращение` - вы получаете 10% от текущего баланса и 10000 золотых монет впридачу и теряете состояние \"Астрал\".\n**Применение** - не ограничено.", color=0x00ffba)
+        emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Рукопашный бой и энергия Ци\".', description = "`=духовное путешествие`- вы создаёте астрального двойника, который отправляется в небывалое путешествие.\n**Стоимость:** - 10% от вашего баланса плюс 10000 монет.\nКоманда: `=духовное путешествие` - вы переходите в состояние \"Астрал\".\n**Применение** - не ограничено.\n\n*Находясь в состоянии Астрала, монаху доступна команда:*\n\n`=возвращение` - вы меняетесь местами со своим астральным духом.\n`=возвращение` - вы получаете 15% от текущего баланса, 10000 золотых монет впридачу и теряете состояние \"Астрал\".\n**Применение** - не ограничено.", color=0x00ffba)
         emb6.set_footer(text="Ранг Магистр.")
         emb6.set_thumbnail(url="https://cdn.discordapp.com/emojis/921280924782571550.png")
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
@@ -4569,6 +4558,127 @@ class enclave(commands.Cog):
         await bank.deposit_credits(user, heal)
         await ctx.send (f"*{author.display_name} спасает жизнь {user.mention}, восстанавливая здоровья на {heal} золотых монет!*")
 
+    @commands.group(name="аура", autohelp=False)
+    async def аура(self, ctx: commands.GuildContext):
+        pass
+
+    @аура.command(name="мщения")
+    async def аура_мщения(self, ctx):
+        author=ctx.author
+        CLS=discord.utils.get(ctx.guild.roles, id=685724793567444995)
+        if CLS not in author.roles:
+            await ctx.send (f"*{author.display_name} задумывает страшную месть.*")
+            return await ctx.message.delete()
+        i=0
+        for r in author.roles:
+            if r.name=="Эффект: Аура мщения":
+                i=1
+        if i==0:
+            return await ctx.send (f"*{author.display_name} подбадривает своих союзников.*")
+        if ctx.message.channel.id != 603151774009786393:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        rank=await self.chkrank(ctx=ctx, user=author)
+        if rank<=4:
+            return await ctx.send ("*Аура ещё слишком мала, чтобы действовать на кого-то ещё.*")
+        authbal=await bank.get_balance(author)
+        cst=500
+        if authbal<cst:
+            return await ctx.send (f"*Аура включается не бесплатно!*")
+        await bank.withdraw_credits(author, cst)
+        AUR=await ctx.guild.create_role(name='Эффект: Аура мщения', color=discord.Colour(0xf58cba))
+        await author.add_roles(AUR)
+        await ctx.send (f"*{author.display_name} наполняется священной силой и делится ею со своим союзниками!*\n*Любой желающий может получить Печать мщения!*")
+
+    @commands.group(name="печать", autohelp=False)
+    async def печать(self, ctx: commands.GuildContext):
+        pass
+
+    @печать.command(name="мщения")
+    @commands.cooldown(2, 3600, commands.BucketType.user)
+    async def печать_мщения(self, ctx, user: discord.Member = None):
+        author=ctx.author
+        while user is None:
+            user = random.choice(ctx.message.guild.members)
+        i=0
+        for r in user.roles:
+            if r.name=="Эффект: Аура мщения":
+                i=1
+        if i==0:
+            return await ctx.send (f"*{user.display_name} не обладает аурой мщения.*")
+        userbal=await bank.get_balance(user)
+        if userbal<100:
+            return await ctx.send (f"*Аура {user.display_name} недостаточно сильна.*")
+        for r in author.roles:
+            if r.name=="Эффект: Печать мщения, ур.1":
+                i=2
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.2":
+                i=3
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.3":
+                i=4
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.4":
+                i=5
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.5":
+                return await ctx.send (f"*{author.display_name} уже имеет максимальный уровень Печати мщения.*")
+        await bank.withdraw_credits(user, 100)
+        REV=await ctx.guild.create_role(name=f'Эффект: Печать мщения, ур.{i}', color=discord.Colour(0xf58cba))
+        await author.add_roles(REV)
+        p=await self.buffexp(ctx, user, 10)
+        x=random.randint(1, 100)
+        if x<=15:
+            AUR=f"\n*Аура мщения {user.mention} замерцала и погасла.*"
+        elif x<=35:
+            AUR=f"\n*Аура мщения {user.mention} мерцает.*"
+        else:
+            AUR=""
+        await ctx.send (f"*{author.display_name} получает {REV.name} и может атаковать Священным возмездием!\n{user.mention} теряет силы на сотню золотых монет, но приобретает {p} единиц опыта.*"+AUR)
+
+    @commands.group(name="священное", autohelp=False)
+    async def священное(self, ctx: commands.GuildContext):
+        pass
+
+    @священное.command(name="возмездие")
+    @commands.cooldown(10, 18000, commands.BucketType.user)
+    async def священное_возмездие(self, ctx, user: discord.Member = None):
+        author=ctx.author
+        CLS=discord.utils.get(ctx.guild.roles, id=685724793567444995)
+        while user is None or user is author:
+            user = random.choice(ctx.message.guild.members)
+        i=0
+        for r in author.roles:
+            if r.name=="Эффект: Печать мщения, ур.1":
+                i=1
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.2":
+                i=2
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.3":
+                i=3
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.4":
+                i=4
+                await r.delete()
+            if r.name=="Эффект: Печать мщения, ур.5":
+                i=5
+                await r.delete()
+        if i==0:
+            return await ctx.send (f"*{author.display_name} не обладает печатью мщения.*")
+        targbal=await bank.get_balance(user)
+        authbal=await bank.get_balance(author)
+        dmg=100*i
+        if CLS in user.roles:
+            if authbal<dmg:
+                dmg=authbal
+            await bank.withdraw_credits(author, dmg)
+            return await ctx.send(f"*Священная сила отражается от доспеха {user.mention} и обжигает {author.mention} на {dmg} золотых монет.*")
+        if targbal<dmg:
+            dmg=targbal
+        await bank.withdraw_credits(user, dmg)
+        await ctx.send(f"*{author.display_name} использует свою печать мщения, чтобы нанести {user.mention} урон на {dmg} золотых монет.*")
+
     @commands.group(name="волна", autohelp=False)
     async def волна(self, ctx: commands.GuildContext):
         pass
@@ -4878,6 +4988,29 @@ class enclave(commands.Cog):
         await ctx.send (f"*{author.display_name} пускает исцеляющий луч в {user.mention}. Луч, восполнив {heal} золотых монет, продолжает свой путь, исцеляя на своём пути {targ2.mention} на {heal2} золотых монет, потом {targ3.mention} на {heal3} золотых монет, ещё {targ4.mention} лечит на {heal4} золотых монет, и наконец попадает в {targ5.mention}, излечивая на {heal5} золотых монет.*")
 
     @commands.command()
+    @commands.cooldown(5, 43200, commands.BucketType.user)
+    async def ясновидение(self, ctx, user: discord.Member = None):
+        author = ctx.author
+        CLS=discord.utils.get(ctx.guild.roles, id=685724796075769889)
+        if CLS not in author.roles:
+            await ctx.send (f"*{author.display_name} протирает глаза.*")
+            return await ctx.message.delete()
+        if ctx.message.channel.id != 603151774009786393:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        while user is None:
+            user = random.choice(ctx.message.guild.members)
+        rank=await self.chkrank(ctx=ctx, user=author)
+        if rank<=2:
+            return await ctx.send (f"*{author.display_name} закрывает глаза, пытаясь увидеть далёкие земли, но видит лишь галлюцинации.")
+        authbal=await bank.get_balance(author)
+        cst=200
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} отправляется собирать травы, необходимые для раскрытия сознания.*")
+        xp=await self.buffexp(ctx, user, 20)
+        await bank.withdraw_credits(author, cst)
+        await ctx.send (f"*{author.display_name} поджигает пучок трав и что-то напевает.*\n*{user.mention} в дыму видит то, что приносит {xp} единиц опыта!*")
+
+    @commands.command()
     @commands.cooldown(10, 18000, commands.BucketType.user)
     async def щит(self, ctx, user: discord.Member = None):
         author = ctx.author
@@ -4922,10 +5055,10 @@ class enclave(commands.Cog):
         if rank<=3:
             return await ctx.send (f"*{author.display_name} не может подобрать слова, чтобы передать свои чувства.*")
         authbal=await bank.get_balance(author)
-        cst=6000
+        cst=4000
         if authbal<cst:
             return await ctx.send (f"*{author.display_name} испытывает кризис веры на {cst-authbal} золотых монет.*")
-        heal=random.randint(4000, 4100)
+        heal=random.randint(2500, 3000)
         targbal=await bank.get_balance(user)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
         if targbal>(max_bal-heal):
@@ -4982,7 +5115,7 @@ class enclave(commands.Cog):
             return await ctx.send (f"*Голоса в вашей голове требуют принести человеческую жертву или {cst} золотых монет.*")
         await bank.withdraw_credits(author, cst)
         await self.zadd(who=author, give=BAF)
-        await ctx.send (f"*Струйки фиолетовой энергии обвалакивают тело {author.display_name}.*")
+        await ctx.send (f"*Струйки фиолетовой энергии обволакивают тело {author.display_name}.*")
 
     @commands.command()
     @commands.cooldown(1, 43200, commands.BucketType.user)
@@ -5327,7 +5460,7 @@ class enclave(commands.Cog):
         authbal=await bank.get_balance(author)
         cst=250
         if authbal<cst:
-            return await ctx.send (f"*{cst-authbal} маны недостаточно для этого заклинания!*")
+            return await ctx.send (f"*Для этого заклинания нужно больше маны!*")
         await bank.withdraw_credits(author, cst)
         xp=await self.buffexp(ctx, user, 25)
         await ctx.send (f"*{author.display_name} накладывает хитроумное заклинание на {user.mention}, усиливающее интеллект и опыт на {xp} единиц.*")
@@ -5980,7 +6113,7 @@ class enclave(commands.Cog):
         authbal=await bank.get_balance(author)
         cst=60
         if authbal<cst:
-            return await ctx.send (f"*{author.display_name} ощупывает пустой кисет, где хранились травы.*")
+            return await ctx.send (f"*{author.display_name} ощупывает пустой кисет, где хранились чайные травы.*")
         heal=random.randint(40, 50)
         targbal=await bank.get_balance(user)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
@@ -6228,7 +6361,7 @@ class enclave(commands.Cog):
         if AST not in author.roles:
             return await ctx.send (f"*{author.display_name} пытается быть в двух местах сразу.*")
         authbal=await bank.get_balance(author)
-        astr=10000+(authbal//10)
+        astr=10000+(3*(authbal//20))
         await bank.deposit_credits(author, astr)
         await author.remove_roles(AST)
         await ctx.send (f"*{author.display_name} меняется местами со своим астральным духом, обретая {astr} золотых монет.*")

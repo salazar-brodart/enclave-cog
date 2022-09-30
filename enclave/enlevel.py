@@ -70,12 +70,12 @@ class enlevel(commands.Cog):
                             await self.profiles.data.member(member).today.set(0)
                 self.restart = True
             if datetime.datetime.now().strftime("%H:%M") in [
-                "05:00",
-                "05:01",
-                "05:02",
-                "05:03",
-                "05:04",
-                "05:05",
+                "03:00",
+                "03:01",
+                "03:02",
+                "03:03",
+                "03:04",
+                "03:05",
             ]:
                 self.restart = False
             await asyncio.sleep(30)
@@ -311,6 +311,7 @@ class enlevel(commands.Cog):
             timenow = datetime.datetime.now().timestamp()
             lastmessage = await self.profiles._get_user_lastmessage(message.author)
             cooldown = await self.profiles._get_cooldown(message.guild)
+            await self.profiles._today_addone(message.author)
             if timenow - lastmessage < cooldown:
                 # check if we've passed the cooldown
                 # return None if messages are sent too soon
@@ -323,7 +324,6 @@ class enlevel(commands.Cog):
             elif mots > 30:
                 xp = 3
             oldlvl = await self.profiles._get_level(message.author)
-            await self.profiles._today_addone(message.author)
             await self.profiles._give_exp(message.author, xp)
             await self.profiles._set_user_lastmessage(message.author, timenow)
             lvl = await self.profiles._get_level(message.author)
