@@ -355,6 +355,7 @@ class rutriviaSession:
         for r in author.roles:
             if r.name.startswith("Квест Эрудит"):
                 i=23
+                rr=r
         if i==0:
             return
         while i<28:
@@ -409,7 +410,7 @@ class rutriviaSession:
             for r in author.roles:
                 if r.name.startswith("Квест Эрудит"):
                     await r.edit(name="Квест Эрудит: "+C1+C2+C3+C4+C5)
-            return await ctx.send(f"{author.display_name} успешно продвигается в своём задании {r.name}! Осталось победить ещё {sm}! Не расслабляйся!")
+            return await ctx.send(f"{author.display_name} успешно продвигается в своём задании {rr.name}! Осталось победить ещё {sm}! Не расслабляйся!")
 
 def _parse_answers(answers):
     """Parse the raw answers to readable strings.
