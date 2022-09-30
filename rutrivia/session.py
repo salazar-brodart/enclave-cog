@@ -344,7 +344,7 @@ class rutriviaSession:
         await self.ctx.send(msg)
         await self.ruquest(ctx=ctx, user=winners[0])
 
-    async def ruquest(self, ctx: Context, user: discord.Member):
+    async def ruquest(self, ctx: commands.Context, user: discord.Member):
         author=user
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
