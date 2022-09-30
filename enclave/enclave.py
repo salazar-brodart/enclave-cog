@@ -68,23 +68,13 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @tasks.loop(hours=3)
+    @tasks.loop(hours=1)
     async def task_action(self, ctx: commands.GuildContext):
         await self.action(ctx=ctx)
 
     @task_action.before_loop
     async def task_action(self):
         await self.bot.wait_until_ready()
-
-    @commands.command()
-    async def test(self, ctx: Context):
-        x=random.randint(1, 2)
-        if x==1:
-            await ctx.send("1")
-            return
-        else:
-            await ctx.send("2")
-            return await self.test(ctx=ctx)
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
@@ -543,6 +533,7 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 for r in user.roles:
                     if r.name.startswith("Квест Защитник"):
+                        await msg.edit(embed=embed, components=[])
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=защитник`.")
                 QST=await ctx.guild.create_role(name='Квест Защитник: ❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: отразить три атаки на лагерь.\nОбязательное условие: получить добычу или опыт от убийства противника.', colour=discord.Colour.random())
@@ -557,6 +548,7 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 for r in user.roles:
                     if r.name.startswith("Квест Эрудит"):
+                        await msg.edit(embed=embed, components=[])
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=эрудит`.")
                 QST=await ctx.guild.create_role(name='Квест Эрудит: ❌❌❌❌❌', color=discord.Colour(0xA58E8E))
                 embed = discord.Embed(title=f'{user.display_name} начинает {QST.name}.', description = 'Цель: победить в пяти викторинах.', colour=discord.Colour.random())
@@ -571,6 +563,7 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 for r in user.roles:
                     if r.name.startswith("Квест Оратор"):
+                        await msg.edit(embed=embed, components=[])
                         return await ctx.send("Ты уже выполняешь этот квест. Для проверки прогресса используй команду `=оратор`.")
                 await self.data.member(user).today.set(0)
                 tdy = await self.profiles.data.member(user).today()
@@ -861,6 +854,7 @@ class enclave(commands.Cog):
         for r in author.roles:
             if r.name.startswith("Квест Защитник"):
                 i=20
+                rr=r
         if i==0:
             return
         while i<23:
@@ -903,7 +897,7 @@ class enclave(commands.Cog):
             for r in author.roles:
                 if r.name.startswith("Квест Защитник"):
                     await r.edit(name="Квест Защитник: "+C1+C2+C3)
-            return await ctx.send(f"{author.display_name} успешно отражает атаку и продвигается в своём задании {r.name}! Нужно отразить ещё {sm}!")
+            return await ctx.send(f"{author.display_name} успешно отражает атаку и продвигается в своём задании {rr.name}! Нужно отразить ещё {sm}!")
 
     @commands.command()
     async def оратор(self, ctx: Context):
@@ -4572,9 +4566,7 @@ class enclave(commands.Cog):
         i=0
         for r in author.roles:
             if r.name=="Эффект: Аура мщения":
-                i=1
-        if i==0:
-            return await ctx.send (f"*{author.display_name} подбадривает своих союзников.*")
+                return await ctx.send (f"*{author.display_name} подбадривает своих союзников.*")
         if ctx.message.channel.id != 603151774009786393:
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
