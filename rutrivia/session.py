@@ -342,7 +342,74 @@ class rutriviaSession:
                 currency=await bank.get_currency_name(self.ctx.guild),
             )
         await self.ctx.send(msg)
+        await self.ruquest(ctx=ctx, user=winners[0])
 
+    async def ruquest(self, ctx: Context, user: discord.Member):
+        author=user
+        authbal=await bank.get_balance(author)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
+        NET = '❌'
+        DA = '✅'
+        i=0
+        for r in author.roles:
+            if r.name.startswith("Квест Эрудит"):
+                i=23
+        if i==0:
+            return
+        while i<28:
+            for s in ctx.guild.roles:
+                if s.name==str(author.id)+str(i) and i<28:
+                    await s.delete()
+                    i=28
+            i+=1
+        C1=DA
+        C2=DA
+        C3=DA
+        C4=DA
+        C5=DA
+        sm=""
+        z=5
+        for s in ctx.guild.roles:
+            if s.name==str(author.id)+"23":
+                    C1=NET
+                    z-=1
+            if s.name==str(author.id)+"24":
+                    C2=NET
+                    z-=1
+            if s.name==str(author.id)+"25":
+                    C3=NET
+                    z-=1
+            if s.name==str(author.id)+"26":
+                    C4=NET
+                    z-=1
+            if s.name==str(author.id)+"27":
+                    C5=NET
+                    z-=1
+        if z==5:
+            for r in author.roles:
+                if r.name.startswith("Квест Эрудит"):
+                    await r.delete()
+            p=50
+            p=await self.buffexp(ctx, author, p)
+            g=500
+            if authbal>(max_bal-g):
+                g=(max_bal-authbal)
+            await bank.deposit_credits(author, g)
+            return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами и {p} единиц опыта!*")
+        else:
+            elif z==1:
+                sm='четыре раза'
+            elif z==2:
+                sm='три раза'
+            elif z==3:
+                sm='два раза'
+            else:
+                sm='всего один раз'
+            for r in author.roles:
+                if r.name.startswith("Квест Эрудит"):
+                    await r.edit(name="Квест Эрудит: "+C1+C2+C3+C4+C5)
+            return await ctx.send(f"{author.display_name} успешно продвигается в своём задании {r.name}! Осталось победить ещё {sm}! Не расслабляйся!")
 
 def _parse_answers(answers):
     """Parse the raw answers to readable strings.
