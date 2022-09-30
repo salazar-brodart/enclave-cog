@@ -4622,6 +4622,9 @@ class enclave(commands.Cog):
         x=random.randint(1, 100)
         if x<=15:
             AUR=f"\n*Аура мщения {user.mention} замерцала и погасла.*"
+            for r in user.roles:
+                if r.name=="Эффект: Аура мщения":
+                    await r.delete()
         elif x<=35:
             AUR=f"\n*Аура мщения {user.mention} мерцает.*"
         else:
