@@ -487,7 +487,7 @@ class enclave(commands.Cog):
         return await self.action()
 
     async def action(self):
-        ctx=self.ctx
+        ctx=self.bot.ctx
         room=self.bot.get_channel(603151774009786393)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         if SIT.name=="Готовится атака на лагерь":
