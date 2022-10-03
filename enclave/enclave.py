@@ -70,7 +70,12 @@ class enclave(commands.Cog):
 
     @tasks.loop(hours=1)
     async def task_action(self):
-        await self.action()
+        x=random.randint(1, 2)
+        if x>1:
+            room=self.bot.get_channel(603151774009786393)
+            await room.send("*Джола Древняя смотрит в подзорную трубу.*")
+        else:
+            await self.action()
 
     @task_action.before_loop
     async def task_action(self):
@@ -582,7 +587,7 @@ class enclave(commands.Cog):
                         embed = discord.Embed(title=f'{user.display_name} отдыхает и набирается сил для выполнения своего задания.', description = f'{user.display_name} получает {p} единиц опыта.', colour=discord.Colour.random())
                         return await msg.edit(embed=embed, components=[])
                 userbal=await bank.get_balance(user)
-                max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+                max_bal=await bank.get_max_balance(guild=getattr(ctx.author, "guild", None))
                 dmg=50
                 if userbal<dmg:
                     dmg=userbal
