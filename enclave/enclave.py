@@ -195,7 +195,7 @@ class enclave(commands.Cog):
             if responce.component.label == 'Прибрать на совесть!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
-                await ctx.send(f"*{author.display_name}, держа швабру наперевес, устремляется на место проишествия!*")
+                await ctx.send(f"*{author.display_name}, держа швабру наперевес, устремляется на место происшествия!*")
                 await asyncio.sleep(5)
                 g=random.randint(20, 40)
                 if authbal>(max_bal-g):
