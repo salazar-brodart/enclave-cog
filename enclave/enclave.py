@@ -68,10 +68,22 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @commands.command()
-    async def тест(self, ctx: Context):
-        MIR=discord.utils.get(ctx.guild.roles, id=975698195868971038)
-        await MIR.edit(color=discord.Colour(0xff7d0a))
+    @commands.group(name="сделать", autohelp=False)
+    async def сделать(self, ctx: commands.GuildContext):
+        pass
+
+    @сделать.command(name="заказ")
+    @commands.cooldown(1, 60, commands.BucketType.user)
+    async def сделать_заказ(self, ctx: Context):
+        if ctx.message.channel.name.endswith("бар_у_марго") or ctx.message.channel.name.endswith("зонт_пингвина") or ctx.message.channel.name.endswith("астральный_план"):
+            x=random.randint(0, 15)
+            za=[("\"Тако Судного Дня\"!"), ("Буррито \"по-Калимдорски\"!"), ("\"Огр в винном соусе\"!"), ("Салат \"Мечта эльфа\"!"), ("Салат \"Гармония пандарена\"!"), ("Салат \"Невиновность вульпера\"!"), ("Салат \"Грудь тауренши\"!"), ("Шашлык \"Святость монаха\"!"), ("Шашлык \"Пламя Азерота\"!"), ("\"Таурен-бургер\"!"), ("\"Гном-картошка\"!"), ("Суп \"Звёздная ночь воргена\"!"), ("Суп \"Диета орка\"!"), ("Горячее \"Чувства Смертокрыла\"!"), ("Рыбное блюдо \"Счастье мурлока\"!"), ("Горячее \"Она была нагой\"!")]
+            z=za[x]
+            emb = discord.Embed(title=f'Ваш заказ: '+z, colour=discord.Colour.random())
+            emb.set_image(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+            return await ctx.send(embed=emb)
+        else:
+            return await ctx.send("Заказывать в баре будешь, а тут у нас приличное место!")
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
