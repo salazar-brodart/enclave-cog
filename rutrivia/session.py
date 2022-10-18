@@ -391,13 +391,13 @@ class rutriviaSession:
             for r in author.roles:
                 if r.name.startswith("Квест Эрудит"):
                     await r.delete()
-            p=50
-            p=await self.buffexp(ctx, author, p)
-            g=500
+            #p=50
+            #p=await self.buffexp(ctx, author, p)
+            g=1500
             if authbal>(max_bal-g):
                 g=(max_bal-authbal)
             await bank.deposit_credits(author, g)
-            return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами и {p} единиц опыта!*")
+            return await ctx.send(f"{author.display_name} наглядно показывает всем в чём польза образования!\n*{author.display_name} получает кубок победителя с {g} золотыми монетами!*")
         else:
             if z==1:
                 sm='четыре раза'
