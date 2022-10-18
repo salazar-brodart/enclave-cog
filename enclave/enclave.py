@@ -68,14 +68,10 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @tasks.loop(hours=5)
-    async def task_action(self):
-        room=self.bot.get_channel(603151774009786393)
-        await room.send("*Джола Древняя смотрит в подзорную трубу.*")
-
-    @task_action.before_loop
-    async def task_action(self):
-        await self.bot.wait_until_ready()
+    @commands.command()
+    async def тест(self, ctx: Context):
+        MIR=discord.utils.get(ctx.guild.roles, id=975698195868971038)
+        await MIR.edit(color=discord.Colour(0xff7d0a))
 
     @commands.command()
     async def баланс(self, ctx: Context, user: discord.Member = None):
@@ -85,7 +81,7 @@ class enclave(commands.Cog):
         userbal=await bank.get_balance(user)
         GIFT=discord.utils.get(ctx.guild.roles, id=972039576426283048)
         if GIFT in user.roles:
-            bal=random.randint(-userbal, userbal)
+            bal=random.randint(-10000, 10000)
             return await ctx.send(f"Ввахухн ормз пхакуати {user.display_name}: {bal} йех'глу йахв.")
         await ctx.send(f"Баланс пользователя {user.display_name}: {userbal} золотых монет.")
 
