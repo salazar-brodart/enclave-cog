@@ -75,7 +75,13 @@ class enclave(commands.Cog):
     @сделать.command(name="заказ")
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def сделать_заказ(self, ctx: Context):
+        author=ctx.author
         if ctx.message.channel.name.endswith("бар_у_марго") or ctx.message.channel.name.endswith("зонт_пингвина") or ctx.message.channel.name.endswith("астральный_план"):
+            cst=random.randint(300, 330)
+            authbal=await bank.get_balance(author)
+            if authbal<cst:
+                return await ctx.send ("У нас тут не бесплатная столовая! Кыш!")
+            await bank.withdraw_credits(author, cst)
             x=random.randint(0, 15)
             zurl=[("https://cdn.discordapp.com/attachments/1031799720647077969/1031799989103509564/0.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799989317423214/1.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800131131023401/2.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800130850009129/3.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799991406186526/4.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799991141941249/5.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799990902849536/6.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799990697349150/7.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799990458269716/8.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799990105935872/9.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799989518729266/10.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031799989799759882/11.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800132154425364/12.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800131869220964/13.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800131571429376/14.jpg"), ("https://cdn.discordapp.com/attachments/1031799720647077969/1031800131357507594/15.jpg")]
             url=zurl[x]
@@ -83,6 +89,7 @@ class enclave(commands.Cog):
             z=za[x]
             emb = discord.Embed(title=f'Ваш заказ: '+z, colour=discord.Colour.random())
             emb.set_image(url=url)
+            emb.set_footer(text=f"Стоимость - {cst} золотых монет.")
             return await ctx.send(embed=emb)
         else:
             return await ctx.send("Заказывать в баре будешь, а тут у нас приличное место!")
