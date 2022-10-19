@@ -77,10 +77,12 @@ class enclave(commands.Cog):
     async def сделать_заказ(self, ctx: Context):
         if ctx.message.channel.name.endswith("бар_у_марго") or ctx.message.channel.name.endswith("зонт_пингвина") or ctx.message.channel.name.endswith("астральный_план"):
             x=random.randint(0, 15)
+            zurl=[(https://cdn.discordapp.com/attachments/1031799720647077969/1031799989103509564/0.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799989317423214/1.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800131131023401/2.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800130850009129/3.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799991406186526/4.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799991141941249/5.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799990902849536/6.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799990697349150/7.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799990458269716/8.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799990105935872/9.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031799989518729266/10.jpg, (https://cdn.discordapp.com/attachments/1031799720647077969/1031799989799759882/11.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800132154425364/12.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800131869220964/13.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800131571429376/14.jpg), (https://cdn.discordapp.com/attachments/1031799720647077969/1031800131357507594/15.jpg)]
+            url=zurl[x]
             za=[("\"Тако Судного Дня\"!"), ("Буррито \"по-Калимдорски\"!"), ("\"Огр в винном соусе\"!"), ("Салат \"Мечта эльфа\"!"), ("Салат \"Гармония пандарена\"!"), ("Салат \"Невиновность вульпера\"!"), ("Салат \"Грудь тауренши\"!"), ("Шашлык \"Святость монаха\"!"), ("Шашлык \"Пламя Азерота\"!"), ("\"Таурен-бургер\"!"), ("\"Гном-картошка\"!"), ("Суп \"Звёздная ночь воргена\"!"), ("Суп \"Диета орка\"!"), ("Горячее \"Чувства Смертокрыла\"!"), ("Рыбное блюдо \"Счастье мурлока\"!"), ("Горячее \"Она была нагой\"!")]
             z=za[x]
             emb = discord.Embed(title=f'Ваш заказ: '+z, colour=discord.Colour.random())
-            emb.set_image(url="https://cdn.discordapp.com/emojis/620315257285509130.png")
+            emb.set_image(url=url)
             return await ctx.send(embed=emb)
         else:
             return await ctx.send("Заказывать в баре будешь, а тут у нас приличное место!")
@@ -2560,7 +2562,7 @@ class enclave(commands.Cog):
         msg8.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg8.set_thumbnail(url="https://media.discordapp.net/attachments/921279850956877834/994826649172455564/6ab88924a18fab31.jpeg")
         
-        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты тревожишь Мать-Скалу?! Тогда получи моё благославение!\n"+m9, colour=discord.Colour.dark_gold())
+        msg9=discord.Embed(title="*Мать-Скала Теразан удовлетворена!*", description=f"- Ты тревожишь Мать-Скалу?! Тогда получи моё благословение!\n"+m9, colour=discord.Colour.dark_gold())
         msg9.set_author(name=f"{author.display_name} обращается к силам стихий, в надежде получить помощь.", icon_url=author.avatar_url)
         msg9.set_thumbnail(url="https://media.discordapp.net/attachments/921279850956877834/994826788846977105/56862d84d9f4edba.jpeg")
         
@@ -3635,7 +3637,7 @@ class enclave(commands.Cog):
         ARM=discord.utils.get(ctx.guild.roles, id=765245696047317002)
         rank=await self.chkrank(ctx=ctx, user=author)
         if ARM not in author.roles or rank<=3:
-            return await ctx.send(f"*{author.display_name} чувствует себя слишком уязвимым для боя.*")
+            return await ctx.send(f"*{author.display_name} чувствует свою уязвимость.*")
         x=random.randint(1, 4)
         if x>2:
             await author.remove_roles(ARM)
