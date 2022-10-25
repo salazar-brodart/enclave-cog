@@ -4208,7 +4208,7 @@ class enclave(commands.Cog):
             user = random.choice(ctx.message.guild.members)
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=1:
-            return await ctx.send (f"*{user.display_name} грозно рычит, но не решается вступить в драку.*")
+            return await ctx.send (f"*{author.display_name} грозно рычит, но не решается вступить в драку.*")
         authbal=await bank.get_balance(author)
         cst=110
         if authbal<cst:
@@ -4319,7 +4319,7 @@ class enclave(commands.Cog):
         CLS=discord.utils.get(ctx.guild.roles, id=685724794586398761)
         ARM=discord.utils.get(ctx.guild.roles, id=765245704007319563)
         if CLS not in author.roles:
-            await ctx.send (f"*{author.display_name} надевает шестяные носки и залазит под плед.*")
+            await ctx.send (f"*{author.display_name} надевает шестяные носки и залезает под плед.*")
             return await ctx.message.delete()
         if ctx.message.channel.id != 603151774009786393:
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
@@ -5955,7 +5955,7 @@ class enclave(commands.Cog):
             return await ctx.send (f"*Повязка на глазах мешает заметить недостаток {cst-authbal} золотых монет на счёте.*")
         await bank.withdraw_credits(author, cst)
         xp1=await self.buffexp(ctx, user, -12)
-        xp2=await self.buffexp(ctx, author, -xp1)
+        xp2=await self.buffexp(ctx, author, xp1)
         await ctx.send (f"*{author.display_name} прожигает взглядом дыру в {user.mention} и вытягивает оттуда {xp1} единиц опыта.*")
 
     @commands.group(name="катра", autohelp=False)
