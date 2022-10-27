@@ -113,7 +113,7 @@ class enclave(commands.Cog):
         file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Screen/s ("+str(x)+").jpg", filename="Salazar.jpg")
         try:
             await ctx.send(file=file)
-        except discord.ext.commands.errors.CommandOnCooldown:
+        except:
             await ctx.send("Вы слишком устали. Съешьте ещё этих мягких сурамарских манабулок, да выпейте маначаю.")
 
     @commands.command()
@@ -147,7 +147,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Отмыть с энтузиазмом!'), Button(style = ButtonStyle.green, label = 'Нехотя помыть')], [Button(style = ButtonStyle.red, label = 'Бросить посуду грязной'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Отмыть с энтузиазмом!':
@@ -206,7 +206,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Прибрать на совесть!'), Button(style = ButtonStyle.green, label = 'Замаскировать бардак')], [Button(style = ButtonStyle.red, label = 'Гордо протопать мимо'), Button(style = ButtonStyle.blue, label = 'Нанять вульпера (-25 золотых)')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Прибрать на совесть!':
@@ -265,7 +265,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поспешить на помощь!'), Button(style = ButtonStyle.green, label = 'Убедить кого-то помочь')], [Button(style = ButtonStyle.red, label = 'Проигнорировать'), Button(style = ButtonStyle.blue, label = 'Соврать, что всё сделано')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Поспешить на помощь!':
@@ -318,7 +318,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Добыть всё нужное'), Button(style = ButtonStyle.green, label = 'Купить на аукционе (-100 золотых)')], [Button(style = ButtonStyle.red, label = 'Отмахнуться'), Button(style = ButtonStyle.blue, label = 'Убедить, что это не нужно')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Добыть всё нужное':
@@ -363,7 +363,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Купить (-200 золотых)'), Button(style = ButtonStyle.green, label = 'Выторговать')], [Button(style = ButtonStyle.blue, label = 'Украсть'), Button(style = ButtonStyle.red, label = 'Отказаться')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Купить (-200 золотых)':
@@ -412,7 +412,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Устроить охоту'), Button(style = ButtonStyle.green, label = 'Расставить ловушки')], [Button(style = ButtonStyle.red, label = 'Не марать руки'), Button(style = ButtonStyle.blue, label = 'Соврать, что все убиты')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Устроить охоту':
@@ -460,7 +460,7 @@ class enclave(commands.Cog):
             msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Дать 1000 золотых'), Button(style = ButtonStyle.green, label = 'Дать 100 золотых')], [Button(style = ButtonStyle.green, label = 'Дать 10 золотых'), Button(style = ButtonStyle.red, label = 'Рассказать всё Оззи!')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=50)
-            except asyncio.TimeoutError:
+            except:
                 await msg.edit(embed=emb0, components = [])
                 return await self.action(ctx=ctx)
             if responce.component.label == 'Дать 1000 золотых':
@@ -526,7 +526,7 @@ class enclave(commands.Cog):
         while True:
             try:
                 interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=60)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await interaction.edit_origin()
             if interaction.values[0] == 'Защита':
@@ -545,7 +545,7 @@ class enclave(commands.Cog):
                 return
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=60)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             if responce.component.label == 'Встать на защиту лагеря!':
                 await responce.edit_origin()
@@ -1038,7 +1038,7 @@ class enclave(commands.Cog):
         while True:
             try:
                 interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await interaction.edit_origin()
             if interaction.values[0] == 'Воин':
@@ -1069,7 +1069,7 @@ class enclave(commands.Cog):
                 return
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             if responce.component.label == 'Стать воином!':
                 await responce.edit_origin()
@@ -1205,7 +1205,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Открыть сундук!'), Button(style = ButtonStyle.red, emoji = '❌')]])
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=embed, components = [])
         if responce.component.label == 'Открыть сундук!':
             await responce.edit_origin()
@@ -1218,7 +1218,7 @@ class enclave(commands.Cog):
             return
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=embo, components = [])
         if responce.component.label == 'Выслушать Джолу.':
             await responce.edit_origin()
@@ -1228,7 +1228,7 @@ class enclave(commands.Cog):
             await msg.edit(embed=embv, components = [[Button(style = ButtonStyle.grey, label = 'Продать артефакт Вессине.'), Button(style = ButtonStyle.blue, label = 'Выслушать Джолу.')]])
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=embo, components = [])
         if responce.component.label == 'Выслушать Джолу.':
             await responce.edit_origin()
@@ -1260,7 +1260,7 @@ class enclave(commands.Cog):
             return await author.remove_roles(CH)
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=55)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=embo, components = [])
         if responce.component.label == 'Отдать артефакт Джоле.':
             await responce.edit_origin()
@@ -1330,7 +1330,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Взять квест!'), Button(style = ButtonStyle.red, label = 'Повременить')]])
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb0, components = [])
         if responce.component.label == 'Взять квест!':
             await responce.edit_origin()
@@ -1522,7 +1522,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1544,7 +1544,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1585,7 +1585,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1607,7 +1607,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1648,7 +1648,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1670,7 +1670,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1715,7 +1715,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Знаток", value="4"), SelectOption(label="Мастер", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1740,7 +1740,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1781,7 +1781,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1803,7 +1803,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1848,7 +1848,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Умелец", value="3"), SelectOption(label="Искусник", value="4"), SelectOption(label="Мастер", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1873,7 +1873,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1914,7 +1914,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1936,7 +1936,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -1977,7 +1977,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -1999,7 +1999,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -2040,7 +2040,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -2062,7 +2062,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -2103,7 +2103,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -2125,7 +2125,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -2166,7 +2166,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -2188,7 +2188,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -2229,7 +2229,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-        except asyncio.TimeoutError:
+        except:
             return await msg.edit(embed=emb1, components = [])
         await interaction.edit_origin()
         i=int(interaction.values[0])
@@ -2251,7 +2251,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Вперёд':
@@ -2297,7 +2297,7 @@ class enclave(commands.Cog):
         while True:
             try:
                 interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=60)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=embed, components = [])
             await interaction.edit_origin()
             if interaction.values[0] == 'exp':
@@ -2461,12 +2461,12 @@ class enclave(commands.Cog):
             await msg.add_reaction("<:Scrolls:625192051042156565>")
             await msg.add_reaction("<:zGold:620315740993617920>")
             await msg.add_reaction("<:zCandle:620973875714588673>")
-        except discord.errors.Forbidden:
+        except:
             return
         pred = ReactionPredicate.same_context(msg, ctx.author)
         try:
             react, user = await self.bot.wait_for("reaction_add", check=pred, timeout=300)
-        except asyncio.TimeoutError:
+        except:
             return
         if str(react.emoji) == "<:Lantern:609362645992341515>":
             await msg.edit(content=msg0)
@@ -3091,7 +3091,7 @@ class enclave(commands.Cog):
             bal_len_max = len(humanize_number(max_bal))
             if bal_len > bal_len_max:
                 bal_len = bal_len_max
-        except IndexError:
+        except:
             return await ctx.send("There are no accounts in the bank.")
         pound_len = len(str(len(bank_sorted)))
         header = "{pound:{pound_len}}{score:{bal_len}}{name:2}\n".format(
@@ -3107,7 +3107,7 @@ class enclave(commands.Cog):
         for acc in bank_sorted:
             try:
                 name = guild.get_member(acc[0]).display_name
-            except AttributeError:
+            except:
                 user_id = ""
                 if await ctx.bot.is_owner(ctx.author):
                     user_id = f"({str(acc[0])})"
@@ -3189,7 +3189,7 @@ class enclave(commands.Cog):
             return await ctx.send("Нужно больше золота!")
         try:
             bid=int(bid)
-        except ValueError:
+        except:
             return await ctx.send("Мы такое не принимаем. Убери это подальше от меня.")
         author=ctx.author
         authbal=await bank.get_balance(author)
@@ -3473,7 +3473,7 @@ class enclave(commands.Cog):
                 heal=(max_bal-userbal)
             await bank.deposit_credits(user, heal)
             return await ctx.send (f"*{user.display_name} достигает максимального ранга мастерства в своём классе, за что получает премию в размере {heal} золотых монет.*")
-    
+
     async def buffexp(self, ctx, user: discord.Member, exp: int):
         lvl = await self.profiles._get_level(user)
         oldxp = await self.profiles.data.member(user).exp()
@@ -3485,7 +3485,21 @@ class enclave(commands.Cog):
             exp = lvldown - oldxp
         await self.profiles._give_exp(user, exp)
         return abs(exp)
-        
+
+    async def buffgold(self, ctx, user: discord.Member, gold: int):
+        author = ctx.author
+        targbal=await bank.get_balance(user)
+        max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
+        if gold>0:
+            if targbal>(max_bal-gold):
+                gold=(max_bal-targbal)
+            await bank.deposit_credits(user, gold)
+        else:
+            if targbal<gold:
+                gold=targbal
+            await bank.withdraw_credits(user, gold)
+        return abs(gold)
+
     async def delarm(self, ctx: commands.GuildContext, user: discord.Member):
         for r in user.roles:
             if r.name.startswith("🛡️"):
@@ -4818,7 +4832,7 @@ class enclave(commands.Cog):
         CLS=discord.utils.get(ctx.guild.roles, id=685724796075769889)
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=5)
-        except asyncio.TimeoutError:
+        except:
             if CLS not in author.roles:
                 await msg.edit ("*Где-то вдалеке послышался смех Крагвы.*", components = [])
                 return await ctx.message.delete()
@@ -5502,7 +5516,7 @@ class enclave(commands.Cog):
         CLS=discord.utils.get(ctx.guild.roles, id=685724798193762365)
         try:
             responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=5)
-        except asyncio.TimeoutError:
+        except:
             if CLS not in author.roles:
                 await msg.edit (f"*{author.display_name} ищет знания.*", components = [])
                 return await ctx.message.delete()
@@ -5691,8 +5705,6 @@ class enclave(commands.Cog):
         dmg=random.randint(3500, 3600)
         targbal=await bank.get_balance(user)
         dmg+=(targbal-dmg)//20
-        if targbal<dmg:
-            dmg=targbal
         await bank.withdraw_credits(author, cst)
         targ1=random.choice(ctx.message.guild.members)
         await ctx.send (f"*В небе появляется метеорит! Он скоро упадёт туда, где стоит {targ1.mention}!*\nЛучше отойди в сторону.")
@@ -5704,6 +5716,8 @@ class enclave(commands.Cog):
         await ctx.send (f"*Метеорит приближается и вот-вот упадёт на {targ3.mention}!*\nСпасайся кто может!!!")
         await asyncio.sleep(20)
         await ctx.send (f"*Огромный пылающий валун прилетает с небес и врезается в {user.mention}. Во все стороны брызнули {dmg} раскалённых золотых монет.*")
+        if targbal<dmg:
+            dmg=targbal
         await bank.withdraw_credits(user, dmg)
 
     @удар.command(name="плети")
@@ -5768,7 +5782,7 @@ class enclave(commands.Cog):
         else:
             try:
                 await author.edit(reason=get_audit_reason(ctx.author, None), nick=author.display_name + "🩸")
-            except discord.HTTPException:
+            except:
                 await author.edit(reason=get_audit_reason(ctx.author, None), nick="Брызги крови 🩸")
 
     @commands.group(name="антимагический", autohelp=False)
@@ -5838,7 +5852,7 @@ class enclave(commands.Cog):
         authbal=await bank.get_balance(author)
         cst=200
         if authbal<cst:
-            return await ctx.send (f"*{user.display_name} источает слишком много жизненной силы.")
+            return await ctx.send (f"*{user.display_name} источает слишком много жизненной силы.*")
         await bank.withdraw_credits(author, cst)
         await ctx.send(f"*{author.display_name} призывает некротические энергии, чтобы умертвить и переродить {user.display_name} в качестве прислужника.*")
         await ctx.send(f"*{user.display_name} теперь {user.mention}.*")
@@ -6518,7 +6532,7 @@ class enclave(commands.Cog):
         while True:
             try:
                 interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=emb0, components = [])
             await interaction.edit_origin()
             if interaction.values[0] == 'enc':
@@ -6534,7 +6548,7 @@ class enclave(commands.Cog):
                 return
             try:
                 responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=60)
-            except asyncio.TimeoutError:
+            except:
                 return await msg.edit(embed=embed, components = [])
             await responce.edit_origin()
             if responce.component.label == 'Читательский билет':
@@ -6624,7 +6638,7 @@ class enclave(commands.Cog):
                 msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'За Альянс!'), Button(style = ButtonStyle.red, label = 'За Орду!'), Button(style = ButtonStyle.green, label = 'За Азерот!')]])
                 try:
                     responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=30)
-                except asyncio.TimeoutError:
+                except:
                     return await msg.edit(embed=embed, components = [])
                 await responce.edit_origin()
                 if responce.component.label == 'За Альянс!':
