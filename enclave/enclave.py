@@ -71,11 +71,14 @@ class enclave(commands.Cog):
     @commands.command()
     async def тест(self, ctx: Context):
         author = ctx.author
-        for r in author.roles:
-            await ctx.send(f"{r.name} - {r.members}")
-        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
-        return await ctx.send(f"{SIT.name} - {SIT.members}.")
-        
+        n=0
+        for r in ctx.guild.roles:
+            for member in r.members:
+                n=1
+            if n==0:
+                await ctx.send(f"{r.name} - {n}")
+            n=0
+        return await ctx.send("Всё.")
 
     @commands.group(name="сделать", autohelp=False)
     async def сделать(self, ctx: commands.GuildContext):
