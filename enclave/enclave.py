@@ -68,6 +68,15 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
+    @commands.command()
+    async def тест(self, ctx: Context):
+        author = ctx.author
+        for r in author.roles:
+            await ctx.send(f"{r.name} - {r.members}")
+        SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
+        return await ctx.send(f"{SIT.name} - {SIT.members}.")
+        
+
     @commands.group(name="сделать", autohelp=False)
     async def сделать(self, ctx: commands.GuildContext):
         pass
