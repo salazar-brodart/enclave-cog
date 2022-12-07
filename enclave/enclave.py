@@ -68,17 +68,36 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @commands.command()
-    async def тест(self, ctx: Context):
+    @commands.group(name="это", autohelp=False)
+    async def это(self, ctx: commands.GuildContext):
+        ctx.send("Которое?")
+        pass
+
+    @это.command(name="иллюзия")
+    # @commands.cooldown(1, 60, commands.BucketType.user)
+    async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
-        n=0
-        for r in ctx.guild.roles:
-            for member in r.members:
-                n=1
-            if n==0:
-                await ctx.send(f"{r.name} - {n}")
-            n=0
-        return await ctx.send("Всё.")
+        if user is None:
+            user = random.choice(ctx.message.guild.members)
+        try:
+            name = user.name
+        except:
+            return ("*Подозрительно щурится.*")
+        illus = user.display_name
+        authbal=await bank.get_balance(author)
+        cst=100
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} подозрительно щурится, глядя в свой кошелёк.*")
+        await user.edit(reason=get_audit_reason(ctx.author, None), nick=name)
+        if illus == name:
+            msg = f"подозрительно щурится на {name}.*"
+        elif user == author:
+            msg == f"рассеивает с себя иллюзию \"{illus}\".*"
+            await bank.withdraw_credits(author, cst)
+        else:
+            msg == f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
+            await bank.withdraw_credits(author, cst)
+        return await ctx.send(f"*{author.display_name} "+msg)
 
     @commands.group(name="сделать", autohelp=False)
     async def сделать(self, ctx: commands.GuildContext):
@@ -336,7 +355,7 @@ class enclave(commands.Cog):
             if responce.component.label == 'Добыть всё нужное':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
-                await ctx.send(f"*{author.display_name} берёт необходимое снаряжение и отправляется добывать необходимые припасы!*")
+                await ctx.send(f"*{author.display_name} берёт необходимое снаряжение и отправляется добывать припасы!*")
                 await asyncio.sleep(5)
                 g=random.randint(100, 200)
                 if authbal>(max_bal-g):
@@ -5055,7 +5074,7 @@ class enclave(commands.Cog):
             user = random.choice(ctx.message.guild.members)
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=2:
-            return await ctx.send (f"*{author.display_name} закрывает глаза, пытаясь увидеть далёкие земли, но видит лишь галлюцинации.")
+            return await ctx.send (f"*{author.display_name} закрывает глаза, пытаясь увидеть далёкие земли, но видит лишь галлюцинации.*")
         authbal=await bank.get_balance(author)
         cst=200
         if authbal<cst:
@@ -5317,7 +5336,7 @@ class enclave(commands.Cog):
             return await ctx.send (f"*{author.display_name} приглядывается к {user.display_name}, оценивая фобии. Данных недостаточно.*")
         await bank.withdraw_credits(author, cst)
         await self.zadd(who=user, give=MUT)
-        await ctx.send(f"*{author.display_name} вскидывает  руки, выпуская страшное заклятие. {user.mention} в ужасе бежит в стену.*")
+        await ctx.send(f"*{author.display_name} вскидывает руки, выпуская страшное заклятие. {user.mention} в ужасе бежит в стену.*")
 
     @commands.group(name="тёмный", autohelp=False)
     async def тёмный(self, ctx: commands.GuildContext):
@@ -5327,7 +5346,7 @@ class enclave(commands.Cog):
     @commands.cooldown(5, 18000, commands.BucketType.user)
     async def тёмный_пакт(self, ctx, user: discord.Member = None):
         author = ctx.author
-        while user is None or user is author:
+        while user is None:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, id=685724799527551042)
         BES=discord.utils.get(ctx.guild.roles, id=687899248892706830)
@@ -5354,7 +5373,10 @@ class enclave(commands.Cog):
         await bank.withdraw_credits(author, cst)
         await bank.deposit_credits(user, heal)
         await self.zadd(who=user, give=BES)
-        await ctx.send (f"*{author.display_name} подделывает подпись кровью {user.mention} на контракте с демоном. {user.display_name} получает {heal} золотых монет и долговое обязательство перед мелким бесом.*")
+        if user!=author:
+            await ctx.send (f"*{author.display_name} подделывает подпись кровью {user.mention} на контракте с демоном. {user.display_name} получает {heal} золотых монет и долговое обязательство перед мелким бесом.*")
+        else:
+            await ctx.send (f"*{author.display_name} подписывает кровью контракт с демоном. {user.display_name} получает {heal} золотых монет и долговое обязательство перед мелким бесом.*")
 
     @commands.command()
     @commands.cooldown(10, 18000, commands.BucketType.user)
@@ -6310,7 +6332,7 @@ class enclave(commands.Cog):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
         rank=await self.chkrank(ctx=ctx, user=author)
         if rank<=3:
-            return await ctx.send (f"*У {author.display_name} недостаточно чистые чакры.")
+            return await ctx.send (f"*У {author.display_name} недостаточно чистые чакры.*")
         authbal=await bank.get_balance(author)
         cst=350
         if authbal<cst:
