@@ -70,7 +70,7 @@ class enclave(commands.Cog):
 
     @commands.group(name="это", autohelp=False)
     async def это(self, ctx: commands.GuildContext):
-        ctx.send("Которое?")
+        await ctx.send("Которое?")
         pass
 
     @это.command(name="иллюзия")
@@ -92,10 +92,10 @@ class enclave(commands.Cog):
         if illus == name:
             msg = f"подозрительно щурится на {name}.*"
         elif user == author:
-            msg == f"рассеивает с себя иллюзию \"{illus}\".*"
+            msg = f"рассеивает с себя иллюзию \"{illus}\".*"
             await bank.withdraw_credits(author, cst)
         else:
-            msg == f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
+            msg = f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
             await bank.withdraw_credits(author, cst)
         return await ctx.send(f"*{author.display_name} "+msg)
 
