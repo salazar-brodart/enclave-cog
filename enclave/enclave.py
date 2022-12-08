@@ -70,7 +70,7 @@ class enclave(commands.Cog):
 
     @commands.group(name="это", autohelp=False)
     async def это(self, ctx: commands.GuildContext):
-        await ctx.send("Которое?")
+        #await ctx.send("Которое?")
         pass
 
     @это.command(name="иллюзия")
