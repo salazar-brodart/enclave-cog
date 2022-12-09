@@ -68,9 +68,16 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
+    @commands.command()
+    async def тест(self, ctx: Context):
+        command = ctx.message.content.replace(ctx.prefix, "")
+        com = ctx.bot.get_command(command)
+        if com is None:
+            return
+        await ctx.send(str(command)+"   "+str(com))
+
     @commands.group(name="это", autohelp=False)
     async def это(self, ctx: commands.GuildContext):
-        #await ctx.send("Которое?")
         pass
 
     @это.command(name="иллюзия")
