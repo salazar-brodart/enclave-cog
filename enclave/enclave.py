@@ -60,7 +60,9 @@ class enclave(commands.Cog):
         ("вневременный"),
         ("заросший ракушками"),
     ]
-    
+    COUNTCD = {}
+    TIMERCD = {}
+
     def __init__(self, bot: Red):
         super().__init__()
         self.bot = bot
@@ -68,20 +70,19 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
-    @commands.command()
-    async def тест(self, ctx: Context):
+    @commands.group(name="это", autohelp=False)
+    async def это(self, ctx: commands.GuildContext):
+        pass
+
+    @это.command(name="тест")
+    async def это_тест(self, ctx: Context, user: discord.Member = None):
         command = ctx.message.content.replace(ctx.prefix, "")
         com = ctx.bot.get_command(command)
         if com is None:
             return
         await ctx.send(str(command)+"   "+str(com))
 
-    @commands.group(name="это", autohelp=False)
-    async def это(self, ctx: commands.GuildContext):
-        pass
-
     @это.command(name="иллюзия")
-    # @commands.cooldown(1, 60, commands.BucketType.user)
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
@@ -1932,6 +1933,7 @@ class enclave(commands.Cog):
         emb1.add_field(name="Заклинание: Огненный шар", value="Ранг: Подмастерье.\nЦена: 80\nДействие: Отнимает ~100 монет.", inline=True)
         emb1.add_field(name="Заклинание: Чародейский интеллект", value="Ранг: Искусник.\nЦена: 250\nДействие: Даёт 25 опыта.", inline=True)
         emb1.add_field(name="Заклинание: Сотворение пищи", value="Ранг: Мастер.\nЦена: 400\nДействие: Сотворить стол с едой.", inline=True)
+        emb1.add_field(name="Заклинание: Глубокая заморозка", value="Ранг: Специалист.\nЦена: 150\nДействие: Выдаёт мут.", inline=True)
         emb1.add_field(name="Заклинание: Метеор", value="Ранг: Магистр.\nЦена: 2800\nДействие: Отнимает ~3500 монет.", inline=True)
         emb1.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
         emb2 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=кольцо льда` - всё вокруг вас сковывается льдом.\n**Стоимость:** 160 монет.\nКоманда: `=кольцо льда` - отправка сообщений на основном канале возможна раз в 5 минут.\n**Применение** - до 5 раз в 5 часов.\n\n`=превращение @цель`- вы превращаете вашего противника в безобидную зверушку. Хорошо действует на цели с низким интеллектом.\n**Стоимость:** 210 монет.\nКоманда: `=превращение @цель` - цель превращается в овцу, кролика, обезьяну, пчелу или свинью по вашему выбору (на выбор даётся 5 секунд) и теряет эффект защиты от мута.\n**Применение** - не ограничено.", color=0x69ccf0)
@@ -1949,7 +1951,10 @@ class enclave(commands.Cog):
         emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=метеор @цель` - вы вызываете метеор, который падает на голову вашего противника.\n**Стоимость:** 2800 монет.\nКоманда: `=метеор @цель` - цель теряет 3500 золотых монет и ещё 5% от оставшегося счёта.\n**Применение** - 2 раза в сутки.", color=0x69ccf0)
         emb6.set_footer(text="Ранг Магистр.")
         emb6.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
-        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
+        emb7 = discord.Embed(title='Книга заклинаний.\nГлава \"Магия арканы, льда и пламени\".', description = "`=глубокая заморозка @цель` - вы оглушаете противника, примораживая его к месту. Требует наличие замедляющих чар на канале!\n**Стоимость:** 150 монет.\nКоманда: `=глубокая заморозка @цель` - цель не может отправлять сообщения на основном канале.\n**Применение** - не ограничено.", color=0x69ccf0)
+        emb7.set_footer(text="Ранг Специалист.")
+        emb7.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833910631014430.png")
+        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Специалист", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
         except:
@@ -1957,17 +1962,20 @@ class enclave(commands.Cog):
         await interaction.edit_origin()
         i=int(interaction.values[0])
         while True:
-            if i%5 == 1:
+            if i%6 == 1:
                 emb0=emb2
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 2:
+            elif i%6 == 2:
                 emb0=emb3
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 3:
+            elif i%6 == 3:
                 emb0=emb4
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 4:
+            elif i%6 == 4:
                 emb0=emb5
+                await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
+            elif i%6 == 5:
+                emb0=emb7
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             else:
                 emb0=emb6
@@ -1994,6 +2002,7 @@ class enclave(commands.Cog):
         emb1.add_field(name="Заклинание: Слово тьмы: молчание", value="Ранг: Не требуется.\nЦена: 250\nДействие: Выдаёт мут.", inline=True)
         emb1.add_field(name="Заклинание: Священная земля", value="Ранг: Подмастерье.\nЦена: 320\nДействие: Снимает чары с области.", inline=True)
         emb1.add_field(name="Заклинание: Молитва исцеления", value="Ранг: Искусник.\nЦена: 4000\nДействие: Даёт ~2750 монет.", inline=True)
+        emb1.add_field(name="Заклинание: Божественный дух", value="Ранг: Знаток.\nЦена: зависит от эффекта\nДействие: Даёт опыт равный вашему балансу.", inline=True)
         emb1.add_field(name="Заклинание: Облик Бездны (Воззвание)", value="Ранг: Мастер.\nЦена: 650\nДействие: Выдаёт эффект \"Облик Бездны\".", inline=True)
         emb1.add_field(name="Заклинание: Слово тьмы: безумие", value="Ранг: Магистр.\nЦена: 220\nДействие: Снимает защиту от мута.", inline=True)
         emb1.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
@@ -2012,7 +2021,10 @@ class enclave(commands.Cog):
         emb6 = discord.Embed(title='Книга заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=безумие @цель` - вы вторгаетесь в разум вашего противника и сводите его с ума.\n**Стоимость:** 220 монет.\nКоманда: `=безумие @цель` - цель теряет эффект защиты от мута.\n**Применение** - не ограничено.", color=0xffffff)
         emb6.set_footer(text="Ранг Магистр.")
         emb6.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
-        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Мастер", value="4"), SelectOption(label="Магистр", value="0")])])
+        emb7 = discord.Embed(title='Манускрипт заклинаний.\nГлава \"Служение Свету и Тьме\".', description = "`=божественный дух @цель` - мощное благословение, увеличивающее опыт.\n**Стоимость:** 10 монет за каждую единицу усвоенного целью опыта.\nКоманда: `=божественный дух @цель` - цель получает опыт, равный вашему балансу.\n**Применение** - 1 раз в 12 часов.", color=0xffffff)
+        emb7.set_footer(text="Ранг Знаток.")
+        emb7.set_thumbnail(url="https://cdn.discordapp.com/emojis/889833892759089173.png")
+        msg = await ctx.send(embed=emb1, components=[Select(placeholder="Подробнее:", options=[SelectOption(label="Без ранга", value="1"), SelectOption(label="Подмастерье", value="2"), SelectOption(label="Искусник", value="3"), SelectOption(label="Знаток", value="4"), SelectOption(label="Мастер", value="5"), SelectOption(label="Магистр", value="0")])])
         try:
             interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == ctx.author, timeout=30)
         except:
@@ -2020,16 +2032,19 @@ class enclave(commands.Cog):
         await interaction.edit_origin()
         i=int(interaction.values[0])
         while True:
-            if i%5 == 1:
+            if i%6 == 1:
                 emb0=emb2
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 2:
+            elif i%6 == 2:
                 emb0=emb3
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 3:
+            elif i%6 == 3:
                 emb0=emb4
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
-            elif i%5 == 4:
+            elif i%6 == 4:
+                emb0=emb7
+                await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
+            elif i%6 == 5:
                 emb0=emb5
                 await msg.edit(embed=emb0, components = [[Button(style = ButtonStyle.green, label = 'Назад'), Button(style = ButtonStyle.green, label = 'Вперёд'), Button(style = ButtonStyle.red, label = 'Закрыть')]])
             else:
@@ -2705,7 +2720,7 @@ class enclave(commands.Cog):
         msg7=discord.Embed(title=f"*Ткань реальности рвётся, и к нам пытается проникнуть {VL}!*", description="", colour=discord.Colour.red())
         msg7.set_author(name=f"{author.display_name} распевает детскую считалочку и случайно открывает портал в другое измерение.", icon_url=author.avatar_url)
         msg7.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/954717481442877461/VL.png")
-        mass=[msg1, msg2, msg3, msg4, msg5, msg6]
+        mass=[msg1, msg2, msg2, msg2, msg2, msg3, msg4, msg4, msg5, msg6]
         embed=random.choice(mass)
         m2=""
         m5=""
@@ -5264,6 +5279,28 @@ class enclave(commands.Cog):
         await self.zadd(who=user, give=MUT)
         await ctx.send(f"*Глаза {author.display_name} наливаются фиолетовым светом, и инфернальный вопль 'МОЛЧАТЬ!' заставляет {user.mention} умолкнуть.*")
 
+    @божественный.command(name="дух")
+    @commands.cooldown(1, 43200, commands.BucketType.user)
+    async def божественный_дух(self, ctx, user: discord.Member = None):
+        author = ctx.author
+        while user is None:
+            user = random.choice(ctx.message.guild.members)
+        CLS=discord.utils.get(ctx.guild.roles, id=685724797266952219)
+        if CLS not in author.roles:
+            await ctx.send (f"*{author.display_name} принюхивается к соблазнительным ароматам.*")
+            return await ctx.message.delete()
+        if ctx.message.channel.id != 603151774009786393:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        rank=await self.chkrank(ctx=ctx, user=author)
+        if rank<=4:
+            return await ctx.send (f"*{author.display_name} пытается донести истину до окружающих.*")
+        authbal=await bank.get_balance(author)
+        if authbal==0:
+            return await ctx.send (f"*{author.display_name} не может побороть свою стеснительность.*")
+        xp=await self.buffexp(ctx, user, authbal//10)
+        await bank.withdraw_credits(author, xp*10)
+        await ctx.send (f"*Во взрыве ослепительного света можно разглядеть, как {author.display_name} благославляет {user.mention}, увеличивая опыт на {authbal} единиц!\n{user.display_name} усваивает {xp} единиц опыта.*")
+
     @commands.group(name="стрела", autohelp=False)
     async def стрела(self, ctx: commands.GuildContext):
         pass
@@ -5760,6 +5797,34 @@ class enclave(commands.Cog):
         if targbal<dmg:
             dmg=targbal
         await bank.withdraw_credits(user, dmg)
+
+    @commands.group(name="глубокая", autohelp=False)
+    async def глубокая(self, ctx: commands.GuildContext):
+        pass
+
+    @глубокая.command(name="заморозка")
+    async def глубокая_заморозка(self, ctx, user: discord.Member = None):
+        author=ctx.author
+        while user is None or user is author:
+            user = random.choice(ctx.message.guild.members)
+        CLS=discord.utils.get(ctx.guild.roles, id=685724798193762365)
+        MUT=discord.utils.get(ctx.guild.roles, id=1058303745567502367)
+        if CLS not in author.roles:
+            await ctx.send (f"*{author.display_name} стучит зубами.*")
+            return await ctx.message.delete()
+        if ctx.message.channel.id != 603151774009786393:
+            return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*\nИди в <#603151774009786393> и попробуй там.")
+        rank=await self.chkrank(ctx=ctx, user=author)
+        slw=ctx.channel.slowmode_delay
+        if rank<=6 or slw!=0:
+            return await ctx.send (f"*{author.display_name} бросает холодный взгляд на {user.display_name}.*")
+        authbal=await bank.get_balance(author)
+        cst=150
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} не может пошевелить пальцами от усталости.*")
+        await bank.withdraw_credits(author, cst)
+        await self.zadd(who=user, give=MUT)
+        await ctx.send(f"*{author.display_name} примораживает {user.mention} к месту, лишая возможности общаться.*")
 
     @удар.command(name="плети")
     @commands.cooldown(10, 18000, commands.BucketType.user)
