@@ -4897,7 +4897,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name}и отправляется на болото, собирать все необходимые ингридиенты.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и отправляется на болото, собирать все необходимые ингридиенты.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в маленькое зелёное земноводное.*", components = [])
             await self.delarm(ctx=ctx, user=user)
@@ -4915,7 +4915,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name}и отправляется на болото, собирать все необходимые ингридиенты.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и отправляется на болото, собирать все необходимые ингридиенты.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в маленькое зелёное земноводное.*", components = [])
             await self.delarm(ctx=ctx, user=user)
@@ -4933,7 +4933,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name}и отправляетс-с-ся, с-с-собирать вс-с-се необходимые ингридиенты.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и отправляетс-с-ся, с-с-собирать вс-с-се необходимые ингридиенты.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в маленькое чешуйчатое пресмыкающееся.*", components = [])
             await self.delarm(ctx=ctx, user=user)
@@ -4951,7 +4951,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name}и отправляется за сыром.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и отправляется за сыром.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в маленького серого грызуна.*", components = [])
             await self.delarm(ctx=ctx, user=user)
@@ -4969,7 +4969,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает нетривиальное наказание для {user.display_name} и начинает танцевать с пчёлами.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает нетривиальное наказание для {user.display_name} и начинает танцевать с пчёлами.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в жёлтую липкую субстанцию.*", components = [])
             await self.delarm(ctx=ctx, user=user)
