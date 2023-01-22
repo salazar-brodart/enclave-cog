@@ -134,6 +134,9 @@ class enclave(commands.Cog):
         if com is None:
             return
         await ctx.send(str(command)+"   "+str(com))
+        emdeb=discord.Embed(title = f'{user.display_name} выбирай категорию.', colour=discord.Colour.random())
+        await ctx.send(embed=embed, components = [
+                Button(style = ButtonStyle.blurple, label = 'Простые, 1 балл')]
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
