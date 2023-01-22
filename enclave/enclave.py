@@ -114,7 +114,7 @@ class enclave(commands.Cog):
                     await ctx.send("Иии, начали!")
                     return self.pilid(ctx=ctx, online=online)
 
-    async def action(self, ctx, online: array):
+    async def pilid(self, ctx, online):
         await random.shuffle(online)
         i=0
         embed = discord.Embed(title = 'Порядок отвечающих:', colour=discord.Colour.random())
