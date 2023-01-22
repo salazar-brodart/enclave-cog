@@ -86,7 +86,7 @@ class enclave(commands.Cog):
                 responce = await self.bot.wait_for("button_click", timeout=300)
             except:
                 await msg.edit(embed=embed, components = [])
-                return await ctx.send("Иии, начали!")
+                return await ctx.send("И чего не стартуем?!")
             if responce.component.label == 'Принять участие!':
                 await responce.edit_origin()
                 if responce.user not in online:
@@ -111,7 +111,17 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 if responce.user == author:
                     await msg.edit(embed=embed, components = [])
-                    return await ctx.send("Иии, начали!")
+                    await ctx.send("Иии, начали!")
+                    return self.pilid(ctx=ctx, online=online)
+
+    async def action(self, ctx, online: array):
+        await random.shuffle(online)
+        i=0
+        embed = discord.Embed(title = 'Порядок отвечающих:', colour=discord.Colour.random())
+        for user in online:
+            i+=1
+            embed.add_field(name=str(i), value=f'{user.display_name}')
+        msg = await ctx.send(embed=embed)
 
     @commands.group(name="это", autohelp=False)
     async def это(self, ctx: commands.GuildContext):
