@@ -174,7 +174,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -196,7 +196,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -218,7 +218,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -240,7 +240,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -262,7 +262,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -284,7 +284,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -306,7 +306,7 @@ class enclave(commands.Cog):
                             responce.component.label = "костыль"
                         if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
                             j+=1
-                            embed.set_footer(text = 'Приняли: 'str(j))
+                            embed.set_footer(text = 'Приняли: '+str(j))
                             await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                             online1.append(responce.user)
                         if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
@@ -342,7 +342,7 @@ class enclave(commands.Cog):
                 return -1
             if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1:
                 j+=1
-                embed.set_footer(text = 'Приняли: 'str(j))
+                embed.set_footer(text = 'Приняли: '+str(j))
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!')]])
                 online1.append(responce.user)
         return 0
