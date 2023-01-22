@@ -134,7 +134,7 @@ class enclave(commands.Cog):
         if com is None:
             return
         await ctx.send(str(command)+"   "+str(com))
-        emdeb=discord.Embed(title = f' выбирай категорию.', colour=discord.Colour.random())
+        embed=discord.Embed(title = f' выбирай категорию.', colour=discord.Colour.random())
         await ctx.send(embed=embed, components = [
                 Button(style = ButtonStyle.blurple, label = 'Простые, 1 балл')])
 
