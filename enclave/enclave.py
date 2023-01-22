@@ -89,13 +89,13 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 if responce.user not in online:
                     online.append(responce.user)
-                    embed = discord.Embed(title = '*бла-бла-бла, тут правила игры, 5 минут на запись.', description = f'Список участников:\n{online}*', colour=discord.Colour.random())
+                    embed = discord.Embed(title = '*бла-бла-бла, тут правила игры, 5 минут на запись.*', description = f'Список участников:\n{online}', colour=discord.Colour.random())
                     await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
             if responce.component.label == 'Не принимать участие.':
                 await responce.edit_origin()
                 if responce.user in online:
                     online.remove(responce.user)
-                    embed = discord.Embed(title = '*бла-бла-бла, тут правила игры, 5 минут на запись.', description = f'Список участников:\n{online}*', colour=discord.Colour.random())
+                    embed = discord.Embed(title = '*бла-бла-бла, тут правила игры, 5 минут на запись.*', description = f'Список участников:\n{online}', colour=discord.Colour.random())
                     await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
             if responce.component.label == 'Старт!':
                 await responce.edit_origin()
