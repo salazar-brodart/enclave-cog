@@ -70,6 +70,38 @@ class enclave(commands.Cog):
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
 
+    @commands.group(name="игра", autohelp=False)
+    async def игра(self, ctx: commands.GuildContext):
+        pass
+
+    @игра.command(name="правдоруб")
+    async def игра_правдоруб(self, ctx: Context):
+        author=ctx.author
+        online=[]
+        embed = discord.Embed(title = f'*бла-бла-бла, тут правила игры, 5 минут на запись.*', colour=discord.Colour.random())
+        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
+        while True:
+            try:
+                responce = await self.bot.wait_for("button_click", timeout=300)
+            except:
+                return await ctx.send("Иии, начали!")
+            if responce.component.label == 'Принять участие!':
+                await responce.edit_origin()
+                if responce.user not in online:
+                    online.append(responce.user)
+                    embed = discord.Embed(title = f'*бла-бла-бла, тут правила игры, 5 минут на запись.\n\nСписок участников:\n{online}*', colour=discord.Colour.random())
+                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
+            if responce.component.label == 'Не принимать участие.':
+                await responce.edit_origin()
+                if responce.user in online:
+                    online.remove(responce.user)
+                    embed = discord.Embed(title = f'*бла-бла-бла, тут правила игры, 5 минут на запись.\n\nСписок участников:\n{online}*', colour=discord.Colour.random())
+                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
+            if responce.component.label == 'Старт!':
+                await responce.edit_origin()
+                if responce.user == author:
+                    return await ctx.send("Иии, начали!")
+
     @commands.group(name="это", autohelp=False)
     async def это(self, ctx: commands.GuildContext):
         pass
