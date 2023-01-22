@@ -85,6 +85,7 @@ class enclave(commands.Cog):
             try:
                 responce = await self.bot.wait_for("button_click", timeout=300)
             except:
+                await msg.edit(embed=embed, components = [])
                 return await ctx.send("Иии, начали!")
             if responce.component.label == 'Принять участие!':
                 await responce.edit_origin()
@@ -109,6 +110,7 @@ class enclave(commands.Cog):
             if responce.component.label == 'Старт!':
                 await responce.edit_origin()
                 if responce.user == author:
+                    await msg.edit(embed=embed, components = [])
                     return await ctx.send("Иии, начали!")
 
     @commands.group(name="это", autohelp=False)
