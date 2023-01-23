@@ -149,164 +149,157 @@ class enclave(commands.Cog):
                 except:
                     await msg.edit(embed=emb0, components = [])
                     d = await self.dilip(ctx=ctx, user=user, win=win)
-                    responce.component.label = "костыль"
-                if responce.values[0] == '1' and d>0:
-                    await responce.edit_origin()
-                    win=1
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '2' and d>0:
-                    await responce.edit_origin()
-                    win=2
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '3' and d>0:
-                    await responce.edit_origin()
-                    win=3
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list3), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '4' and d>0:
-                    await responce.edit_origin()
-                    win=3
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list4), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '5' and d>0:
-                    await responce.edit_origin()
-                    win=3
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list5), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '6' and d>0:
-                    await responce.edit_origin()
-                    win=4
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list6), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                if responce.values[0] == '7' and d>0:
-                    await responce.edit_origin()
-                    win=5
-                    embed = discord.Embed(title = f'Категория {responce.component.label}.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list7), colour=discord.Colour.random())
-                    await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                    online1=[]
-                    j=0
-                    while j<=len(online)/2 and d>0:
-                        try:
-                            responce = await self.bot.wait_for("button_click", timeout=180)
-                        except:
-                            await msg.edit(embed=emb0, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-                            responce.component.label = "костыль"
-                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
-                            j+=1
-                            embed.set_footer(text = 'Приняли: '+str(j))
-                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                            online1.append(responce.user)
-                        if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                            await msg.edit(embed=emb1, components = [])
-                            d = await self.dilip(ctx=ctx, user=user, win=win)
-            if j>=len(online)/2 and d>=0:
-                bal[user]+=win
-                await msg.edit(embed=emb2, components = [])
+                if d>0:
+                    if responce.values[0] == '1':
+                        await responce.edit_origin()
+                        win=1
+                        embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '2':
+                        await responce.edit_origin()
+                        win=2
+                        embed = discord.Embed(title = f'Категория Общие вопросы, 2 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '3':
+                        await responce.edit_origin()
+                        win=3
+                        embed = discord.Embed(title = f'Категория Неудобные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list3), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '4':
+                        await responce.edit_origin()
+                        win=3
+                        embed = discord.Embed(title = f'Категория Жёсткие вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list4), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '5':
+                        await responce.edit_origin()
+                        win=3
+                        embed = discord.Embed(title = f'Категория Каверзные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list5), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '6':
+                        await responce.edit_origin()
+                        win=4
+                        embed = discord.Embed(title = f'Категория Вопросы 18+, 4 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list6), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if responce.values[0] == '7':
+                        await responce.edit_origin()
+                        win=5
+                        embed = discord.Embed(title = f'Категория Вопросы 21+, 5 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list7), colour=discord.Colour.random())
+                        await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        online1=[]
+                        j=0
+                        while j<=len(online)/2 and d>0:
+                            try:
+                                responce = await self.bot.wait_for("button_click", timeout=180)
+                            except:
+                                await msg.edit(embed=emb0, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                                j+=1
+                                embed.set_footer(text = 'Приняли: '+str(j))
+                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                                online1.append(responce.user)
+                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                                await msg.edit(embed=emb1, components = [])
+                                d = await self.dilip(ctx=ctx, user=user, win=win)
+                    if j>=len(online)/2 and d>=0:
+                        bal[user]+=win
+                        await msg.edit(embed=emb2, components = [])
             embed = discord.Embed(title = f'Общий счёт:', description = bal, colour=discord.Colour.random())
             msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.blue, label = 'Ещё раунд!'),
                 Button(style = ButtonStyle.green, label = 'Достаточно.')])
