@@ -143,15 +143,7 @@ class enclave(commands.Cog):
             for user in online:
                 d=1
                 embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
-                msg = await ctx.send(embed=embed, components = [
-                Button(style = ButtonStyle.grey, label = 'Простые, 1 балл'),
-                Button(style = ButtonStyle.blue, label = 'Общие, 2 балла'),
-                Button(style = ButtonStyle.green, label = 'Неудобные, 3 балла'),
-                Button(style = ButtonStyle.green, label = 'Жёсткие, 3 балла'),
-                Button(style = ButtonStyle.green, label = 'Каверзные, 3 балла'),
-                Button(style = ButtonStyle.red, label = '18+, 4 балла'),
-                Button(style = ButtonStyle.red, label = '21+, 5 баллов'),
-                ])
+                msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.grey, label = 'Простые, 1 балл'), Button(style = ButtonStyle.blue, label = 'Общие, 2 балла'), Button(style = ButtonStyle.green, label = 'Неудобные, 3 балла'), Button(style = ButtonStyle.green, label = 'Жёсткие, 3 балла'), Button(style = ButtonStyle.green, label = 'Каверзные, 3 балла'), Button(style = ButtonStyle.red, label = '18+, 4 балла'), Button(style = ButtonStyle.red, label = '21+, 5 баллов')])
                 try:
                     responce = await self.bot.wait_for("button_click", check = lambda message: message.author == user, timeout=180)
                 except:
