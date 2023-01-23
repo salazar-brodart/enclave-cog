@@ -145,13 +145,13 @@ class enclave(commands.Cog):
                 embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
                 msg = await ctx.send(embed=embed, components = [Select(placeholder="Нажми и выбери", options=[SelectOption(label="Простые, 1 балл", value='1'), SelectOption(label="Общие, 2 балла", value='2'), SelectOption(label="Неудобные, 3 балла", value='3'), SelectOption(label="Жёсткие, 3 балла", value='4'), SelectOption(label="Каверзные, 3 балла", value='5'), SelectOption(label="18+, 4 балла", value='6'), SelectOption(label="21+, 5 баллов", value='7')])])
                 try:
-                    responce = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
+                    interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
                 except:
                     await msg.edit(embed=emb0, components = [])
                     d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                 if d>0:
-                    if responce.values[0] == '1':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '1':
+                        await interaction.edit_origin()
                         win=1
                         embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -171,8 +171,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '2':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '2':
+                        await interaction.edit_origin()
                         win=2
                         embed = discord.Embed(title = f'Категория Общие вопросы, 2 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -192,8 +192,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '3':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '3':
+                        await interaction.edit_origin()
                         win=3
                         embed = discord.Embed(title = f'Категория Неудобные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list3), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -213,8 +213,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '4':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '4':
+                        await interaction.edit_origin()
                         win=3
                         embed = discord.Embed(title = f'Категория Жёсткие вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list4), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -234,8 +234,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '5':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '5':
+                        await interaction.edit_origin()
                         win=3
                         embed = discord.Embed(title = f'Категория Каверзные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list5), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -255,8 +255,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '6':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '6':
+                        await interaction.edit_origin()
                         win=4
                         embed = discord.Embed(title = f'Категория Вопросы 18+, 4 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list6), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
@@ -276,8 +276,8 @@ class enclave(commands.Cog):
                             if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
                                 await msg.edit(embed=emb1, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                    if responce.values[0] == '7':
-                        await responce.edit_origin()
+                    if interaction.values[0] == '7':
+                        await interaction.edit_origin()
                         win=5
                         embed = discord.Embed(title = f'Категория Вопросы 21+, 5 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list7), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
