@@ -139,7 +139,7 @@ class enclave(commands.Cog):
         list6=[("Вопрос 6-1"), ("Вопрос 6-2"), ("Вопрос 6-3")]
         list7=[("Вопрос 7-1"), ("Вопрос 7-2"), ("Вопрос 7-3")]
         win=1
-        while i <= 3:
+        while True:
             for user in online:
                 d=1
                 embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
@@ -157,7 +157,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -178,7 +178,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -199,7 +199,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -220,7 +220,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -241,7 +241,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -262,7 +262,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -283,7 +283,7 @@ class enclave(commands.Cog):
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
                         j=0
-                        while j<=len(online)/2 and d>0:
+                        while j<len(online)/2 and d>0:
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
@@ -306,11 +306,11 @@ class enclave(commands.Cog):
             try:
                 responce = await self.bot.wait_for("button_click", timeout=60)
             except:
-                i+=1
+                return await ctx.send("Иии, закончили!")
             if responce.component.label == 'Ещё раунд!':
                 i+=1
             if responce.component.label == 'Достаточно.':
-                return
+                return await ctx.send("Иии, закончили!")
 
     async def dilip(self, ctx, user: discord.Member, online: list, win: int) -> int:
         list8=[("Действие 1"), ("Действие 2"), ("Действие 3")]
@@ -319,7 +319,7 @@ class enclave(commands.Cog):
         msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.green, label = 'Принято!')])
         online1=[]
         j=0
-        while j<=len(online)/2:
+        while j<len(online)/2:
             try:
                 responce = await self.bot.wait_for("button_click", timeout=300)
             except:
