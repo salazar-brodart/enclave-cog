@@ -139,13 +139,13 @@ class enclave(commands.Cog):
         list6=[("Вопрос 6-1"), ("Вопрос 6-2"), ("Вопрос 6-3")]
         list7=[("Вопрос 7-1"), ("Вопрос 7-2"), ("Вопрос 7-3")]
         win=1
-        while i <= 10:
+        while i <= 3:
             for user in online:
                 d=1
                 embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
-                msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.grey, label = 'Простые, 1 балл')], [Button(style = ButtonStyle.blue, label = 'Общие, 2 балла')], [Button(style = ButtonStyle.green, label = 'Неудобные, 3 балла')], [Button(style = ButtonStyle.green, label = 'Жёсткие, 3 балла')], [Button(style = ButtonStyle.green, label = 'Каверзные, 3 балла')], [Button(style = ButtonStyle.red, label = '18+, 4 балла')], [Button(style = ButtonStyle.red, label = '21+, 5 баллов')]])
+                msg = await ctx.send(embed=embed, components = [Select(placeholder="Подробнее:", options=[SelectOption(label="Простые, 1 балл"), SelectOption(label="Общие, 2 балла"), SelectOption(label="Неудобные, 3 балла"), SelectOption(label="Жёсткие, 3 балла"), SelectOption(label="Каверзные, 3 балла"), SelectOption(label="18+, 4 балла"), SelectOption(label="21+, 5 баллов")])])
                 try:
-                    responce = await self.bot.wait_for("button_click", check = lambda message: message.author == user, timeout=180)
+                    responce = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
                 except:
                     await msg.edit(embed=emb0, components = [])
                     d = await self.dilip(ctx=ctx, user=user, win=win)
