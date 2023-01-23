@@ -301,9 +301,8 @@ class enclave(commands.Cog):
                         bal[user]+=win
                         await msg.edit(embed=emb2, components = [])
             embed = discord.Embed(title = f'Общий счёт:', colour=discord.Colour.random())
-            score1=bal.keys()
-            for d in range(len(bal)):
-                embed.add_field(name=score1[d].display_name, value=bal[d])
+            for user in online:
+                embed.add_field(name=user.display_name, value=bal[user])
             msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.blue, label = 'Ещё раунд!'),
                 Button(style = ButtonStyle.green, label = 'Достаточно.')])
             try:
