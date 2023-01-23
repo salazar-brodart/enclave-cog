@@ -321,7 +321,7 @@ class enclave(commands.Cog):
                 embed.add_field(name=user.display_name, value=bal[user])
             msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.blue, label = 'Ещё раунд!'),
                 Button(style = ButtonStyle.green, label = 'Достаточно.')])
-            While d!=2:
+            while d!=2:
                 try:
                     responce = await self.bot.wait_for("button_click", timeout=60)
                 except:
