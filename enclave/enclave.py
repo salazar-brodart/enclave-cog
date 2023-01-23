@@ -303,7 +303,7 @@ class enclave(commands.Cog):
             embed = discord.Embed(title = f'Общий счёт:', colour=discord.Colour.random())
             score1=bal.keys()
             for d in range(len(bal)):
-                embed.add_field(name=score1[d].display_name, value=bal[score1[d]])
+                embed.add_field(name=score1[d].display_name, value=bal[d])
             msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.blue, label = 'Ещё раунд!'),
                 Button(style = ButtonStyle.green, label = 'Достаточно.')])
             try:
