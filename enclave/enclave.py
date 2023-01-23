@@ -143,7 +143,7 @@ class enclave(commands.Cog):
             for user in online:
                 d=1
                 embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
-                msg = await ctx.send(embed=embed, components = [Select(placeholder="Подробнее:", options=[SelectOption(label="Простые, 1 балл"), SelectOption(label="Общие, 2 балла"), SelectOption(label="Неудобные, 3 балла"), SelectOption(label="Жёсткие, 3 балла"), SelectOption(label="Каверзные, 3 балла"), SelectOption(label="18+, 4 балла"), SelectOption(label="21+, 5 баллов")])])
+                msg = await ctx.send(embed=embed, components = [Select(placeholder="Нажми и выбери", options=[SelectOption(label="Простые, 1 балл", value=1), SelectOption(label="Общие, 2 балла", value=2), SelectOption(label="Неудобные, 3 балла", value=3), SelectOption(label="Жёсткие, 3 балла", value=4), SelectOption(label="Каверзные, 3 балла", value=5), SelectOption(label="18+, 4 балла", value=6), SelectOption(label="21+, 5 баллов", value=7)])])
                 try:
                     responce = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
                 except:
