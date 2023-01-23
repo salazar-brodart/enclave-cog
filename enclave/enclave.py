@@ -146,7 +146,6 @@ class enclave(commands.Cog):
                 try:
                     interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
                 except:
-                    await interaction.edit_origin()
                     await msg.edit(embed=emb0, components = [])
                     d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                 if d>0:
@@ -161,10 +160,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -185,10 +183,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -209,10 +206,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -233,10 +229,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -257,10 +252,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -281,10 +275,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -305,10 +298,9 @@ class enclave(commands.Cog):
                             try:
                                 responce = await self.bot.wait_for("button_click", timeout=180)
                             except:
-                                await responce.edit_origin()
                                 await msg.edit(embed=emb0, components = [])
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and d>0:
+                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
                                 await responce.edit_origin()
                                 j+=1
                                 embed.set_footer(text = 'Приняли: '+str(j))
@@ -320,8 +312,6 @@ class enclave(commands.Cog):
                                 d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if d==0:
                         bal[user]+=win
-                        emb2 = discord.Embed(title = f'{user.display_name} действительно выполняет действие, баллы засчитаны ({win})!', colour=discord.Colour.random())
-                        await msg.edit(embed=emb2, components = [])
                     elif d==1:
                         bal[user]+=win
                         emb2 = discord.Embed(title = f'{user.display_name} честно отвечает на вопрос, баллы засчитаны ({win})!', colour=discord.Colour.random())
@@ -331,20 +321,22 @@ class enclave(commands.Cog):
                 embed.add_field(name=user.display_name, value=bal[user])
             msg = await ctx.send(embed=embed, components = [Button(style = ButtonStyle.blue, label = 'Ещё раунд!'),
                 Button(style = ButtonStyle.green, label = 'Достаточно.')])
-            try:
-                responce = await self.bot.wait_for("button_click", timeout=60)
-            except:
-                await responce.edit_origin()
-                await msg.edit(embed=embed, components = [])
-                return await ctx.send("Иии, закончили!")
-            if responce.component.label == 'Ещё раунд!':
-                await responce.edit_origin()
-                i+=1
-                await msg.edit(embed=embed, components = [])
-            if responce.component.label == 'Достаточно.':
-                await responce.edit_origin()
-                await msg.edit(embed=embed, components = [])
-                return await ctx.send("Иии, закончили!")
+            While d!=2:
+                try:
+                    responce = await self.bot.wait_for("button_click", timeout=60)
+                except:
+                    await responce.edit_origin()
+                    await msg.edit(embed=embed, components = [])
+                    return await ctx.send("Иии, закончили!")
+                if responce.component.label == 'Ещё раунд!' and responce.user in online:
+                    await responce.edit_origin()
+                    i+=1
+                    await msg.edit(embed=embed, components = [])
+                    d=2
+                if responce.component.label == 'Достаточно.' and responce.user in online:
+                    await responce.edit_origin()
+                    await msg.edit(embed=embed, components = [])
+                    return await ctx.send("Иии, закончили!")
 
     async def dilip(self, ctx, user: discord.Member, online: list, win: int) -> int:
         list8=[("Действие 1"), ("Действие 2"), ("Действие 3")]
@@ -360,13 +352,14 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 await msg.edit(embed=emb0, components = [])
                 return -1
-            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1:
+            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online:
                 await responce.edit_origin()
                 j+=1
                 embed.set_footer(text = 'Приняли: '+str(j))
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!')]])
                 online1.append(responce.user)
-        await msg.edit(embed=embed, components = [])
+        emb2 = discord.Embed(title = f'{user.display_name} действительно выполняет действие, баллы засчитаны ({win})!', colour=discord.Colour.random())
+        await msg.edit(embed=emb2, components = [])
         return 0
 
     @commands.group(name="это", autohelp=False)
