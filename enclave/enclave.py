@@ -325,7 +325,6 @@ class enclave(commands.Cog):
                 try:
                     responce = await self.bot.wait_for("button_click", timeout=60)
                 except:
-                    await responce.edit_origin()
                     await msg.edit(embed=embed, components = [])
                     return await ctx.send("Иии, закончили!")
                 if responce.component.label == 'Ещё раунд!' and responce.user in online:
@@ -349,7 +348,6 @@ class enclave(commands.Cog):
             try:
                 responce = await self.bot.wait_for("button_click", timeout=300)
             except:
-                await responce.edit_origin()
                 await msg.edit(embed=emb0, components = [])
                 return -1
             if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online:
