@@ -371,6 +371,18 @@ class enclave(commands.Cog):
         if com is None:
             return
         await ctx.send(str(command)+"   "+str(com))
+        R0=discord.utils.get(ctx.guild.roles, name="Ученик")
+        R1=discord.utils.get(ctx.guild.roles, name="Подмастерье")
+        R2=discord.utils.get(ctx.guild.roles, name="Умелец")
+        R3=discord.utils.get(ctx.guild.roles, name="Искусник")
+        R4=discord.utils.get(ctx.guild.roles, name="Знаток")
+        R5=discord.utils.get(ctx.guild.roles, name="Мастер")
+        R6=discord.utils.get(ctx.guild.roles, name="Специалист")
+        R7=discord.utils.get(ctx.guild.roles, name="Магистр")
+        R8=discord.utils.get(ctx.guild.roles, name="Профессионал")
+        R9=discord.utils.get(ctx.guild.roles, name="Эксперт")
+        for R in R0, R1, R2, R3, R4, R5, R6, R7, R8, R9:
+            await ctx.send(R.name)
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
