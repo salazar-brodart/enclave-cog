@@ -3755,7 +3755,10 @@ class enclave(commands.Cog):
             await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!* <:peu:968784071306133505>")
         else:
             await ctx.send(f"*{author.display_name} пынькает {user.mention} по носу. Пынь!* <:peu:968784071306133505>")
-        await ctx.message.delete()
+        try:
+            await ctx.message.delete()
+        except:
+            await ctx.send(f"*Джола Древняя пынькает {author.mention} по носу. Пынь!* "+pins)
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
@@ -3773,16 +3776,16 @@ class enclave(commands.Cog):
                 oldart+=1
     
     async def chkrank(self, ctx: commands.GuildContext, user: discord.Member) -> int:
-        R0=discord.utils.get(ctx.guild.roles, id=687903691587846158)#от Ученика 1
-        R1=discord.utils.get(ctx.guild.roles, id=696008498764578896)#2
-        R2=discord.utils.get(ctx.guild.roles, id=687903789457735680)#3
-        R3=discord.utils.get(ctx.guild.roles, id=696008500240973885)#4
-        R4=discord.utils.get(ctx.guild.roles, id=687903789843218457)#5
-        R5=discord.utils.get(ctx.guild.roles, id=696008502497378334)#6
-        R6=discord.utils.get(ctx.guild.roles, id=687903807405162506)#7
-        R7=discord.utils.get(ctx.guild.roles, id=696008504153997322)#8
-        R8=discord.utils.get(ctx.guild.roles, id=687903808268927002)#9
-        R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)#до Эксперта 10
+        R0=discord.utils.get(ctx.guild.roles, name="Ученик")#1
+        R1=discord.utils.get(ctx.guild.roles, name="Подмастерье")#2
+        R2=discord.utils.get(ctx.guild.roles, name="Умелец")#3
+        R3=discord.utils.get(ctx.guild.roles, name="Искусник")#4
+        R4=discord.utils.get(ctx.guild.roles, name="Знаток")#5
+        R5=discord.utils.get(ctx.guild.roles, name="Мастер")#6
+        R6=discord.utils.get(ctx.guild.roles, name="Специалист")#7
+        R7=discord.utils.get(ctx.guild.roles, name="Магистр")#8
+        R8=discord.utils.get(ctx.guild.roles, name="Профессионал")#9
+        R9=discord.utils.get(ctx.guild.roles, name="Эксперт")#10
         ret=0
         for R in R0, R1, R2, R3, R4, R5, R6, R7, R8, R9:
             ret+=1
@@ -3792,17 +3795,14 @@ class enclave(commands.Cog):
 
     async def getrank(self, ctx: commands.GuildContext, user: discord.Member):
         rank=await self.chkrank(ctx=ctx, user=user)
-        R0=discord.utils.get(ctx.guild.roles, id=687903691587846158)
-        R1=discord.utils.get(ctx.guild.roles, id=696008498764578896)
-        R2=discord.utils.get(ctx.guild.roles, id=687903789457735680)
-        R3=discord.utils.get(ctx.guild.roles, id=696008500240973885)
-        R4=discord.utils.get(ctx.guild.roles, id=687903789843218457)
-        R5=discord.utils.get(ctx.guild.roles, id=696008502497378334)
-        R6=discord.utils.get(ctx.guild.roles, id=687903807405162506)
-        R7=discord.utils.get(ctx.guild.roles, id=696008504153997322)
-        R8=discord.utils.get(ctx.guild.roles, id=687903808268927002)
-        R9=discord.utils.get(ctx.guild.roles, id=687904030713708575)
-        i=0
+        if rank==10:
+            userbal=await bank.get_balance(user)
+            max_bal=await bank.get_max_balance(guild=getattr(user, "guild", None))
+            heal=random.randint(900, 1000)
+            if userbal>(max_bal-heal):
+                heal=(max_bal-userbal)
+            await bank.deposit_credits(user, heal)
+            return await ctx.send (f"*{user.display_name} достигает максимального ранга мастерства в своём классе, за что получает премию в размере {heal} золотых монет.*")
         if rank==8 or rank==9:
             x=random.randint(1, rank)
             if x>3:
@@ -3813,6 +3813,17 @@ class enclave(commands.Cog):
                     heal=(max_bal-userbal)
                 await bank.deposit_credits(user, heal)
                 return await ctx.send (f"Сожалею, но сегодня я ничему не смогу тебя научить. Прими {heal} золотых монет качестве утешения.")
+        R0=discord.utils.get(ctx.guild.roles, name="Ученик")
+        R1=discord.utils.get(ctx.guild.roles, name="Подмастерье")
+        R2=discord.utils.get(ctx.guild.roles, name="Умелец")
+        R3=discord.utils.get(ctx.guild.roles, name="Искусник")
+        R4=discord.utils.get(ctx.guild.roles, name="Знаток")
+        R5=discord.utils.get(ctx.guild.roles, name="Мастер")
+        R6=discord.utils.get(ctx.guild.roles, name="Специалист")
+        R7=discord.utils.get(ctx.guild.roles, name="Магистр")
+        R8=discord.utils.get(ctx.guild.roles, name="Профессионал")
+        R9=discord.utils.get(ctx.guild.roles, name="Эксперт")
+        i=0
         for R in R0, R1, R2, R3, R4, R5, R6, R7, R8, R9:
             if R in user.roles and i<9:
                 await user.remove_roles(R)
@@ -3820,14 +3831,6 @@ class enclave(commands.Cog):
                 await user.add_roles(R)
                 return await ctx.send (f"*{user.display_name} получает ранг мастерства {R}.*")
             i+=1
-        if rank==10:
-            userbal=await bank.get_balance(user)
-            max_bal=await bank.get_max_balance(guild=getattr(user, "guild", None))
-            heal=random.randint(900, 1000)
-            if userbal>(max_bal-heal):
-                heal=(max_bal-userbal)
-            await bank.deposit_credits(user, heal)
-            return await ctx.send (f"*{user.display_name} достигает максимального ранга мастерства в своём классе, за что получает премию в размере {heal} золотых монет.*")
 
     async def buffexp(self, ctx, user: discord.Member, exp: int):
         lvl = await self.profiles._get_level(user)
