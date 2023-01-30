@@ -153,9 +153,6 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '1':
                         await interaction.edit_origin()
                         win=1
-                        with open("1.yaml") as file:
-                            try:
-                                list1 = yaml.safe_load(file)
                         embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
