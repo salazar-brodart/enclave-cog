@@ -1,6 +1,7 @@
 import asyncio
 import random
 import time
+import yaml
 import discord
 from math import ceil
 from discord.ext import tasks
@@ -128,7 +129,7 @@ class enclave(commands.Cog):
         for user in online:
             i+=1
             embed.add_field(name=str(i), value=f'{user.display_name}')
-        i=1
+        i=0
         await ctx.send(embed=embed)
         list1=[("Вопрос 1-1"), ("Вопрос 1-2"), ("Вопрос 1-3")]
         list2=[("Вопрос 2-1"), ("Вопрос 2-2"), ("Вопрос 2-3")]
@@ -141,7 +142,7 @@ class enclave(commands.Cog):
         while True:
             for user in online:
                 d=1
-                embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
+                embed = discord.Embed(title = f'Раунд {i+1}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
                 msg = await ctx.send(embed=embed, components = [Select(placeholder="Нажми и выбери", options=[SelectOption(label="Простые, 1 балл", value='1'), SelectOption(label="Общие, 2 балла", value='2'), SelectOption(label="Неудобные, 3 балла", value='3'), SelectOption(label="Жёсткие, 3 балла", value='4'), SelectOption(label="Каверзные, 3 балла", value='5'), SelectOption(label="18+, 4 балла", value='6'), SelectOption(label="21+, 5 баллов", value='7')])])
                 try:
                     interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
@@ -152,6 +153,9 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '1':
                         await interaction.edit_origin()
                         win=1
+                        with open("1.yaml") as file:
+                        try:
+                            list1 = yaml.safe_load(file)
                         embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
@@ -175,6 +179,8 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '2':
                         await interaction.edit_origin()
                         win=2
+                        file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/2.yaml", filename="2.yaml")
+                        list2 = yaml.safe_load(file)
                         embed = discord.Embed(title = f'Категория Общие вопросы, 2 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
@@ -3758,7 +3764,7 @@ class enclave(commands.Cog):
         try:
             await ctx.message.delete()
         except:
-            await ctx.send(f"*Джола Древняя пынькает {author.mention} по носу. Пынь!* "+pins)
+            await ctx.send(f"*Джола Древняя пынькает {author.mention} по носу. Пынь!* <:peu:968784071306133505>")
 
     async def getart(self, ctx: commands.GuildContext, art: int):
         artj=discord.utils.get(ctx.guild.roles, id=893293699704975360)
