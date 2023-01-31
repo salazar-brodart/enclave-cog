@@ -1,7 +1,6 @@
 import asyncio
 import random
 import time
-import yaml
 import discord
 from math import ceil
 from discord.ext import tasks
@@ -153,6 +152,8 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '1':
                         await interaction.edit_origin()
                         win=1
+                        with open("1.yaml", "r") as file:
+                            list1=file
                         embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
@@ -176,8 +177,8 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '2':
                         await interaction.edit_origin()
                         win=2
-                        file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/2.yaml", filename="2.yaml")
-                        list2 = yaml.safe_load(file)
+                        with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/2.yaml", "r") as file:
+                            list2=file
                         embed = discord.Embed(title = f'Категория Общие вопросы, 2 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
