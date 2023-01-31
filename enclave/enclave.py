@@ -128,7 +128,6 @@ class enclave(commands.Cog):
         for user in online:
             i+=1
             embed.add_field(name=str(i), value=f'{user.display_name}')
-        i=0
         await ctx.send(embed=embed)
         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/pld/1.yaml", "r") as file:
             list1 = sorted(file.readlines(), key=lambda A: random.random())
@@ -146,11 +145,20 @@ class enclave(commands.Cog):
             list7m = sorted(file.readlines(), key=lambda A: random.random())
         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/pld/7f.yaml", "r") as file:
             list7f = sorted(file.readlines(), key=lambda A: random.random())
-        win=1
+        win=3
+        i=1
+        cnt1=0
+        cnt2=0
+        cnt3=0
+        cnt4=0
+        cnt5=0
+        cnt6=0
+        cnt7=0
+        cnt8=0
         while True:
             for user in online:
                 d=1
-                embed = discord.Embed(title = f'Раунд {i+1}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
+                embed = discord.Embed(title = f'Раунд {i}.\n{user.display_name}, выбирай категорию. У тебя 3 минуты на выбор.', colour=discord.Colour.random())
                 msg = await ctx.send(embed=embed, components = [Select(placeholder="Нажми и выбери", options=[SelectOption(label="Разминочные, 3 балла", value='1'), SelectOption(label="Простые, 4 балла", value='2'), SelectOption(label="Некорректные, 5 баллов", value='3'), SelectOption(label="Провокационные, 6 баллов", value='4'), SelectOption(label="Пошлые, 7 баллов", value='5'), SelectOption(label="Интимные, 8 баллов", value='6'), SelectOption(label="Откровенно о сексе (мужские), 9 баллов", value='7'), SelectOption(label="Откровенно о сексе (женские), 9 баллов", value='8')])])
                 try:
                     interaction = await self.bot.wait_for("select_option", check = lambda message: message.author == user, timeout=180)
@@ -163,8 +171,13 @@ class enclave(commands.Cog):
                         win=3
                         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/1.yaml", "r") as file:
                             list2=file.readlines()
-                        embed = discord.Embed(title = f'Категория Разминочные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = list1[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Разминочные вопросы, 3 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = list1[cnt1], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt1<=29:
+                            cnt1=+1
+                        else:
+                            list1 = sorted(list1, key=lambda A: random.random())
+                            cnt1=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -188,8 +201,13 @@ class enclave(commands.Cog):
                         win=4
                         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/2.yaml", "r") as file:
                             list2=file.readlines()
-                        embed = discord.Embed(title = f'Категория Простые вопросы, 4 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = list2[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Простые вопросы, 4 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = list2[cnt2], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt2<=29:
+                            cnt2=+1
+                        else:
+                            list2 = sorted(list2, key=lambda A: random.random())
+                            cnt2=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -211,8 +229,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '3':
                         await interaction.edit_origin()
                         win=5
-                        embed = discord.Embed(title = f'Категория Некорректные вопросы, 5 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list3[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Некорректные вопросы, 5 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list3[cnt3], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt3<=29:
+                            cnt3=+1
+                        else:
+                            list3 = sorted(list3, key=lambda A: random.random())
+                            cnt3=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -234,8 +257,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '4':
                         await interaction.edit_origin()
                         win=6
-                        embed = discord.Embed(title = f'Категория Провокационные вопросы, 6 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list4[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Провокационные вопросы, 6 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list4[cnt4], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt4<=29:
+                            cnt4=+1
+                        else:
+                            list4 = sorted(list4, key=lambda A: random.random())
+                            cnt4=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -257,8 +285,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '5':
                         await interaction.edit_origin()
                         win=7
-                        embed = discord.Embed(title = f'Категория Пошлые вопросы, 7 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list5[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Пошлые вопросы, 7 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list5[cnt5], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt5<=29:
+                            cnt5=+1
+                        else:
+                            list5 = sorted(list5, key=lambda A: random.random())
+                            cnt5=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -280,8 +313,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '6':
                         await interaction.edit_origin()
                         win=8
-                        embed = discord.Embed(title = f'Категория Интимные вопросы, 8 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list6[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория Интимные вопросы, 8 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list6[cnt6], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt6<=29:
+                            cnt6=+1
+                        else:
+                            list6 = sorted(list6, key=lambda A: random.random())
+                            cnt6=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -303,8 +341,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '7':
                         await interaction.edit_origin()
                         win=9
-                        embed = discord.Embed(title = f'Категория вопросов Откровенно о сексе (для мужчин), 9 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list7m[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория вопросов Откровенно о сексе (для мужчин), 9 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list7m[cnt7], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt7<=29:
+                            cnt7=+1
+                        else:
+                            list7 = sorted(list7, key=lambda A: random.random())
+                            cnt7=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -326,8 +369,13 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '8':
                         await interaction.edit_origin()
                         win=9
-                        embed = discord.Embed(title = f'Категория вопросов Откровенно о сексе (для женщин), 9 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list7f[i], colour=discord.Colour.random())
+                        embed = discord.Embed(title = f'Категория вопросов Откровенно о сексе (для женщин), 9 баллов.\n{user.display_name}, время на ответ - 3 минуты:', description = list7f[cnt8], colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                        if cnt8<=29:
+                            cnt8=+1
+                        else:
+                            list8 = sorted(list8, key=lambda A: random.random())
+                            cnt8=0
                         online1=[]
                         j=0
                         while j<len(online)/2 and d>0:
@@ -366,8 +414,6 @@ class enclave(commands.Cog):
                 if responce.component.label == 'Ещё раунд!' and responce.user in online:
                     await responce.edit_origin()
                     i+=1
-                    if i>29:
-                        return await ctx.send("Да хорош уже!")
                     await msg.edit(embed=embed, components = [])
                     d=2
                 if responce.component.label == 'Достаточно.' and responce.user in online:
