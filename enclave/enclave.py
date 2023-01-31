@@ -152,8 +152,8 @@ class enclave(commands.Cog):
                     if interaction.values[0] == '1':
                         await interaction.edit_origin()
                         win=1
-                        with open("1.yaml", "r") as file:
-                            list1=file
+                        list1=open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/1.yaml", "r")
+                        list1=list1.read()
                         embed = discord.Embed(title = f'Категория Простые вопросы, 1 балл.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list1), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
                         online1=[]
@@ -178,6 +178,7 @@ class enclave(commands.Cog):
                         await interaction.edit_origin()
                         win=2
                         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/2.yaml", "r") as file:
+                            file=file.read()
                             list2=file
                         embed = discord.Embed(title = f'Категория Общие вопросы, 2 балла.\n{user.display_name}, время на ответ - 3 минуты:', description = random.choice(list2), colour=discord.Colour.random())
                         await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
