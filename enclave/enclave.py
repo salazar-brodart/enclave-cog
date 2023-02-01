@@ -74,12 +74,12 @@ class enclave(commands.Cog):
     async def игра(self, ctx: commands.GuildContext):
         pass
 
-    @игра.command(name="правдоруб")
-    async def игра_правдоруб(self, ctx: Context):
+    @игра.command(name="плд")
+    async def игра_плд(self, ctx: Context):
         author=ctx.author
         online=[]
         i=0
-        embed = discord.Embed(title = f'*бла-бла-бла, тут правила игры, 5 минут на запись.*', colour=discord.Colour.random())
+        embed = discord.Embed(title = f'**Правда или Действие!**', description ='Джола Древняя определяет порядок отвечающих.\nПервому игроку предлагается выбрать категорию вопроса. За каждую категорию даётся определённое количество баллов. После выбора категории, Джола зачитывает случайный вопрос, на который игрок должен честно ответить.\n\nЕсли игрок не отвечает, зачитывается случайное действие, которое игрок должен выполнить. За задание даётся столько же баллов, сколько за вопрос.\n\nПосле того, как игрок ответил на вопрос или выполнил задание, ход переходит к следующему игроку.\n\nПо итогам игры игрок, набравший наибольшее количество баллов, получает роль "Правдоруб". Игрок, набравший наименьшее количество баллов, выполняет задание, придуманное коллективно остальными участниками.', colour=discord.Colour.random())
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принять участие!'), Button(style = ButtonStyle.red, label = 'Не принимать участие.'), Button(style = ButtonStyle.blue, label = 'Старт!')]])
         while True:
             try:
@@ -114,9 +114,9 @@ class enclave(commands.Cog):
                     await msg.edit(embed=embed, components = [])
                     if len(online) < 2:
                         return await ctx.send("И с кем играть?!")
-                    return await self.pilid(ctx=ctx, online=online)
+                    return await self.pilid(ctx=ctx, author=author, online=online)
 
-    async def pilid(self, ctx, online: list = []):
+    async def pilid(self, ctx, author: discord.Member, online: list = []):
         online = sorted(online, key=lambda A: random.random())
         bal={}
         for user in online:
@@ -178,24 +178,6 @@ class enclave(commands.Cog):
                         else:
                             list1 = sorted(list1, key=lambda A: random.random())
                             cnt1=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '2':
                         await interaction.edit_origin()
                         win=4
@@ -208,24 +190,6 @@ class enclave(commands.Cog):
                         else:
                             list2 = sorted(list2, key=lambda A: random.random())
                             cnt2=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '3':
                         await interaction.edit_origin()
                         win=5
@@ -236,24 +200,6 @@ class enclave(commands.Cog):
                         else:
                             list3 = sorted(list3, key=lambda A: random.random())
                             cnt3=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '4':
                         await interaction.edit_origin()
                         win=6
@@ -264,24 +210,6 @@ class enclave(commands.Cog):
                         else:
                             list4 = sorted(list4, key=lambda A: random.random())
                             cnt4=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '5':
                         await interaction.edit_origin()
                         win=7
@@ -292,24 +220,6 @@ class enclave(commands.Cog):
                         else:
                             list5 = sorted(list5, key=lambda A: random.random())
                             cnt5=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '6':
                         await interaction.edit_origin()
                         win=8
@@ -320,24 +230,6 @@ class enclave(commands.Cog):
                         else:
                             list6 = sorted(list6, key=lambda A: random.random())
                             cnt6=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '7':
                         await interaction.edit_origin()
                         win=9
@@ -348,24 +240,6 @@ class enclave(commands.Cog):
                         else:
                             list7 = sorted(list7, key=lambda A: random.random())
                             cnt7=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
                     if interaction.values[0] == '8':
                         await interaction.edit_origin()
                         win=9
@@ -376,24 +250,26 @@ class enclave(commands.Cog):
                         else:
                             list8 = sorted(list8, key=lambda A: random.random())
                             cnt8=0
-                        online1=[]
-                        j=0
-                        while j<len(online)/2 and d>0:
-                            try:
-                                responce = await self.bot.wait_for("button_click", timeout=180)
-                            except:
-                                await msg.edit(embed=emb0, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
-                            if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
-                                await responce.edit_origin()
-                                j+=1
-                                embed.set_footer(text = 'Приняли: '+str(j))
-                                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
-                                online1.append(responce.user)
-                            if responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
-                                await responce.edit_origin()
-                                await msg.edit(embed=emb1, components = [])
-                                d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
+                    online1=[]
+                    j=0
+                    while j<len(online)/2 and d>0:
+                        try:
+                            responce = await self.bot.wait_for("button_click", timeout=180)
+                        except:
+                            await msg.edit(embed=emb0, components = [])
+                            d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
+                        if responce.component.label == 'Принято!' and responce.user!=user and responce.user not in online1 and responce.user in online and d>0:
+                            await responce.edit_origin()
+                            j+=1
+                            embed.set_footer(text = 'Приняли: '+str(j))
+                            await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Принято!'), Button(style = ButtonStyle.red, label = 'Не отвечать (действие).')]])
+                            online1.append(responce.user)
+                        elif responce.component.label == 'Не отвечать (действие).' and responce.user==user and d>0:
+                            await responce.edit_origin()
+                            await msg.edit(embed=emb1, components = [])
+                            d = await self.dilip(ctx=ctx, user=user, online=online, win=win)
+                        else:
+                            await responce.edit_origin()
                     if d==0:
                         bal[user]+=win
                     elif d==1:
@@ -411,15 +287,17 @@ class enclave(commands.Cog):
                 except:
                     await msg.edit(embed=embed, components = [])
                     return await ctx.send("Иии, закончили!")
-                if responce.component.label == 'Ещё раунд!' and responce.user in online:
+                if responce.component.label == 'Ещё раунд!' and responce.user==author:
                     await responce.edit_origin()
                     i+=1
                     await msg.edit(embed=embed, components = [])
                     d=2
-                if responce.component.label == 'Достаточно.' and responce.user in online:
+                elif responce.component.label == 'Достаточно.' and responce.user==author:
                     await responce.edit_origin()
                     await msg.edit(embed=embed, components = [])
                     return await ctx.send("Иии, закончили!")
+                else:
+                    await responce.edit_origin()
 
     async def dilip(self, ctx, user: discord.Member, online: list, win: int) -> int:
         with open("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/pld/8a.yaml", "r") as file:
@@ -431,7 +309,7 @@ class enclave(commands.Cog):
         j=0
         while j<len(online)/2:
             try:
-                responce = await self.bot.wait_for("button_click", timeout=300)
+                responce = await self.bot.wait_for("button_click", timeout=600)
             except:
                 await msg.edit(embed=emb0, components = [])
                 return -1
