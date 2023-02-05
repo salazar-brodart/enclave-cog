@@ -5255,7 +5255,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             cst=190
             if authbal<cst:
-                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и уже вот-вот отправится собирать все необходимые ингридиенты.", components = [])
+                return await msg.edit (f"*{author.display_name} придумывает гениальное наказание для {user.display_name} и уже вот-вот отправится собирать все необходимые ингридиенты.*", components = [])
             await bank.withdraw_credits(author, cst)
             await msg.edit(f"*{author.display_name} что-то шепчет в кулак, и {user.display_name} превращается в маленького брюхоногого моллюска.*", components = [])
             await self.delarm(ctx=ctx, user=user)
