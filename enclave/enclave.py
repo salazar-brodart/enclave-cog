@@ -345,7 +345,7 @@ class enclave(commands.Cog):
             com3=ctx.invoked_with
         except:
             com3="Ошибка."
-        await ctx.send("Без префикса: "+str(command)+"\nКоманда:"+str(com)+"\nCommand:"+com1+"\nSub:"+com2+"\nWith:"+com3)
+        await ctx.send("Без префикса: "+str(command)+"\nКоманда:"+str(com)+"\nCommand:"+str(com1)+"\nSub:"+str(com2)+"\nWith:"+str(com3))
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
