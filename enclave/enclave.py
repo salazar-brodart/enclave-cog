@@ -76,13 +76,13 @@ class enclave(commands.Cog):
     async def encooldown(self, ctx: commands.GuildContext, spell_time: str, spell_count: str):
         author=ctx.author
         com=ctx.command
+        cur_time=round(time.time())
         try:
             spell_used=self.TIMERCD[author][com]
         except:
             self.TIMERCD[author][com]=cur_time
             self.COUNTCD[author][com]=0
             return False
-        cur_time=round(time.time())
         if (cur_time - spell_used) < spell_time:
             spell_use=self.COUNTCD[author][com]
             if spell_use < spell_count:
