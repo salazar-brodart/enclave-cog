@@ -74,8 +74,8 @@ class enclave(commands.Cog):
         DiscordComponents(self.bot)
 
     async def encooldown(self, ctx: commands.GuildContext, spell_time: str, spell_count: str):
-        author=ctx.author
-        com=ctx.command
+        author=ctx.author.id
+        com=str(ctx.command)
         cur_time=round(time.time())
         try:
             spell_used=self.TIMERCD[author][com]
@@ -86,9 +86,9 @@ class enclave(commands.Cog):
         if (cur_time - spell_used) < spell_time:
             spell_use=self.COUNTCD[author][com]
             if spell_use >= spell_count:
-                return (spell_time+spell_used)-cur_time
+                return False
             else:
-                return True
+                return (spell_time+spell_used)-cur_time
         else:
             self.TIMERCD[author][com]=cur_time
             self.COUNTCD[author][com]=0
@@ -101,14 +101,14 @@ class enclave(commands.Cog):
     @это.command(name="тест")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def это_тест(self, ctx: Context, user: discord.Member = None):
-        cd=await self.encooldown(ctx, spell_time=60, spell_count=2)
+        cd=await self.encooldown(ctx, spell_time=10, spell_count=3)
         if cd:
-            return await ctx.send("КД ещё на ."+str(datetime.timedelta(seconds=cd)))
+            return await ctx.send("КД ещё на "+str(datetime.timedelta(seconds=cd)))
         comm = ctx.message.content.replace(ctx.prefix, "")
         com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
         await ctx.send(str(comm)+"\n"+str(com))
         await ctx.send("2 в минуту.")
-        self.COUNTCD[ctx.author][ctx.command]+=1
+        self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         await ctx.send(self.COUNTCD)
 
     @это.command(name="иллюзия")
