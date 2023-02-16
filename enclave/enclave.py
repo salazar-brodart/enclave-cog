@@ -94,6 +94,48 @@ class enclave(commands.Cog):
             self.COUNTCD[author][com]=0
             return False
 
+    @commands.group(name="это", autohelp=False)
+    async def это(self, ctx: commands.GuildContext):
+        pass
+
+    @это.command(name="тест")
+    @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
+    async def это_тест(self, ctx: Context, user: discord.Member = None):
+        cd=await self.encooldown(ctx, spell_time=60, spell_count=2)
+        if cd:
+            return await ctx.send("КД ещё на ."+str(datetime.timedelta(seconds=cd)))
+        comm = ctx.message.content.replace(ctx.prefix, "")
+        com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
+        await ctx.send(str(comm)+"\n"+str(com))
+        await ctx.send("2 в минуту.")
+        self.COUNTCD[ctx.author][ctx.command]+=1
+        await ctx.send(self.COUNTCD)
+
+    @это.command(name="иллюзия")
+    async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
+        author = ctx.author
+        if user is None:
+            user = random.choice(ctx.message.guild.members)
+        try:
+            name = user.name
+        except:
+            return ("*Подозрительно щурится.*")
+        illus = user.display_name
+        authbal=await bank.get_balance(author)
+        cst=100
+        if authbal<cst:
+            return await ctx.send (f"*{author.display_name} подозрительно щурится, глядя в свой кошелёк.*")
+        await user.edit(reason=get_audit_reason(ctx.author, None), nick=name)
+        if illus == name:
+            msg = f"подозрительно щурится на {name}.*"
+        elif user == author:
+            msg = f"рассеивает с себя иллюзию \"{illus}\".*"
+            await bank.withdraw_credits(author, cst)
+        else:
+            msg = f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
+            await bank.withdraw_credits(author, cst)
+        return await ctx.send(f"*{author.display_name} "+msg)
+
     @commands.group(name="игра", autohelp=False)
     async def игра(self, ctx: commands.GuildContext):
         pass
@@ -346,48 +388,6 @@ class enclave(commands.Cog):
         emb2 = discord.Embed(title = f'{user.display_name} действительно выполняет действие, баллы засчитаны ({win})!', colour=discord.Colour.random())
         await msg.edit(embed=emb2, components = [])
         return 0
-
-    @commands.group(name="это", autohelp=False)
-    async def это(self, ctx: commands.GuildContext):
-        pass
-
-    @это.command(name="тест")
-    @commands.cooldown(1, self.GLOBALCD, commands.BucketType.user)
-    async def это_тест(self, ctx: Context, user: discord.Member = None):
-        cd=await self.encooldown(ctx, spell_time=60, spell_count=2)
-        if cd:
-            return await ctx.send("КД ещё на ."+str(datetime.timedelta(seconds=cd)))
-        comm = ctx.message.content.replace(ctx.prefix, "")
-        com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
-        await ctx.send(str(comm)+"\n"+str(com))
-        await ctx.send("2 в минуту.")
-        self.COUNTCD[ctx.author][ctx.command]+=1
-        await ctx.send(self.COUNTCD)
-
-    @это.command(name="иллюзия")
-    async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
-        author = ctx.author
-        if user is None:
-            user = random.choice(ctx.message.guild.members)
-        try:
-            name = user.name
-        except:
-            return ("*Подозрительно щурится.*")
-        illus = user.display_name
-        authbal=await bank.get_balance(author)
-        cst=100
-        if authbal<cst:
-            return await ctx.send (f"*{author.display_name} подозрительно щурится, глядя в свой кошелёк.*")
-        await user.edit(reason=get_audit_reason(ctx.author, None), nick=name)
-        if illus == name:
-            msg = f"подозрительно щурится на {name}.*"
-        elif user == author:
-            msg = f"рассеивает с себя иллюзию \"{illus}\".*"
-            await bank.withdraw_credits(author, cst)
-        else:
-            msg = f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
-            await bank.withdraw_credits(author, cst)
-        return await ctx.send(f"*{author.display_name} "+msg)
 
     @commands.group(name="сделать", autohelp=False)
     async def сделать(self, ctx: commands.GuildContext):
