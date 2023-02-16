@@ -85,7 +85,7 @@ class enclave(commands.Cog):
             return False
         if (cur_time - spell_used) < spell_time:
             spell_use=self.COUNTCD[author][com]
-            if spell_use >= spell_count:
+            if spell_use < spell_count:
                 return False
             else:
                 return (spell_time+spell_used)-cur_time
