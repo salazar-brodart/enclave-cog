@@ -1,19 +1,21 @@
-import asyncio
-import random
 import time
+import random
+import asyncio
 import discord
 from math import ceil
+from .enlevel import enlevel
+from datetime import datetime
 from discord.ext import tasks
 from discord.utils import get
-from redbot.core import commands, bank, Config
 from redbot.core.bot import Red
-from redbot.core.commands import Context
-from redbot.core.utils.mod import get_audit_reason
-from redbot.core.utils.menus import close_menu, menu, DEFAULT_CONTROLS
-from redbot.core.utils.predicates import ReactionPredicate
-from redbot.core.utils.chat_formatting import box, humanize_number, escape, italics
+from collections import defaultdict
 from .userprofile import UserProfile
-from .enlevel import enlevel
+from redbot.core.commands import Context
+from redbot.core import commands, bank, Config
+from redbot.core.utils.mod import get_audit_reason
+from redbot.core.utils.predicates import ReactionPredicate
+from redbot.core.utils.menus import close_menu, menu, DEFAULT_CONTROLS
+from redbot.core.utils.chat_formatting import box, humanize_number, escape, italics
 from discord_components import DiscordComponents, Button, ButtonStyle, Select, SelectOption
 
 class enclave(commands.Cog):
@@ -60,8 +62,9 @@ class enclave(commands.Cog):
         ("вневременный"),
         ("заросший ракушками"),
     ]
-    COUNTCD = {}
-    TIMERCD = {}
+    GLOBALCD=1
+    COUNTCD = defaultdict(dict)
+    TIMERCD = defaultdict(dict)
 
     def __init__(self, bot: Red):
         super().__init__()
@@ -69,6 +72,27 @@ class enclave(commands.Cog):
         self.profiles = UserProfile()
         self.data = Config.get_conf(self, identifier=1099710897114110101)
         DiscordComponents(self.bot)
+
+    async def encooldown(self, ctx: commands.GuildContext, spell_time: str, spell_count: str):
+        author=ctx.author
+        com=ctx.command
+        try:
+            spell_used=self.TIMERCD[author][com]
+        except:
+            self.TIMERCD[author][com]=cur_time
+            self.COUNTCD[author][com]=0
+            return False
+        cur_time=round(time.time())
+        if (cur_time - spell_used) < spell_time:
+            spell_use=self.COUNTCD[author][com]
+            if spell_use < spell_count:
+                return (spell_time+spell_used)-cur_time
+            else:
+                return True
+        else:
+            self.TIMERCD[author][com]=cur_time
+            self.COUNTCD[author][com]=0
+            return False
 
     @commands.group(name="игра", autohelp=False)
     async def игра(self, ctx: commands.GuildContext):
@@ -328,24 +352,17 @@ class enclave(commands.Cog):
         pass
 
     @это.command(name="тест")
+    @commands.cooldown(1, self.GLOBALCD, commands.BucketType.user)
     async def это_тест(self, ctx: Context, user: discord.Member = None):
-        command = ctx.message.content.replace(ctx.prefix, "")
-        com = ctx.bot.get_command(command)
-        if com is None:
-            com="Нет команды."
-        try:
-            com1=ctx.command
-        except:
-            com1="Ошибка."
-        try:
-            com2=ctx.invoked_subcommand
-        except:
-            com2="Ошибка."
-        try:
-            com3=ctx.invoked_with
-        except:
-            com3="Ошибка."
-        await ctx.send("Без префикса: "+str(command)+"\nКоманда:"+str(com)+"\nCommand:"+str(com1)+"\nSub:"+str(com2)+"\nWith:"+str(com3))
+        cd=await self.encooldown(ctx, spell_time=60, spell_count=2)
+        if cd:
+            return await ctx.send("КД ещё на ."+str(datetime.timedelta(seconds=cd)))
+        comm = ctx.message.content.replace(ctx.prefix, "")
+        com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
+        await ctx.send(str(comm)+"\n"+str(com))
+        await ctx.send("2 в минуту.")
+        self.COUNTCD[ctx.author][ctx.command]+=1
+        await ctx.send(self.COUNTCD)
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
