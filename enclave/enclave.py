@@ -2,9 +2,9 @@ import time
 import random
 import asyncio
 import discord
+import datetime
 from math import ceil
 from .enlevel import enlevel
-from datetime import datetime
 from discord.ext import tasks
 from discord.utils import get
 from redbot.core.bot import Red
@@ -85,7 +85,7 @@ class enclave(commands.Cog):
             return False
         if (cur_time - spell_used) < spell_time:
             spell_use=self.COUNTCD[author][com]
-            if spell_use < spell_count:
+            if spell_use >= spell_count:
                 return (spell_time+spell_used)-cur_time
             else:
                 return True
