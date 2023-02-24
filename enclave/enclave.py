@@ -3836,7 +3836,8 @@ class enclave(commands.Cog):
                 gold=(max_bal-targbal)
             await bank.deposit_credits(user, gold)
         else:
-            if targbal<abs(gold):
+            gold=abs(gold)
+            if targbal<gold:
                 gold=targbal
             await bank.withdraw_credits(user, gold)
         return abs(gold)
