@@ -111,7 +111,7 @@ class enclave(commands.Cog):
         await ctx.send(self.COUNTCD[ctx.author.id])
         for r in self.COUNTCD[ctx.author.id]:
             await ctx.send(r)
-            r=r+1
+            self.COUNTCD[ctx.author.id][r]-=1
             await ctx.send(r)
 
     @это.command(name="иллюзия")
