@@ -108,7 +108,7 @@ class enclave(commands.Cog):
         comm = ctx.message.content.replace(ctx.prefix, "")
         await ctx.send("3 в минуту.")
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
-        await ctx.send(self.COUNTCD[ctx.author.id]+"\nТест.\n")
+        await ctx.send(self.COUNTCD[ctx.author.id])
         for r in self.COUNTCD[ctx.author.id]:
             await ctx.send(r)
             r=r+1
