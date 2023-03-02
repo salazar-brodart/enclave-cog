@@ -106,11 +106,13 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("КД ещё на "+str(datetime.timedelta(seconds=cd)))
         comm = ctx.message.content.replace(ctx.prefix, "")
-        com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
-        await ctx.send(str(comm)+"\n"+str(com))
-        await ctx.send("2 в минуту.")
+        await ctx.send("3 в минуту.")
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
-        await ctx.send(self.COUNTCD)
+        await ctx.send(self.COUNTCD[ctx.author.id]+"\nТест.\n")
+        for r in self.COUNTCD[ctx.author.id]:
+            await ctx.send(r)
+            r=r+1
+            await ctx.send(r)
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
