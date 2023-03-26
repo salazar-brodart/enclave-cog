@@ -107,7 +107,17 @@ class enclave(commands.Cog):
             return await ctx.send("КД ещё на "+str(datetime.timedelta(seconds=cd)))
         comm = ctx.message.content.replace(ctx.prefix, "")
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
+        embed = discord.Embed(title = 'Поговорим?', colour=discord.Colour.gold())
+        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поговорить')]])
+        try:
+            responce = await self.bot.wait_for("button_click", timeout=15)
+        except:
+            return await msg.edit(embed=embed, components = [])
+        if responce.component.label == 'Поговорить':
+            await responce.edit_origin()
+            await msg.edit(f"Ну давай.")
         i=0
+        j=""
         answ=["Ого!", "Ну и ну!", "А что дальше?!", "Я бы тоже так сделала!", "Слушай, да ты молодец!", "Это правда круто!", "Хи-хи-хи!", "Вот в рот компот!", "Якорь мне в панцирь!"]
         while i<5:
             i+=1
@@ -116,7 +126,9 @@ class enclave(commands.Cog):
             except:
                 return await ctx.send("Ну и ладно.")
             ans=random.choice(answ)
-            await ctx.send(ans)
+            if i>4:
+                j=f" {test.author}"
+            await ctx.send(ans+j)
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user: discord.Member = None):
