@@ -122,7 +122,7 @@ class enclave(commands.Cog):
         while i<5:
             i+=1
             try:
-                test=await self.bot.wait_for("message", timeout=30)
+                test=await self.bot.wait_for("message", check = lambda message: message.channel == ctx.message.channel, timeout=30)
             except:
                 return await ctx.send("Ну и ладно.")
             ans=random.choice(answ)
