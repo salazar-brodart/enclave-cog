@@ -110,7 +110,7 @@ class enclave(commands.Cog):
         embed = discord.Embed(title = 'Поговорим?', colour=discord.Colour.gold())
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Поговорить')]])
         try:
-            responce = await self.bot.wait_for("button_click", timeout=15)
+            responce = await self.bot.wait_for("button_click", check = lambda message: ctx.message.channel.permissions_for(message.author).send_messages, timeout=15)
         except:
             return await msg.edit(embed=embed, components = [])
         if responce.component.label == 'Поговорить':
