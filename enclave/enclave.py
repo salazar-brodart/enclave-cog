@@ -434,7 +434,7 @@ class enclave(commands.Cog):
         else:
             return await ctx.send("Заказывать в баре будешь, а тут у нас приличное место!")
 
-    @commands.command()
+    @commands.command(aliases=["б"])
     async def баланс(self, ctx: Context, user: discord.Member = None):
         author = ctx.author
         if user is None:
