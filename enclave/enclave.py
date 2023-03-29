@@ -99,7 +99,7 @@ class enclave(commands.Cog):
         if ctx.author.display_name=="Оззи К.":
             return
 
-    @это.command(name="тест")
+    @это.command(name="тест", aliases=["тесто"])
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def это_тест(self, ctx: Context, user: discord.Member = None):
         cd=await self.encooldown(ctx, spell_time=60, spell_count=3)
