@@ -4117,7 +4117,7 @@ class enclave(commands.Cog):
         for role in user.roles:
             if role.name==name:
                 return role.name
-            if "Питомец️" in name and "Питомец" in role.name::
+            if "Питомец️" in name and "Питомец" in role.name:
                 await role.delete()
             if name.startswith("🛡️") and role.name.startswith("🛡️"):
                 await role.delete()
