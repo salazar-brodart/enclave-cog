@@ -4104,7 +4104,7 @@ class enclave(commands.Cog):
                 await r.delete()
         food = sorted(food, key=lambda A: random.random())
         for r in 0, 1, 2:
-            role=await ctx.guild.create_role(name="Пища: "food[r], color=0x69ccf0)
+            role=await ctx.guild.create_role(name="Пища: "+food[r], color=0x69ccf0)
             await user.add_roles(role)
     
     async def deleff(self, ctx: commands.GuildContext, user: discord.Member):
