@@ -9,6 +9,7 @@ import io
 import yaml
 import discord
 
+from collections import defaultdict
 from redbot.core import Config, commands, checks
 from redbot.cogs.bank import is_owner_if_bank_global
 from redbot.core.data_manager import cog_data_path
