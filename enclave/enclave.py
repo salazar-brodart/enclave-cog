@@ -4136,11 +4136,11 @@ class enclave(commands.Cog):
         await user.add_roles(role)
         return False
 
-    async def autoattack(self, ctx, user: discord.Member):
+    async def autoattack(self, ctx, user):
         if user is None:
             user = discord.utils.get(ctx.guild.members, id=991900847783039026)
         if not isinstance(user, discord.Member):
-            user = user
+            user = random.choice(ctx.message.guild.members)
         while user is ctx.author:
             user = random.choice(ctx.message.guild.members)
         return user
