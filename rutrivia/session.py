@@ -348,7 +348,7 @@ class rutriviaSession:
         author=user
         authbal=await bank.get_balance(author)
         max_bal=await bank.get_max_balance(guild=getattr(author, "guild", None))
-        JOLA=discord.utils.get(ctx.guild.members, id=585141085387358258)
+        JOLA=ctx.bot.user
         NET = '❌'
         DA = '✅'
         i=0
@@ -360,7 +360,7 @@ class rutriviaSession:
             return
         while i<28:
             for s in ctx.guild.roles:
-                if s.name==str(author.id)+str(i) and i<28:
+                if s.name==str(rr.id)+str(i) and i<28:
                     await s.delete()
                     i=28
             i+=1
@@ -372,21 +372,22 @@ class rutriviaSession:
         sm=""
         z=5
         for s in ctx.guild.roles:
-            if s.name==str(author.id)+"23":
+            if s.name==str(rr.id)+"23":
                     C1=NET
                     z-=1
-            if s.name==str(author.id)+"24":
+            if s.name==str(rr.id)+"24":
                     C2=NET
                     z-=1
-            if s.name==str(author.id)+"25":
+            if s.name==str(rr.id)+"25":
                     C3=NET
                     z-=1
-            if s.name==str(author.id)+"26":
+            if s.name==str(rr.id)+"26":
                     C4=NET
                     z-=1
-            if s.name==str(author.id)+"27":
+            if s.name==str(rr.id)+"27":
                     C5=NET
                     z-=1
+        await asyncio.sleep(0.5)
         if z==5:
             for r in author.roles:
                 if r.name.startswith("Квест Эрудит"):

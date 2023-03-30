@@ -39,6 +39,8 @@ class InvalidListError(Exception):
 @cog_i18n(_)
 class rutrivia(commands.Cog):
     """Play rutrivia with friends!"""
+    COUNTCD = defaultdict(dict)
+    TIMERCD = defaultdict(dict)
 
     def __init__(self):
         super().__init__()
@@ -72,6 +74,27 @@ class rutrivia(commands.Cog):
         async for guild_id, guild_data in AsyncIter(all_members.items(), steps=100):
             if user_id in guild_data:
                 await self.config.member_from_ids(guild_id, user_id).clear()
+
+    async def encooldown(self, ctx: commands.GuildContext, spell_time: str, spell_count: str):
+        com="викторина"
+        author=ctx.author.id
+        cur_time=round(time.time())
+        try:
+            spell_used=self.TIMERCD[author][com]
+        except:
+            self.TIMERCD[author][com]=cur_time
+            self.COUNTCD[author][com]=0
+            return False
+        if (cur_time - spell_used) < spell_time:
+            spell_use=self.COUNTCD[author][com]
+            if spell_use < spell_count:
+                return False
+            else:
+                return (spell_time+spell_used)-cur_time
+        else:
+            self.TIMERCD[author][com]=cur_time
+            self.COUNTCD[author][com]=0
+            return False
 
     @commands.group()
     @commands.guild_only()
@@ -298,8 +321,11 @@ class rutrivia(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(rate=5, per=43200, type=commands.BucketType.member)
     async def rutrivia(self, ctx: commands.Context, *categories: str):
-        if ctx.message.channel.id != 675376390207438848:
+        if not ctx.message.channel.name.endswith("таинственный_шатёр"):
             return await ctx.send("Если хочешь пощекотать извилины - загляни в мой <#675376390207438848>!")
+        cd=await self.encooldown(ctx, spell_time=18000, spell_count=5)
+        if cd:
+            return await ctx.send("Тебе уже достаточно, приходи через: "+str(datetime.timedelta(seconds=cd)))
         categories = [c.lower() for c in categories]
         session = self._get_rutrivia_session(ctx.channel)
         if session is not None:
