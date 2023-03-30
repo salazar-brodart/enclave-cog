@@ -4162,7 +4162,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=40
         try:
@@ -4190,7 +4190,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=180
         try:
@@ -4234,7 +4234,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def провокация(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Воин")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} вежливо предлагает {user.display_name} носовой платок.*")
@@ -4258,7 +4258,7 @@ class enclave(commands.Cog):
         author = ctx.author
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         ARM=True
         for r in author.roles:
             if r.name=="🛡️: Щит":
@@ -4324,7 +4324,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Магистр"):
             return await ctx.send (f"*{user.display_name} обладает недюженной силой. Победить в этом бою может лишь магистр воинских искусств!*")
         authbal=await bank.get_balance(author)
@@ -4407,7 +4407,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=90
         try:
@@ -4459,7 +4459,7 @@ class enclave(commands.Cog):
     @контузящий.command(name="выстрел")
     async def контузящий_выстрел(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} заглядывает в дуло заряженного мушкета.*")
@@ -4582,7 +4582,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Недостаточно концентрации! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} отдаёт приказ, но {user.display_name} почему-то не слушается.*")
@@ -4702,7 +4702,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         targbal=await bank.get_balance(user)
         cst=90
@@ -4737,7 +4737,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Подмастерье"):
             return await ctx.send (f"*{author.display_name} пытается стянуть несколько монет, но {user.display_name} это замечает и ловит за наглую руку.*")
         dmg=random.randint(5, 110)
@@ -4786,7 +4786,7 @@ class enclave(commands.Cog):
     @по.command(name="почкам")
     async def по_почкам(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Разбойник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} отрабатывает удары на манекене с лицом {user.display_name}.*")
@@ -4809,7 +4809,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def ослепление(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Разбойник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} светит фонариком в лицо {user.display_name}.*")
@@ -4846,7 +4846,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Магистр"):
             return await ctx.send (f"*{author.display_name} советует {user.display_name} вложить деньги в гоблинское казино. Звучит не очень выгодно.*")
         authbal=await bank.get_balance(author)
@@ -4881,7 +4881,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=50
         try:
@@ -4909,7 +4909,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Подмастерье"):
             return await ctx.send (f"*{author.display_name} грозно рычит, но не решается вступить в драку.*")
         authbal=await bank.get_balance(author)
@@ -4991,7 +4991,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Мастер") and MIR:
             return await ctx.send (f"*{author.display_name} ещё не является мастером исцеления ран.*")
         authbal=await bank.get_balance(author)
@@ -5046,7 +5046,7 @@ class enclave(commands.Cog):
     @гнев.command(name="деревьев")
     async def гнев_деревьев(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Друид")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} изображает злого древня.*")
@@ -5084,7 +5084,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=100
         try:
@@ -5116,7 +5116,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=120
         try:
@@ -5220,7 +5220,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def порицание(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Паладин")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} многозначительно качает пальцем в воздухе.*")
@@ -5259,7 +5259,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Энергии Света недостаточно! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Паладин")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} требует справедливого суда для {user.display_name}.*")
@@ -5307,7 +5307,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Магистр"):
             return await ctx.send (f"*{author.display_name} чувствует кризис веры.*")
         authbal=await bank.get_balance(author)
@@ -5415,7 +5415,7 @@ class enclave(commands.Cog):
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
         CLS=discord.utils.get(ctx.guild.roles, name="Паладин")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         targbal=await bank.get_balance(user)
         i=0
         if targbal!=0:
@@ -5463,7 +5463,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Специалист"):
             return await ctx.send (f"*{author.display_name} бросает свой щит, но он не долетает до цели.*")
         cst=1000
@@ -5520,7 +5520,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         authbal=await bank.get_balance(author)
         cst=140
         try:
@@ -5552,7 +5552,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         cst=60
         try:
             await bank.withdraw_credits(author, cst)
@@ -5587,7 +5587,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Искусник") and MAJ:
             return await ctx.send (f"*{author.display_name} не может совладать с духами огня и поджигает стоящее недалеко дерево.*")
         authbal=await bank.get_balance(author)
@@ -5620,7 +5620,7 @@ class enclave(commands.Cog):
         author = ctx.author
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         msg = await ctx.send(f"*{author.display_name} что-то шепчет в кулак, глядя на {user.mention}.*", components = [[Button(style = ButtonStyle.green, emoji = '🐸', id = "1"), Button(style = ButtonStyle.green, emoji = '🐍', id = "2"), Button(style = ButtonStyle.green, emoji = '🐭', id = "3"), Button(style = ButtonStyle.green, emoji = '🍯', id = "4"), Button(style = ButtonStyle.green, emoji = '🐌', id = "5")]])
         CLS=discord.utils.get(ctx.guild.roles, name="Шаман")
         try:
@@ -5761,7 +5761,7 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         if await self.chkrank(ctx=ctx, user=author, RNK="Магистр"):
             return await ctx.send (f"*Связь {author.display_name} со стихиями ещё недостаточно крепка.*")
         authbal=await bank.get_balance(author)
@@ -5840,7 +5840,7 @@ class enclave(commands.Cog):
         else:
             power=1
             eff="излечивающим от повреждений"
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} открывает зонтик над головой.*")
@@ -5871,7 +5871,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Безумие проникает в твой разум! Сделай перерыв на "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} склоняет голову и благодарит богов за посланную еду.*")
@@ -5976,7 +5976,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def безумие(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         SHIFT=True
         for r in author.roles:
@@ -6003,7 +6003,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def молчание(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} молчит с умным видом. Очень умным!*")
@@ -6060,7 +6060,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Нужно больше осколков души! Попробуй ещё раз через "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
         if CLS not in author.roles:
             await ctx.send (f"*Тьма сгущается вокруг {author.display_name}, но дальше никуда не идёт.*")
@@ -6091,7 +6091,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Нужно больше осколков души! Попробуй ещё раз через "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} отжигает.*")
@@ -6119,7 +6119,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def страх(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} рассказывает страшную историю у костра.*")
@@ -6190,7 +6190,7 @@ class enclave(commands.Cog):
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         for BES in author.roles:
             if BES.name=="Контракт: Бес на плече":
                 dmg=random.randint(120, 130)
@@ -6276,7 +6276,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Закончились чародейские заряды! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
         MAJ=True
         for r in author.roles:
@@ -6369,7 +6369,7 @@ class enclave(commands.Cog):
         author = ctx.author
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         msg = await ctx.send(f"*{author.display_name} собирается сделать выбор, глядя на {user.mention}.*", components = [[Button(style = ButtonStyle.blue, emoji = '🐑', id = '1'), Button(style = ButtonStyle.blue, emoji = '🐰', id = '2'), Button(style = ButtonStyle.blue, emoji = '🐒', id = '3'), Button(style = ButtonStyle.blue, emoji = '🐝', id = '4'), Button(style = ButtonStyle.blue, emoji = '🐷', id = '5')]])
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
         try:
@@ -6550,7 +6550,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Закончились чародейские заряды! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} наблюдает за движением небесных тел.*")
@@ -6590,7 +6590,7 @@ class enclave(commands.Cog):
     @глубокая.command(name="заморозка")
     async def глубокая_заморозка(self, ctx, user = None):
         author=ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} стучит зубами.*")
@@ -6670,7 +6670,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Запасы рунной энергии истощены! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Рыцарь смерти")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} ищет свою любимую плётку.*")
@@ -6698,7 +6698,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Запасы рунной энергии истощены! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Рыцарь смерти")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} бросает уничтожающе презрительный взгляд на {user.display_name}.*")
@@ -6779,7 +6779,7 @@ class enclave(commands.Cog):
     @commands.command()
     async def перерождение(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Рыцарь смерти")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} раздаёт указания своим прихвостням.*")
@@ -6811,7 +6811,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Запасы рунной энергии истощены! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Рыцарь смерти")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} балуется с динамитом и чьим-то трупом.*")
@@ -6897,7 +6897,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Слишком мало гнева! Слишком мало боли! Попробуй через "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник на демонов")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} достаёт сварочный аппарат.*")
@@ -6931,7 +6931,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Слишком мало гнева! Слишком мало боли! Попробуй через "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник на демонов")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} разводит костёр с зелёным пламенем. Находиться возле него не очень приятно.*")
@@ -7062,7 +7062,7 @@ class enclave(commands.Cog):
     @шах.command(name="кигон")
     async def шах_кигон(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник на демонов")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} рисует на земле демонические узоры.*")
@@ -7152,7 +7152,7 @@ class enclave(commands.Cog):
         author = ctx.author
         if ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         for ALE in author.roles:
             if ALE.name=="Предмет: Бочонок эля":
                 if await self.geteff(ctx=ctx, user=user, name="Предмет: Бочонок эля", color=0x00ffba):
@@ -7171,7 +7171,7 @@ class enclave(commands.Cog):
         author = ctx.author
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         for ALE in author.roles:
             if ALE.name=="Предмет: Бочонок эля":
                 heal1=random.randint(1250, 1300)
@@ -7216,7 +7216,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Энергии Ци не хватает! Съешь что-нибудь и повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Монах")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} пытается унять внезапно напавшую икоту.*")
@@ -7310,7 +7310,7 @@ class enclave(commands.Cog):
     @рука.command(name="копьё")
     async def рука_копьё(self, ctx, user = None):
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Монах")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} тренирует Адский-Проникающий-Удар-Вырывающий-Сердце в воздухе.*")
