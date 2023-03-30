@@ -911,7 +911,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components=[Select(placeholder="Выбрать квест:", options=[SelectOption(label="Защита лагеря", value="Защита", emoji=dfns), SelectOption(label="Викторина", value="Викторина", emoji=vikt), SelectOption(label="Конкурс ораторов", value="Конкурс", emoji=spam)])])
 
     async def ogrotack(self, ctx: commands.GuildContext):
-        OGR=self.autoattack(ctx=ctx, user=None)
+        OGR=await self.autoattack(ctx=ctx, user=None)
         SIT=discord.utils.get(ctx.guild.roles, id=995951291882807348)
         t=random.randint(15, 300)
         await asyncio.sleep(t)
@@ -4658,8 +4658,8 @@ class enclave(commands.Cog):
             return await ctx.send("Недостаточно концентрации! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
-        user1 = self.autoattack(ctx=ctx, user=user1)
-        user2 = self.autoattack(ctx=ctx, user=user2)
+        user1 =await self.autoattack(ctx=ctx, user=user1)
+        user2 =await self.autoattack(ctx=ctx, user=user2)
         while user2==user1:
             user2 = random.choice(ctx.message.guild.members) 
         if CLS not in author.roles:
