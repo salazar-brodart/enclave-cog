@@ -7092,7 +7092,7 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Энергии Ци не хватает! Съешь что-нибудь и повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        user = self.autoattack(ctx=ctx, user=user)
+        user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Монах")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} пытается отхлебнуть из пустой чашки.*")
