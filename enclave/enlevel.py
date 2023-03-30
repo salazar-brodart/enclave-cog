@@ -263,13 +263,15 @@ class enlevel(commands.Cog):
                         data["elo"] = rl.name
         return data
  
-    @commands.command()
+    @commands.command(aliases=["ур"])
     @commands.guild_only()
     async def уровень(self, ctx, user: discord.Member = None):
         if user is None:
             user = ctx.author
-        data = await self.profile_data(user)
-
+        try:
+            data = await self.profile_data(user)
+        except:
+            return
         task = functools.partial(self.make_full_profile, **data)
         task = self.bot.loop.run_in_executor(None, task)
         try:
@@ -306,6 +308,8 @@ class enlevel(commands.Cog):
 
         elif await self.profiles._is_registered(message.author):
             if message.content:
+                if message.channel.name.endswith("трон-800") and message.content[0] not in await self.bot.get_prefix(message):
+                    return await message.delete()
                 if message.content[0] in await self.bot.get_prefix(message):
                     return
             timenow = datetime.datetime.now().timestamp()
