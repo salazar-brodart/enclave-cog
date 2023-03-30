@@ -4140,7 +4140,7 @@ class enclave(commands.Cog):
         if user is None:
             user = discord.utils.get(ctx.guild.members, id=991900847783039026)
         if not isinstance(user, discord.Member):
-            user = random.choice(ctx.message.guild.members)
+            user = user
         while user is ctx.author:
             user = random.choice(ctx.message.guild.members)
         return user
