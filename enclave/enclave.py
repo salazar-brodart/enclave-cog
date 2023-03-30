@@ -62,6 +62,10 @@ class enclave(commands.Cog):
     async def это_тест(self, ctx: Context, user = None):
         if not ctx.message.channel.name.endswith("полигон"):
             return await ctx.send("Не то место и не то время.")
+        try:
+            user=discord.utils.get(ctx.guild.members, id=int(user))
+        except:
+            pass
         if not isinstance(user, discord.Member):
             return await ctx.send(f"{user} - это что?!")
         comm = ctx.message.content.replace(ctx.prefix, "")
