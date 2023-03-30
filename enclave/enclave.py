@@ -4489,7 +4489,7 @@ class enclave(commands.Cog):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
         for KTZ in author.roles:
-            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт"
+            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт":
                 return await ctx.send("*Мистер Бигглсуорт закатывает ярко-синие глазки и урчит.*")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} в ужасе убегает от огромного злого медведя.*")
@@ -4518,7 +4518,7 @@ class enclave(commands.Cog):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
         for KTZ in author.roles:
-            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт"
+            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт":
                 return await ctx.send("*Мистер Бигглсуорт закатывает ярко-синие глазки и урчит.*")
         if CLS not in author.roles:
             await ctx.send (f"*-Волки! Волки! - кричит {author.display_name}, но никто в это не верит.*")
@@ -4547,7 +4547,7 @@ class enclave(commands.Cog):
         author = ctx.author
         CLS=discord.utils.get(ctx.guild.roles, name="Охотник")
         for KTZ in author.roles:
-            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт"
+            if KTZ.name=="Порча: 🐈 мистер Бигглсуорт":
                 return await ctx.send("*Мистер Бигглсуорт закатывает ярко-синие глазки и урчит.*")
         if CLS not in author.roles:
             await ctx.send (f"*Стая злых птиц явно охотится за {author.display_name}.*\nСоветую спрятаться.")
