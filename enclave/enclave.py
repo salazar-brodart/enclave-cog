@@ -4753,6 +4753,7 @@ class enclave(commands.Cog):
             return await ctx.send (f"*{author.display_name} вытаскивает у {user.mention} из кармана {dmg} золотых монет.*")
         await responce.edit_origin()
         embed = discord.Embed(title = f"*{author.display_name} пытается стянуть несколько монет, но {user.display_name} это замечает и ловит за наглую руку.*", color=0xfff569)
+        self.COUNTCD[ctx.author.id][str(ctx.command)]+=2
         await msg.edit(embed=embed, components = [])
 
     @commands.group(name="плащ", autohelp=False)
