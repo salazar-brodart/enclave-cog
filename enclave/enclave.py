@@ -7105,7 +7105,7 @@ class enclave(commands.Cog):
         except:
             return await ctx.send (f"*{author.display_name} ощупывает пустой кисет, где хранились чайные травы.*")
         heal=random.randint(40, 50)
-        heal=await self.buffgold(ctx=ctx, user=user, heal=heal, switch=author)
+        heal=await self.buffgold(ctx=ctx, user=user, gold=heal, switch=author)
         if heal!=0:
             self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         else:
