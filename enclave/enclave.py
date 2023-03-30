@@ -4093,7 +4093,7 @@ class enclave(commands.Cog):
         food = sorted(food, key=lambda A: random.random())
         r=0
         while r<f:
-            role=await ctx.guild.create_role(name="Пища: "food[r], color=0xA58E8E)
+            role=await ctx.guild.create_role(name="Пища: "+food[r], color=0xA58E8E)
             await user.add_roles(role)
             r+=1
 
