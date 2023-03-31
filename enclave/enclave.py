@@ -72,7 +72,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
         if ctx.message.channel.name.endswith("гоблинская_книга"):
@@ -384,7 +384,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user=author
         userbal=await bank.get_balance(user)
@@ -2803,7 +2803,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
             msg = ""
             GOB=discord.utils.get(ctx.guild.roles, name="Знать")
             if user.id == ctx.bot.user.id or GOB in user.roles:
@@ -2826,7 +2826,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             online=[]
             async for mes in ctx.message.channel.history(limit=100,oldest_first=False):
@@ -2912,7 +2912,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - и на столб?!")
         GOB=discord.utils.get(ctx.guild.roles, name="Знать")
@@ -2945,7 +2945,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - за что?!")
         GOB=discord.utils.get(ctx.guild.roles, name="Знать")
@@ -3950,7 +3950,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!* <:peu:968784071306133505>")
         author=ctx.author
@@ -4167,7 +4167,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         while user is ctx.author:
@@ -4326,7 +4326,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         if await self.chkrank(ctx=ctx, user=author, RNK="Мастер"):
@@ -5395,7 +5395,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         i=0
@@ -5851,7 +5851,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         if await self.chkrank(ctx=ctx, user=author, RNK="Умелец"):
@@ -5878,7 +5878,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user1 = discord.utils.get(ctx.guild.members, id=usid)
+            user1 = discord.utils.get(ctx.guild.members, id=int(usid))
             power=1
             eff="излечивающим от повреждений"
         except:
@@ -6075,7 +6075,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
@@ -6199,7 +6199,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
@@ -6397,7 +6397,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
@@ -6557,7 +6557,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
@@ -7179,7 +7179,7 @@ class enclave(commands.Cog):
         try:
             usid = user.content.replace("<@", "")
             usid = usid.content.replace(">", "")
-            user = discord.utils.get(ctx.guild.members, id=usid)
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Монах")
