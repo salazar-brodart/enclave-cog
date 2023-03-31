@@ -64,6 +64,16 @@ class enclave(commands.Cog):
             return await ctx.send("Не то место и не то время.")
         else:
             return await ctx.send("Добро пожаловать на полигон.")
+        try:
+            await ctx.send(user)
+            await ctx.send(f"{user}")
+            await ctx.send(f"`{user}`")
+            await ctx.send(str(user))
+            user = user.content.replace("<@", "")
+            usid = user.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
+        except:
+            return await ctx.send(f"{user} - это фиаско.")
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user = None):
