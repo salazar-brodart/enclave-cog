@@ -69,8 +69,8 @@ class enclave(commands.Cog):
             await ctx.send(f"{user}")
             await ctx.send(f"`{user}`")
             await ctx.send(str(user))
-            user = user.content.replace("<@", "")
-            usid = user.content.replace(">", "")
+            user = user.replace("<@", "")
+            usid = user.replace(">", "")
             user = discord.utils.get(ctx.guild.members, id=int(usid))
             await ctx.send(f"{user} - это юзер")
         except:
