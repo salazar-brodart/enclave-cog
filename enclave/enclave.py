@@ -3742,7 +3742,7 @@ class enclave(commands.Cog):
                 else:
                     return await ctx.send("Игровой автомат сейчас занят другим игроком. Ваша очередь наступить через "+str(datetime.timedelta(seconds=cd))+".")
             authbal=await bank.get_balance(author)
-            if bid>authbal or bid<=0:
+            if (bid>authbal or bid<=0) and SG==0:
                 return await ctx.send("Нужно больше золота!")
             elif SG==0:
                 await bank.withdraw_credits(author, bid)
