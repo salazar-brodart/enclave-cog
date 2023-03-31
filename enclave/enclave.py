@@ -5882,7 +5882,7 @@ class enclave(commands.Cog):
             power=1
             eff="излечивающим от повреждений"
         except:
-            power=-1,6
+            power=-1.6
             eff="калечащим"
         user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
