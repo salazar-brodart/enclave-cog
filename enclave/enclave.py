@@ -63,7 +63,7 @@ class enclave(commands.Cog):
         if not ctx.message.channel.name.endswith("полигон"):
             return await ctx.send("Не то место и не то время.")
         else:
-            return await ctx.send("Добро пожаловать на полигон.")
+            await ctx.send("Добро пожаловать на полигон.")
         try:
             await ctx.send(user)
             await ctx.send(f"{user}")
@@ -72,6 +72,7 @@ class enclave(commands.Cog):
             user = user.content.replace("<@", "")
             usid = user.content.replace(">", "")
             user = discord.utils.get(ctx.guild.members, id=int(usid))
+            await ctx.send(f"{user} - это юзер")
         except:
             return await ctx.send(f"{user} - это фиаско.")
 
