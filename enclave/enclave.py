@@ -62,21 +62,18 @@ class enclave(commands.Cog):
     async def это_тест(self, ctx: Context, user = None):
         if not ctx.message.channel.name.endswith("полигон"):
             return await ctx.send("Не то место и не то время.")
-        try:
-            user=discord.utils.get(ctx.guild.members, id=int(user))
-        except:
-            pass
-        if not isinstance(user, discord.Member):
-            return await ctx.send(f"{user} - это что?!")
-        comm = ctx.message.content.replace(ctx.prefix, "")
-        com = ctx.bot.get_command(ctx.message.content.replace(ctx.prefix, ""))
-        await ctx.send(str(comm)+"\n"+str(com))
+        else:
+            return await ctx.send("Добро пожаловать на полигон.")
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user = None):
         if user is None:
             user = random.choice(ctx.message.guild.members)
-        if not isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             return await ctx.send(f"{user} - это что?!")
         if ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("Не то место и не то время.")
@@ -384,7 +381,11 @@ class enclave(commands.Cog):
     @commands.command(aliases=["б"])
     async def баланс(self, ctx: Context, user = None):
         author = ctx.author
-        if not isinstance(user, discord.Member) or user is None:
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             user=author
         userbal=await bank.get_balance(user)
         for r in user.roles:
@@ -2799,7 +2800,10 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def бросить(self, ctx, user = None):
-        if isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
             msg = ""
             GOB=discord.utils.get(ctx.guild.roles, name="Знать")
             if user.id == ctx.bot.user.id or GOB in user.roles:
@@ -2814,12 +2818,16 @@ class enclave(commands.Cog):
             table = str.maketrans(char, tran)
             name = name.translate(table)
             await ctx.send(msg + "(╯°□°）╯︵ " + name[::-1])
-        else:
+        except:
             await ctx.send("*бросок топора и... " + random.choice(["ОТРУБЛЕННАЯ ГОЛОВА!*", "КРОВЬ, КИШКИ, ГОВНО!!!*"]))
 
     @commands.command()
     async def обнять(self, ctx, user = None, intensity: int = 1):
-        if not isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             online=[]
             async for mes in ctx.message.channel.history(limit=100,oldest_first=False):
                 try:
@@ -2901,7 +2909,11 @@ class enclave(commands.Cog):
 
     @позорный.command(name="столб")
     async def позорный_столб(self, ctx, user = None):
-        if not isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             return await ctx.send(f"{user} - и на столб?!")
         GOB=discord.utils.get(ctx.guild.roles, name="Знать")
         SOL=discord.utils.get(ctx.guild.roles, name="Воин солнца")
@@ -2930,7 +2942,11 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def амнистия(self, ctx, user = None):
-        if not isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             return await ctx.send(f"{user} - за что?!")
         GOB=discord.utils.get(ctx.guild.roles, name="Знать")
         SOL=discord.utils.get(ctx.guild.roles, name="Воин солнца")
@@ -3931,7 +3947,11 @@ class enclave(commands.Cog):
 
     @commands.command()
     async def пынь(self, ctx, user = None):
-        if not isinstance(user, discord.Member):
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             return await ctx.send(f"*{author.display_name} пынькает себя по носу. Пынь!* <:peu:968784071306133505>")
         author=ctx.author
         pins=self.bot.get_emoji(968784071306133505)
@@ -4143,7 +4163,12 @@ class enclave(commands.Cog):
     async def autoattack(self, ctx, user):
         if user is None:
             user = discord.utils.get(ctx.guild.members, id=991900847783039026)
-        if not isinstance(user, discord.Member):
+            return user
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
             user = random.choice(ctx.message.guild.members)
         while user is ctx.author:
             user = random.choice(ctx.message.guild.members)
@@ -4298,8 +4323,12 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         if await self.chkrank(ctx=ctx, user=author, RNK="Мастер"):
             return await ctx.send (f"*{author.display_name} пытается крикнуть что-то ободряющее, но случайно оскорбляет всех вокруг.*\nТы явно не мастер произносить речи.")
         authbal=await bank.get_balance(author)
@@ -5363,8 +5392,12 @@ class enclave(commands.Cog):
         author=ctx.author
         if ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         i=0
         for r in user.roles:
             if r.name=="Эффект: Аура мщения":
@@ -5815,8 +5848,12 @@ class enclave(commands.Cog):
             return await ctx.message.delete()
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         if await self.chkrank(ctx=ctx, user=author, RNK="Умелец"):
             return await ctx.send (f"*{author.display_name} закрывает глаза, пытаясь увидеть далёкие земли, но видит лишь галлюцинации.*")
         cst=200
@@ -5838,12 +5875,15 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Безумие проникает в твой разум! Сделай перерыв на "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        if not isinstance(user, discord.Member):
-            power=-1,6
-            eff="калечащим"
-        else:
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user1 = discord.utils.get(ctx.guild.members, id=usid)
             power=1
             eff="излечивающим от повреждений"
+        except:
+            power=-1,6
+            eff="калечащим"
         user = await self.autoattack(ctx=ctx, user=user)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         if CLS not in author.roles:
@@ -6032,8 +6072,12 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Безумие проникает в твой разум! Сделай перерыв на "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Жрец")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} принюхивается к соблазнительным ароматам.*")
@@ -6152,8 +6196,12 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Нужно больше осколков души! Попробуй ещё раз через "+str(datetime.timedelta(seconds=cd)))
         author = ctx.author
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Чернокнижник")
         SHIFT=True
         for r in author.roles:
@@ -6346,8 +6394,12 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Закончились чародейские заряды! Повтори попытку через: "+str(datetime.timedelta(seconds=cd)))
         author=ctx.author
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Маг")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} бросает в {user.display_name} учебник по тайной магии.*")
@@ -6502,8 +6554,12 @@ class enclave(commands.Cog):
             return await ctx.send(f"*{author.display_name} не может поднять руку от обжорства.*\nПопробуй отдохнуть немного: "+str(datetime.timedelta(seconds=cd)))
         if ctx.message.channel.name.endswith("трон-800") or ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("*Защитные чары не позволяют использовать здесь это заклинание.*")
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         for food in user.roles:
             if "Сотворённые манаплюшки" in food.name:
@@ -7120,8 +7176,12 @@ class enclave(commands.Cog):
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def детоксикация(self, ctx, user = None):
         author = ctx.author
-        if not isinstance(user, discord.Member):
-            user=random.choice(ctx.message.guild.members)
+        try:
+            usid = user.content.replace("<@", "")
+            usid = usid.content.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=usid)
+        except:
+            user = random.choice(ctx.message.guild.members)
         CLS=discord.utils.get(ctx.guild.roles, name="Монах")
         if CLS not in author.roles:
             await ctx.send (f"*{author.display_name} проявляет признаки тяжёлой маназависимости.*")
