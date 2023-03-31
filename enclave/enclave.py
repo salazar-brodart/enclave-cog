@@ -4402,7 +4402,7 @@ class enclave(commands.Cog):
         ef=[("получает по голове"), ("получает по шапке"), ("получает сильный пинок"), ("получает мощный удар"), ("получает мощный пинок"), ("получает по зубам"), ("получает удар в живот"), ("получает ногой по коленке"), ("получает топор в спину")]
         while i<5:
             try:
-                msg=await self.bot.wait_for("message", timeout=300)
+                msg=await self.bot.wait_for("message", check = lambda message: message.author != author, timeout=300)
             except:
                 if slw<=300:
                     await ctx.channel.edit(slowmode_delay=0)
