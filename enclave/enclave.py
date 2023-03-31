@@ -3930,9 +3930,11 @@ class enclave(commands.Cog):
                 await responce.edit_origin()
                 if responce.component.label == 'Повторить!' and responce.user==author:
                     i+=1
+                    await msg1.edit(embed=embed, components = [])
                 if responce.component.label == 'Удвоить!' and responce.user==author:
                     bid*=2
                     i+=1
+                    await msg1.edit(embed=embed, components = [])
                 if responce.component.label == 'Достаточно.' and responce.user==author:
                     return await msg1.edit(embed=embed, components = [])
                 if responce.component.label == 'СУПЕР-ИГРА!' and responce.user==author:
@@ -3944,6 +3946,7 @@ class enclave(commands.Cog):
                     roll.append(roll1[1])
                     roll.append(roll1[2])
                     SG=2
+                    await msg1.edit(embed=embed, components = [])
 
     @commands.command()
     async def пынь(self, ctx, user = None):
