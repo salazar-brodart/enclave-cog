@@ -5429,6 +5429,9 @@ class enclave(commands.Cog):
         await self.geteff(ctx=ctx, user=author, name=f'Эффект: Печать мщения, ур.{i}', color=0xf58cba)
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         p=await self.buffexp(ctx, user, 10)
+        for r in author.roles:
+            if r.name.startswith("Эффект: Печать мщения"):
+                REV=r
         x=random.randint(1, 100)
         if x<=15:
             AUR=f"\n*Аура мщения {user.mention} замерцала и погасла.*"
