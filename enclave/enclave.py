@@ -447,7 +447,7 @@ class enclave(commands.Cog):
             return await ctx.send("Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Булочки будут готовы через: "+str(datetime.timedelta(seconds=cd)))
         author=ctx.author
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
-        JOLA=ctx.bot.user
+        JOLA=discord.utils.get(ctx.guild.members, id=ctx.bot.user.id)
         x=random.randint(1, 100)
         if x<=15:
             await self.ogroquest(ctx=ctx, user=author)
