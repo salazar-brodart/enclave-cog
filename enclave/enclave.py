@@ -1013,7 +1013,7 @@ class enclave(commands.Cog):
             except:
                 await msg.edit(embed=embed, components = [])
                 await SIT.edit(name="Спокойная обстановка")
-                return await ARM.delete()
+                return
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -1078,7 +1078,7 @@ class enclave(commands.Cog):
             except:
                 await msg.edit(embed=embed, components = [])
                 await SIT.edit(name="Спокойная обстановка")
-                return await ARM.delete()
+                return
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
@@ -1164,7 +1164,7 @@ class enclave(commands.Cog):
             except:
                 await msg.edit(embed=embed, components = [])
                 await SIT.edit(name="Спокойная обстановка")
-                return await ARM.delete()
+                return
             if responce.component.label == 'Забрать добычу!':
                 await responce.edit_origin()
                 await msg.edit(embed=embed, components = [])
