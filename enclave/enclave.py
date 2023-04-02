@@ -795,7 +795,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
                 await ctx.send(f"*Джола Древняя молча наблюдает, как {author.display_name}, хохоча и выкрикивая 'Всё расскажу, всё расскажу', улетает на гиппогрифе в сторону Дымящихся озёр.*")
         else:
-            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь булочку, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматными блюдами.*", color=0xdc7dff)
+            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь перекусть, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматными блюдами.*", color=0xdc7dff)
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.addfood(ctx=ctx, user=JOLA, f=3)
             await ctx.send(embed=embed)
@@ -4111,7 +4111,7 @@ class enclave(commands.Cog):
 
     async def delarm(self, ctx: commands.GuildContext, user: discord.Member):
         for r in user.roles:
-            if r.name.startswith("🛡️"):
+            if r.name.startswith("🛡️") or r.name.startswith("Эффект брони"):
                 await r.delete()
         await ctx.send (f"*{user.display_name} теряет все защитные чары.*")
 
