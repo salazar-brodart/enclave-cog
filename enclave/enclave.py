@@ -4011,18 +4011,18 @@ class enclave(commands.Cog):
                 heal=random.randint(900, 1000)
                 heal=await self.buffgold(ctx, user, heal, switch=None)
                 return await ctx.send (f"*{user.display_name} достигает максимального ранга мастерства в своём классе, за что получает премию в размере {heal} золотых монет.*")
-            elif R in user.roles and i>=7:
+            if R in user.roles and i>=7:
                 x=random.randint(0, i)
                 if x>2:
                     heal=random.randint(1400, 1500)
                     heal=await self.buffgold(ctx, user, heal, switch=None)
                     return await ctx.send (f"Сожалею, но сегодня я ничему не смогу тебя научить. Прими {heal} золотых монет качестве утешения.")
-            elif R in user.roles:
+            if R in user.roles:
                 await user.remove_roles(R)
                 R=discord.utils.get(ctx.guild.roles, name=ranks[i+1])
                 await user.add_roles(R)
                 return await ctx.send (f"*{user.display_name} получает ранг мастерства {R}.*")
-            elif i==0:
+            if i==0:
                 await user.add_roles(R)
                 return await ctx.send (f"*{user.display_name} получает ранг мастерства {R}.*")
             i-=1
