@@ -1534,7 +1534,7 @@ class enclave(commands.Cog):
         CH=discord.utils.get(ctx.guild.roles, name="🎁Доступен сундук!")
         if CH not in author.roles:
             return await ctx.send(f'*{author.display_name} жадно смотрит на склад сундуков.*')
-        MAT = random.choice(self.MAT)
+        MAT = random.choice(MAT)
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         embed = discord.Embed(title = f'*{author.display_name} берёт в руки {MAT} сундучок.*', colour=discord.Colour.gold())
         embed.set_thumbnail(url="https://wow.zamimg.com/uploads/screenshots/small/51397.jpg")
