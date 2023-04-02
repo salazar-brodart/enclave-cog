@@ -7247,8 +7247,8 @@ class enclave(commands.Cog):
             if ALE.name=="Предмет: Бочонок эля":
                 heal1=random.randint(1250, 1300)
                 heal2=random.randint(1250, 1300)
-                heal1=await self.buffgold(ctx, user, heal, switch=author)
-                heal2=await self.buffgold(ctx, author, heal, switch=author)
+                heal1=await self.buffgold(ctx, user, heal1, switch=author)
+                heal2=await self.buffgold(ctx, author, heal2, switch=author)
                 heal=heal1+heal2
                 if heal!=0:
                     await ALE.delete()
