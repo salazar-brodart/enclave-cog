@@ -1122,7 +1122,7 @@ class enclave(commands.Cog):
             if mut>0:
                 NEMS=[("Контузия"), ("Отбитые почки"), ("Молчание"), ("Перебитое горло"), ("Немота"), ("Страх"), ("Оплетение корнями")]
                 MR=random.choice(NEMS)
-                MRZ=await self.getmute(ctx=ctx, user=user, name="Эффект: Контузия", color=0xA58E8E)
+                MRZ=await self.getmute(ctx=ctx, user=target, name="Эффект: Контузия", color=0xA58E8E)
                 M=f', а напоследок накладывает мерзкое заклинание \"{MR}\"'
             else:
                 M=''
@@ -1133,7 +1133,7 @@ class enclave(commands.Cog):
                 S=''
             await ctx.send(f"*{OGR.display_name} трясёт {target.mention} в воздухе, вытряхивая {dmg} золотых монет*"+M+S+f"!\n\n{OGR.display_name} покидает лагерь живым.")
             if MRZ:
-                await ctx.send (f"*Заклятие '{MRZ}' блокирует воздействие на {user.display_name}.*")
+                await ctx.send (f"*Заклятие '{MRZ}' блокирует воздействие на {target.display_name}.*")
             await SIT.edit(name="Спокойная обстановка")
             try:
                 await ARM.delete()
