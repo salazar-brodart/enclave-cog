@@ -131,6 +131,7 @@ class enclave(commands.Cog):
                     div=summ//100
                 embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
+                continue
             if responce.component.label == 'Забрать дивиденты!':
                 await responce.edit_origin()
                 await self.buffgold(ctx, author, div, switch=None)
@@ -1246,6 +1247,7 @@ class enclave(commands.Cog):
                 if s.name==str(rr.id)+str(i) and i<23:
                     await s.delete()
                     i=23
+                    break
             i+=1
         C1=DA
         C2=DA
@@ -4010,24 +4012,17 @@ class enclave(commands.Cog):
             await ctx.send(f"*Джола Древняя пынькает {author.mention} по носу. Пынь!* <:peu:968784071306133505>")
 
     async def getart(self, ctx: commands.GuildContext, art: int):
-        for r in ctx.guild.roles:
-            if r.name.startswith("Артефакты Джолы:"):
-                artj=r
-            if r.name.startswith("Артефакты Вессины:"):
-                artv=r
-        if artj is None or artv is None:
-            return await ctx.send("Где артефакты, Лебовски?")
-        oldart=0
         if art==0:
-            while oldart<1000:
-                if artj.name=="Артефакты: "+str(oldart):
-                    return await artj.edit(name="Артефакты: "+str(oldart+1))
-                oldart+=1
+            for r in ctx.guild.roles:
+                if r.name.startswith("Артефакты Джолы: "):
+                    oldart=int(r.name.replace("Артефакты Джолы: ", ""))
+                    return await r.edit(name="Артефакты Джолы: "+str(oldart+1))
         else:
-            while oldart<1000:
-                if artv.name=="Артефакты: "+str(oldart):
-                    return await artv.edit(name="Артефакты: "+str(oldart+1))
-                oldart+=1
+            for r in ctx.guild.roles:
+                if r.name.startswith("Артефакты Вессины: "):
+                    oldart=int(r.name.replace("Артефакты Вессины: ", ""))
+                    return await r.edit(name="Артефакты Вессины: "+str(oldart+1))
+        return await ctx.send("Где артефакты, Лебовски?")
 
     async def chkrank(self, ctx: commands.GuildContext, user: discord.Member, RNK: str):
         ranks=["Ученик", "Подмастерье", "Умелец", "Искусник", "Знаток", "Мастер", "Специалист", "Магистр", "Профессионал", "Эксперт"]
