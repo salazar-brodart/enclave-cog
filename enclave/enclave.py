@@ -107,7 +107,7 @@ class enclave(commands.Cog):
     async def банк_сетраков(self, ctx: Context):
         if ctx.message.channel.name.endswith("гоблинская_книга"):
             return await ctx.send("Не то место и не то время.")
-        cd=await self.encooldown(ctx, spell_time=11, spell_count=1)
+        cd=await self.encooldown(ctx, spell_time=10, spell_count=1)
         if cd:
             return await ctx.send("Шшшш...")
         author=ctx.author
@@ -121,9 +121,9 @@ class enclave(commands.Cog):
             div=summ//100
         embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
-        for i in range(10):
+        for i in range(9):
             try:
-                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=1)
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=3)
             except:
                 cur_time=round(time.time())
                 div=(cur_time-self.STARTTIME)//3
@@ -6752,6 +6752,7 @@ class enclave(commands.Cog):
                 await author.add_roles(rs[i])
             except:
                 await self.buffgold(ctx, author, cst//10, switch=None)
+            i+=1
         self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         if j==0:
             eff="чувствует изменения на своём счету"
