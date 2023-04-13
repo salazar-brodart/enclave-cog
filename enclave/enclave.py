@@ -111,14 +111,22 @@ class enclave(commands.Cog):
         if cd:
             return await ctx.send("Шшшш...")
         author=ctx.author
+        GOB=discord.utils.get(ctx.guild.roles, name="Знать")
+        SOL=discord.utils.get(ctx.guild.roles, name="Воин солнца")
+        CHE=discord.utils.get(ctx.guild.roles, name="Вышибала")
+        ELS=discord.utils.get(ctx.guild.roles, name="Служитель Н'Зота")
+        if GOB in author.roles or SOL in author.roles or CHE in author.roles or ELS in author.roles:
+            proc=10
+        else:
+            proc=100
         for bank in ctx.guild.roles:
             if bank.name.startswith("Банк: "):
                 summ=int(bank.name.replace("Банк: ", ""))
                 break
         cur_time=round(time.time())
         div=(cur_time-self.STARTTIME)//3
-        if div > summ//100:
-            div=summ//100
+        if div > summ//proc:
+            div=summ//proc
         embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
         msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
         for i in range(9):
@@ -127,8 +135,8 @@ class enclave(commands.Cog):
             except:
                 cur_time=round(time.time())
                 div=(cur_time-self.STARTTIME)//3
-                if div > summ//100:
-                    div=summ//100
+                if div > summ//proc:
+                    div=summ//proc
                 embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
                 await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
                 continue
@@ -6739,6 +6747,7 @@ class enclave(commands.Cog):
             authbal=await bank.get_balance(author)
             x=random.randint(1, cst-authbal)
             return await ctx.send (f"*{author.display_name} открывает коробку безумия, а в ней оказывается точно такая же коробка. На ней проявляется надпись: {x}*")
+        msg=await ctx.send (f"*{author.display_name} открывает коробку безумия!*")
         rs=[]
         j=0
         for r in ctx.guild.roles:
@@ -6764,7 +6773,7 @@ class enclave(commands.Cog):
             eff=f"получает {j} случайных эффектов и чувствует изменения на своём счету"
         else:
             eff=f"получает десять случайных эффектов"
-        await ctx.send (f"*{author.display_name} открывает коробку безумия! Под потусторонний смех древнего божества наружу вырываются загадочные чары, внося хаос и сумятицу! Попав под их воздействие, {author.display_name} {eff}.*")
+        return await msg.edit (f"*{author.display_name} открывает коробку безумия! Под потусторонний смех древнего божества наружу вырываются загадочные чары, внося хаос и сумятицу! Попав под их воздействие, {author.display_name} {eff}.*")
 
     @удар.command(name="плети")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
