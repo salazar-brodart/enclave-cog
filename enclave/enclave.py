@@ -22,6 +22,7 @@ class enclave(commands.Cog):
     GLOBALCD=1
     COUNTCD = defaultdict(dict)
     TIMERCD = defaultdict(dict)
+    STARTTIME = round(time.time())
 
     def __init__(self, bot: Red):
         super().__init__()
@@ -97,6 +98,46 @@ class enclave(commands.Cog):
         else:
             msg = f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
         return await ctx.send(f"*{author.display_name} "+msg)
+
+    @commands.group(name="банк", autohelp=False)
+    async def банк(self, ctx: commands.GuildContext):
+        pass
+
+    @банк.command(name="сетраков")
+    async def банк_сетраков(self, ctx: Context):
+        if ctx.message.channel.name.endswith("гоблинская_книга"):
+            return await ctx.send("Не то место и не то время.")
+        cd=await self.encooldown(ctx, spell_time=11, spell_count=1)
+        if cd:
+            return await ctx.send("Шшшш...")
+        author=ctx.author
+        for bank in ctx.guild.roles:
+            if bank.name.startswith("Банк: "):
+                summ=int(bank.name.replace("Банк: ", ""))
+                break
+        cur_time=round(time.time())
+        div=(cur_time-self.STARTTIME)//3
+        if div > summ//100:
+            div=summ//100
+        embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
+        msg = await ctx.send(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
+        for i in range(10):
+            try:
+                responce = await self.bot.wait_for("button_click", check = lambda message: message.author == ctx.author, timeout=1)
+            except:
+                cur_time=round(time.time())
+                div=(cur_time-self.STARTTIME)//3
+                if div > summ//100:
+                    div=summ//100
+                embed = discord.Embed(title = f'*Общая с-с-сумма в банке: **{summ}** золотых монет.*', description = f"Дос-с-ступно для с-с-снятия: {div} золотых монет.", colour=discord.Colour.gold())
+                await msg.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'Забрать дивиденты!')]])
+            if responce.component.label == 'Забрать дивиденты!':
+                await responce.edit_origin()
+                await self.buffgold(ctx, author, div, switch=None)
+                embed = discord.Embed(title = f'*{author.display_name} забирает с-с-свой процент.*', colour=discord.Colour.gold())
+                return await msg.edit(embed=embed, components = [])
+        embed = discord.Embed(title = f'*Банк закрылс-с-ся на обед.*')
+        return await msg.edit(embed=embed, components = [])
 
     @commands.group(name="игра", autohelp=False)
     async def игра(self, ctx: commands.GuildContext):
@@ -436,6 +477,10 @@ class enclave(commands.Cog):
             if SIT.name=="Готовится атака на лагерь":
                 return await SIT.edit(name="Спокойная обстановка")
         return
+
+    @commands.command()
+    async def аптайм(self, ctx: Context):
+        await ctx.send("Я не спала уже "+str(datetime.timedelta(seconds=round(time.time())-self.STARTTIME))+"!")
 
     @commands.command()
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
@@ -2758,7 +2803,7 @@ class enclave(commands.Cog):
         emb1 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Подсчёт опыта\".**", description = "На сервере идёт подсчёт опыта за активность каждого участника - от 1 до 3 единиц опыта за сообщение, в зависимости от его размера.\n\nУзнать свой или чужой уровень и количество опыта можно с помощью команды:\n`=уровень` или `=ур`\nОбщий список лидеров:\n`=лидеры`\n\nНа каждом пятом уровне вас ждёт награда в виде какого-то сундука (будет выдана роль <@&696014224442392717>).\nОткрыть его можно с помощью команды:\n`=сундук`\n\nЗа открытие сундука можно получить некоторую сумму золотых монет или повышение ранга мастерства, нужного для применения различных заклинаний.\n\nРангов всего 10:\nУченик -> Подмастерье -> Умелец -> Искусник -> Знаток -> Мастер -> Специалист -> Магистр -> Профессионал -> Эксперт.\nРанг Профессионал может быть получен с шансом 25%, а ранг Эксперт - 22,2%.\n\n*При достижении ранга Эксперт, участник получает новое заклинание для своего класса (по своему выбору) и возможность получить второй класс (`=двойная специализация`).*", colour=discord.Colour.gold())
         emb2 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Правила магии\".**", description = "Использование магии доступно на всех каналах, за редким исключением на канале <#610767915997986816>.\nМагию могут применять участники, обладающие классом.\n\nБудьте внимательны при написании команд:\n*Соблюдайте указание целей для тех заклинаний, которые это требуют, и не указывайте там, где это не требуется. Это крайне опасно!*\n*Соблюдайте регистр и пунктуацию, магия очень чувствительна к этому.*\nУ каждого заклинания есть свой кулдаун.\n\nНа канале <#610767915997986816> в закреплённых сообщениях есть информация как приобрести предметы, снимающие те или иные эффекты.\nНапоминание: Если вам срочно нужна помощь, но доступ в <#603151774009786393> закрыт из-за негативного магического эффекта, можете обратиться за помощью в общий канал своей фракции в Окрестностях Фераласа.", colour=discord.Colour.gold())
         emb3 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"О классах\".**", description = "Чтобы выбрать себе класс - введите команду:\n`=выбрать класс`\n\nЧтобы узнать, на что способен ваш класс, введите одну из перечисленных команд, соответствующую интересующему вас классу:\n`=книга воина`,\n`=книга друида`,\n`=книга жреца`,\n`=книга мага`,\n`=книга монаха`,\n`=книга охотника`,\n`=книга паладина`,\n`=книга разбойника`,\n`=книга шамана`,\nа также:\n`=книга тьмы` - для чернокнижника,\n`=книга демонов` - для охотника на демонов\nи\n`=книга смерти` - для рыцаря смерти.", colour=discord.Colour.gold())
-        emb4 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Общие команды\".**", description = "**Команды информации:**\n*Использование этих команд доступно на любом канале.*\n\n`=уровень` или `=ур` - узнать свой или чужой прогресс.\n`=лидеры` - список наиболее опытных участников.\n`=баланс` или `=б` - узнать состояние своего или чужого счёта.\n`=счета` - список наиболее богатых участников. Чтобы увидеть больше, нужно указывать число отображаемых участников (например, `=счета 25`).\n\n**Команды эмоций:**\n\n`=бросить @цель` - и так понятно.\n`=обнять @цель` - можно указать силу обнимашек.\n`=пынь @цель` - пынькнуть цель по носу.\n`=ответь <вопрос?>` - задать вопрос старой тортолланке.\n`=сготовить обед` - приготовить одно блюдо.\n`=выбери <несколько вариантов>` - сделать выбор.\n`=двойная специализация` - получить дополнительный класс.\n\n**Команды покупок:**\nДоступны на канале <#610767915997986816>\n\n`=блескотрон` - вызвать интерфейс торгового автомата.\n\n`=купить зелье` - приобрести предмет \"Зелье рассеивания чар\".\n`=выпить зелье` - снять с себя все Эффекты.\n`=купить свиток` - приобрести предмет \"Свиток антимагии\"\n`=прочесть свиток` - снять все чары замедления с канала (отправлять команду нужно на том канале, на который хотите подействовать).\n`=купить пропуск` - приобрести временный VIP-пропуск на закрытые каналы.\n`=выбросить пропуск` - вернуться на общедоступные каналы.\n\n**Ежедневные квесты:**\nДоступны на канале <#603151774009786393>\n\n`=поручение` - начать один из множества ежедневных квестов.", colour=discord.Colour.gold())
+        emb4 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Общие команды\".**", description = "**Команды информации:**\n*Использование этих команд доступно на любом канале.*\n\n`=уровень` или `=ур` - узнать свой или чужой прогресс.\n`=лидеры` - список наиболее опытных участников.\n`=баланс` или `=б` - узнать состояние своего или чужого счёта.\n`=счета` - список наиболее богатых участников. Чтобы увидеть больше, нужно указывать число отображаемых участников (например, `=счета 25`).\n`=это иллюзия @цель` - сбросить ник на стандартный.\n\n**Команды эмоций:**\n\n`=бросить @цель` - и так понятно.\n`=обнять @цель` - можно указать силу обнимашек.\n`=пынь @цель` - пынькнуть цель по носу.\n`=ответь <вопрос?>` - задать вопрос старой тортолланке.\n`=сготовить обед` - приготовить одно блюдо.\n`=выбери <несколько вариантов>` - сделать выбор.\n\n**Команды покупок:**\nДоступны на канале <#610767915997986816>\n\n`=блескотрон` - вызвать интерфейс торгового автомата.\n\n`=купить зелье` - приобрести предмет \"Зелье рассеивания чар\".\n`=выпить зелье` - снять с себя все Эффекты.\n`=купить свиток` - приобрести предмет \"Свиток антимагии\"\n`=прочесть свиток` - снять все чары замедления с канала (отправлять команду нужно на том канале, на который хотите подействовать).\n`=купить пропуск` - приобрести временный VIP-пропуск на закрытые каналы.\n`=выбросить пропуск` - вернуться на общедоступные каналы.\n\n**Ежедневные квесты:**\nДоступны на канале <#603151774009786393>\n\n`=поручение` - начать один из множества ежедневных квестов.\n`=двойная специализация` - начать квест на дополнительный класс.\n`=отменить <название>` - отменить квест.", colour=discord.Colour.gold())
         emb5 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 1.**", description = "Q: Как мне узнать свой уровень?\nA: Написать команду `=уровень` или `=ур`, и подождать пару секунд.\nQ: Там есть шкала опыта, за что я его получаю?\nA: За каждое сообщение на общедоступных каналах - 1 единица опыта. Если сообщение >15 символов - 2 единицы, если >30 - 3.\nQ: Я флужу, как потерпевший, а опыт растёт медленно!\nA: Опыт начисляется раз в 90 секунд.\nQ: Как мне получить роль класса?\nA: Нужно написать команду `=выбрать класс` и выбрать класс, следуя инструкциям.\nQ: Мне постоянно не хватает золота, где его можно взять?!\nA: На данный момент золото можно получить: выполнять дейлики, отражать атаки на лагерь и забирать лут с противников, играть в викторину, получить в наградном уровневом сундуке, выиграть что-нибудь в казино, получить от других участников заклинаниями лечения и усиления, получить от высших сил с помощью специальных команд, а также монеты выдаются в ходе различных турниров и ивентов на сервере.\nQ: Почему я должен платить золото за каждое использование заклинаний, они очень дорогие, что за грабительская система?!\nA: Систему придумал и реализовал гоблин.\nQ: Я не могу писать на нужном мне канале!\nA: Скорее всего вас кто-то заглушил заклинанием, проверьте свои роли на наличие отрицательных эффектов. Можете их рассеять, купив и выпив зелье в <#610767915997986816>, подробности в его закрепах.\nQ: Меня постоянно атакуют и сжигают все мои монеты! Казлы!\nA: Чаще всего атаками наказывают за неадекватное поведение и грубость в чате. Ведите себя дружелюбно и ситуация улучшится.", colour=discord.Colour.gold())
         emb6 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Часто задаваемые вопросы\". Часть 2.**", description = "Q: Меня постоянно глушит один недоброжелатель, что делать?\nA: Некоторые классы имеют сейвы, которые дают защиту от мута. Если его у вас нет, вы можете договориться с другим участниками (или подкупить их), чтобы совместно атаковать вашего врага.\nQ: Что за ранги мастерства?\nA: Это уровень владения заклинаниями вашего класса. Каждые 5 уровней вам будет предложен выбор, улучшить ранг или получить некоторую сумму золотых монет.\nQ: Могу ли я передать золото другому участнику?\nA: Только с помощью заклинаний лечения/усиления.\nQ: Можно ли выбрать два разных класса?\nA: Для получения двойной специализации используйте команду `=двойная специализация` и выполните соответствующий квест. Для этого требуется ранг Эксперта.", colour=discord.Colour.gold())
         emb7 = discord.Embed(title="**Книга Анклава Солнца и Луны.\nГлава \"Высшие силы. Краткая аннотация\".**", description = "Жители Анклава, как и любые другие обитатели Азерота, могут обратиться за помощью к различным могущественным существам, божествам и космологическим силам.\nДля этого существуют следующие команды:\n\n`=зов стихий` - вы взываете к повелителям стихий, в надежде, что они одарят вас своей мудростью. Может добавить опыта или отнять золотых монет.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924101970657280>.\n\n`=пентаграмма душ` - вы создаёте портал для призыва опасной сущности, которая поможет вам разбогатеть. Может прибавить золотых монет (при этом отняв их у кого-то) или отнять опыт.\nРекомендуемое место применения для максимальной выгоды и минимального ущерба - <#583924549716803595>.\n\n`=ритуал` - вы проводите магический ритуал с непредсказуемым эффектом. Результат может как прибавить золотых монет, так и отнять.\nРекомендуемое место применения для более крупных сумм - <#583924289393393664>.\n\n`=созерцание` - вы умиротворяетесь и раскрываете свой разум. Может принести дополнительный опыт, а может и отнять его.\nРекомендуемое место применения для более сильных эффектов - <#584285274956103690>.\n\n`=тренировка` - вы отрабатываете свои боевые навыки в ряде упражнений. Результаты разнообразны и не зависят от используемого канала.\n\nКаждую команду можно применять не чаще 5 раз за 30 минут для каждого участника сервера.", colour=discord.Colour.gold())
@@ -3719,6 +3764,7 @@ class enclave(commands.Cog):
         NEED=self.bot.get_emoji(605429832007942174)
         MUR=self.bot.get_emoji(620973875219529788)
         OGR=self.bot.get_emoji(620973875714457600)
+        OZZ=self.bot.get_emoji(732590031981641789)
         roll=[FRY, ONE, TOP, COIN, KEK, GOBL, GOLD, NEED, MUR, OGR]
         if bid==None:
             return await ctx.send("Нужно больше золота!")
@@ -3769,15 +3815,15 @@ class enclave(commands.Cog):
                     P4=P1
                     P1=random.choice(roll)
                 if i>=4:
-                    P1="⬇"
-                    P7="⬆"
+                    P1=OZZ#"⬇"
+                    P7=OZZ#"⬆"
                 if i<=z:
                     P8=P5
                     P5=P2
                     P2=random.choice(roll)
                 if i>=z:
-                    P2="⬇"
-                    P8="⬆"
+                    P2=OZZ
+                    P8=OZZ
                 P9=P6
                 P6=P3
                 i+=1
@@ -3787,8 +3833,8 @@ class enclave(commands.Cog):
                 else:
                     P3=random.choice(roll)
                 if i==j:
-                    P3="⬇"
-                    P9="⬆"
+                    P3=OZZ
+                    P9=OZZ
                 await msg.edit(f"{P1}{P2}{P3}\n{P4}{P5}{P6}\n{P7}{P8}{P9}")
             if P4==P5 and P5==P6:
                 if P5==GOLD:
@@ -3842,7 +3888,7 @@ class enclave(commands.Cog):
                     newbal=await bank.get_balance(author)
                     embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Мрглглглгл! <Пора сходить на рыбалку!> Ставка умножается на 10!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
                 if SG==0:
-                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
+                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.green, label = 'ВА-БАНК!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
                 else:
                     return await msg1.edit(embed=embed, components = [])
             elif P4==P5 or P5==P6:
@@ -3897,31 +3943,21 @@ class enclave(commands.Cog):
                     newbal=await bank.get_balance(author)
                     embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"Мргл мргл! <Звучит весёлая песенка.> Ставка умножается на 2!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
                 if SG==0:
-                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
+                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.green, label = 'ВА-БАНК!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
                 else:
                     return await msg1.edit(embed=embed, components = [])
             else:
-                if P4==P6 and P5==GOLD:
-                    SG=1
-                elif P4==P6 and P5==TOP:
-                    SG=1
-                elif P4==P6 and P5==COIN:
-                    SG=1
-                elif P4==P6 and P4==GOLD:
-                    SG=1
-                elif P4==P6 and P4==TOP:
-                    SG=1
-                elif P4==P6 and P4==COIN:
+                if P4==P6 and (P5==GOLD or P5==TOP or P5==COIN or P4==GOLD or P4==TOP or P4==COIN):
                     SG=1
                 bid1=0
                 newbal=await bank.get_balance(author)
                 embed=discord.Embed(title = f'*{author.display_name} бросает в автомат {bid} золотых монет.*', description = f"И ничего не получает!\n{authbal} - {bid} (Ставка) + {bid1} (Выигрыш) → {newbal}!", color = discord.Colour.random())
                 if SG==0:
-                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
+                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.green, label = 'ВА-БАНК!'), Button(style = ButtonStyle.red, label = 'Достаточно.')]])
                 elif SG==2:
                     return await msg1.edit(embed=embed, components = [])
                 else:
-                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.blue, label = 'Повторить!'), Button(style = ButtonStyle.green, label = 'Удвоить!'), Button(style = ButtonStyle.red, label = 'Достаточно.'), Button(style = ButtonStyle.green, label = 'СУПЕР-ИГРА!')]])
+                    await msg1.edit(embed=embed, components = [[Button(style = ButtonStyle.green, label = 'СУПЕР-ИГРА!')]])
             while i==j:
                 try:
                     responce = await self.bot.wait_for("button_click", timeout=30)
@@ -3933,6 +3969,10 @@ class enclave(commands.Cog):
                     await msg1.edit(embed=embed, components = [])
                 if responce.component.label == 'Удвоить!' and responce.user==author:
                     bid*=2
+                    i+=1
+                    await msg1.edit(embed=embed, components = [])
+                if responce.component.label == 'ВА-БАНК!' and responce.user==author:
+                    bid=await bank.get_balance(author)
                     i+=1
                     await msg1.edit(embed=embed, components = [])
                 if responce.component.label == 'Достаточно.' and responce.user==author:
