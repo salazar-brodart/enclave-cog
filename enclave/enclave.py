@@ -5947,7 +5947,7 @@ class enclave(commands.Cog):
             return await ctx.send (f"*Чтобы защитить словом, нужно иметь богатый словарный запас!*")
         heal=random.randint(50, 60)
         heal*=power
-        heal=await self.buffgold(ctx, user, heal, switch=author)
+        heal=await self.buffgold(ctx, user, int(heal), switch=author)
         if heal!=0:
             self.COUNTCD[ctx.author.id][str(ctx.command)]+=1
         else:
