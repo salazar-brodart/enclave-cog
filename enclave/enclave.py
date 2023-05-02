@@ -140,7 +140,7 @@ class enclave(commands.Cog):
         loc=self.bot.get_emoji(889833865638723615)
         dk=self.bot.get_emoji(921280885926531083)
         dh=self.bot.get_emoji(921280848689528852)
-        if user is None or user is author or user is ctx.bot.user:
+        if user is None or user is author or user is ctx.bot:
             return await ctx.send(f"И с кем?!")
         try:
             usid = user.replace("<@", "")
