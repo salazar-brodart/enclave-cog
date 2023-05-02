@@ -120,9 +120,12 @@ class enclave(commands.Cog):
     async def матч(self, ctx: commands.GuildContext):
         pass
 
-    @матч.command(name="бо3")
+    @матч.command(name="бо5")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
-    async def матч_бо3(self, ctx: Context, user = None):
+    async def матч_бо5(self, ctx: Context, user = None):
+        MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
+        if MAJ not in author.roles:
+            return await ctx.send("Ты вообще не принимаешь участия в турнире.")
         if not ctx.message.channel.name.endswith("турнирный_столик"):
             return await ctx.send("Не то место и не то время.")
         author=ctx.author
@@ -146,31 +149,146 @@ class enclave(commands.Cog):
         except:
             return await ctx.send(f"{user} - это что?!")
         decks=[f"{dk}Рыцарь смерти ({author.mention})", 
-        f"{dh}Охотник на демонов ({author.mention})", 
-        f"{dru}Друид ({author.mention})", 
-        f"{hun}Охотник ({author.mention})", 
-        f"{mag}Маг ({author.mention})", 
-        f"{pal}Паладин ({author.mention})", 
-        f"{pri}Жрец ({author.mention})", 
-        f"{rog}Разбойник ({author.mention})", 
-        f"{sha}Шаман ({author.mention})", 
-        f"{loc}Чернокнижник ({author.mention})", 
-        f"{war}Воин ({author.mention})", 
-        f"{dk}Рыцарь смерти ({user.mention})", 
-        f"{dh}Охотник на демонов ({user.mention})", 
-        f"{dru}Друид ({user.mention})", 
-        f"{hun}Охотник ({user.mention})", 
-        f"{mag}Маг ({user.mention})", 
-        f"{pal}Паладин ({user.mention})", 
-        f"{pri}Жрец ({user.mention})", 
-        f"{rog}Разбойник ({user.mention})", 
-        f"{sha}Шаман ({user.mention})", 
-        f"{loc}Чернокнижник ({user.mention})", 
-        f"{war}Воин ({user.mention})"]
-        decks = sorted(decks, key=lambda A: random.random())
-        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\n{user.mention} воспользуется классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
-        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\n{user.mention} воспользуется классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
-        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\nТы воспользуешься классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
+            f"{dh}Охотник на демонов ({author.mention})", 
+            f"{dru}Друид ({author.mention})", 
+            f"{hun}Охотник ({author.mention})", 
+            f"{mag}Маг ({author.mention})", 
+            f"{pal}Паладин ({author.mention})", 
+            f"{pri}Жрец ({author.mention})", 
+            f"{rog}Разбойник ({author.mention})", 
+            f"{sha}Шаман ({author.mention})", 
+            f"{loc}Чернокнижник ({author.mention})", 
+            f"{war}Воин ({author.mention})", 
+            f"{dk}Рыцарь смерти ({user.mention})", 
+            f"{dh}Охотник на демонов ({user.mention})", 
+            f"{dru}Друид ({user.mention})", 
+            f"{hun}Охотник ({user.mention})", 
+            f"{mag}Маг ({user.mention})", 
+            f"{pal}Паладин ({user.mention})", 
+            f"{pri}Жрец ({user.mention})", 
+            f"{rog}Разбойник ({user.mention})", 
+            f"{sha}Шаман ({user.mention})", 
+            f"{loc}Чернокнижник ({user.mention})", 
+            f"{war}Воин ({user.mention})"]
+        decks1 = sorted(decks, key=lambda A: random.random())
+        decks2 = sorted(decks, key=lambda A: random.random())
+        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}")
+        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}")
+        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\nТы воспользуешься классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}")
+        return
+
+    @матч.command(name="бо7")
+    @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
+    async def матч_бо7(self, ctx: Context, user = None):
+        MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
+        if MAJ not in author.roles:
+            return await ctx.send("Ты вообще не принимаешь участия в турнире.")
+        if not ctx.message.channel.name.endswith("турнирный_столик"):
+            return await ctx.send("Не то место и не то время.")
+        author=ctx.author
+        war=self.bot.get_emoji(889833858160271370)
+        hun=self.bot.get_emoji(889833963592503358)
+        rog=self.bot.get_emoji(889833821942460426)
+        pal=self.bot.get_emoji(889833946043514880)
+        dru=self.bot.get_emoji(889833977177845790)
+        sha=self.bot.get_emoji(889833872785805323)
+        mag=self.bot.get_emoji(889833910631014430)
+        pri=self.bot.get_emoji(889833892759089173)
+        loc=self.bot.get_emoji(889833865638723615)
+        dk=self.bot.get_emoji(921280885926531083)
+        dh=self.bot.get_emoji(921280848689528852)
+        if user is None or user is author or user is ctx.bot.user:
+            return await ctx.send(f"И с кем?!")
+        try:
+            usid = user.replace("<@", "")
+            usid = usid.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
+        except:
+            return await ctx.send(f"{user} - это что?!")
+        decks=[f"{dk}Рыцарь смерти ({author.mention})", 
+            f"{dh}Охотник на демонов ({author.mention})", 
+            f"{dru}Друид ({author.mention})", 
+            f"{hun}Охотник ({author.mention})", 
+            f"{mag}Маг ({author.mention})", 
+            f"{pal}Паладин ({author.mention})", 
+            f"{pri}Жрец ({author.mention})", 
+            f"{rog}Разбойник ({author.mention})", 
+            f"{sha}Шаман ({author.mention})", 
+            f"{loc}Чернокнижник ({author.mention})", 
+            f"{war}Воин ({author.mention})", 
+            f"{dk}Рыцарь смерти ({user.mention})", 
+            f"{dh}Охотник на демонов ({user.mention})", 
+            f"{dru}Друид ({user.mention})", 
+            f"{hun}Охотник ({user.mention})", 
+            f"{mag}Маг ({user.mention})", 
+            f"{pal}Паладин ({user.mention})", 
+            f"{pri}Жрец ({user.mention})", 
+            f"{rog}Разбойник ({user.mention})", 
+            f"{sha}Шаман ({user.mention})", 
+            f"{loc}Чернокнижник ({user.mention})", 
+            f"{war}Воин ({user.mention})"]
+        decks1 = sorted(decks, key=lambda A: random.random())
+        decks2 = sorted(decks, key=lambda A: random.random())
+        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}")
+        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}")
+        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\nТы воспользуешься классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}")
+        return
+
+    @матч.command(name="бо9")
+    @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
+    async def матч_бо9(self, ctx: Context, user = None):
+        MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
+        if MAJ not in author.roles:
+            return await ctx.send("Ты вообще не принимаешь участия в турнире.")
+        if not ctx.message.channel.name.endswith("турнирный_столик"):
+            return await ctx.send("Не то место и не то время.")
+        author=ctx.author
+        war=self.bot.get_emoji(889833858160271370)
+        hun=self.bot.get_emoji(889833963592503358)
+        rog=self.bot.get_emoji(889833821942460426)
+        pal=self.bot.get_emoji(889833946043514880)
+        dru=self.bot.get_emoji(889833977177845790)
+        sha=self.bot.get_emoji(889833872785805323)
+        mag=self.bot.get_emoji(889833910631014430)
+        pri=self.bot.get_emoji(889833892759089173)
+        loc=self.bot.get_emoji(889833865638723615)
+        dk=self.bot.get_emoji(921280885926531083)
+        dh=self.bot.get_emoji(921280848689528852)
+        if user is None or user is author or user is ctx.bot.user:
+            return await ctx.send(f"И с кем?!")
+        try:
+            usid = user.replace("<@", "")
+            usid = usid.replace(">", "")
+            user = discord.utils.get(ctx.guild.members, id=int(usid))
+        except:
+            return await ctx.send(f"{user} - это что?!")
+        decks=[f"{dk}Рыцарь смерти ({author.mention})", 
+            f"{dh}Охотник на демонов ({author.mention})", 
+            f"{dru}Друид ({author.mention})", 
+            f"{hun}Охотник ({author.mention})", 
+            f"{mag}Маг ({author.mention})", 
+            f"{pal}Паладин ({author.mention})", 
+            f"{pri}Жрец ({author.mention})", 
+            f"{rog}Разбойник ({author.mention})", 
+            f"{sha}Шаман ({author.mention})", 
+            f"{loc}Чернокнижник ({author.mention})", 
+            f"{war}Воин ({author.mention})", 
+            f"{dk}Рыцарь смерти ({user.mention})", 
+            f"{dh}Охотник на демонов ({user.mention})", 
+            f"{dru}Друид ({user.mention})", 
+            f"{hun}Охотник ({user.mention})", 
+            f"{mag}Маг ({user.mention})", 
+            f"{pal}Паладин ({user.mention})", 
+            f"{pri}Жрец ({user.mention})", 
+            f"{rog}Разбойник ({user.mention})", 
+            f"{sha}Шаман ({user.mention})", 
+            f"{loc}Чернокнижник ({user.mention})", 
+            f"{war}Воин ({user.mention})"]
+        decks1 = sorted(decks, key=lambda A: random.random())
+        decks2 = sorted(decks, key=lambda A: random.random())
+        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\n            {decks1[4]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}\n            {decks2[4]}")
+        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\n            {decks1[4]}\n{user.mention} воспользуется классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}\n            {decks2[4]}")
+        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            {decks1[0]}\n            {decks1[1]}\n            {decks1[2]}\n            {decks1[3]}\n            {decks1[4]}\nТы воспользуешься классами:\n            {decks2[0]}\n            {decks2[1]}\n            {decks2[2]}\n            {decks2[3]}\n            {decks2[4]}")
         return
 
     @commands.group(name="банк", autohelp=False)
