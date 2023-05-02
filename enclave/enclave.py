@@ -124,7 +124,7 @@ class enclave(commands.Cog):
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def матч_бо3(self, ctx: Context, user = None):
         author=ctx.author
-        if user is None or user==author:
+        if user is None or user is author:
             return await ctx.send(f"И с кем?!")
         try:
             usid = user.replace("<@", "")
