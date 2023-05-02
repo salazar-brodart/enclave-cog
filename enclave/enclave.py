@@ -65,6 +65,7 @@ class enclave(commands.Cog):
             return await ctx.send("Не то место и не то время.")
         else:
             await ctx.send("Добро пожаловать на полигон.")
+        await ctx.send(f"{ctx.bot.user} {ctx.bot.user.mention} {ctx.bot.user.display_name}")
 
     @это.command(name="иллюзия")
     async def это_иллюзия(self, ctx: Context, user = None):
@@ -140,7 +141,9 @@ class enclave(commands.Cog):
         loc=self.bot.get_emoji(889833865638723615)
         dk=self.bot.get_emoji(921280885926531083)
         dh=self.bot.get_emoji(921280848689528852)
-        if user is None or user is author or user==ctx.bot.user:
+        if user is None or user is author:
+            return await ctx.send(f"И с кем?!")
+        if user is ctx.bot.user:
             return await ctx.send(f"И с кем?!")
         try:
             usid = user.replace("<@", "")
