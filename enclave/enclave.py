@@ -142,14 +142,14 @@ class enclave(commands.Cog):
         dh=self.bot.get_emoji(921280848689528852)
         if user is None or user is author:
             return await ctx.send(f"И с кем?!")
-        if user.display_name=="Джола Древняя" or user.display_name=="Вессина":
-            return await ctx.send(f"Абонент недоступен.")
         try:
             usid = user.replace("<@", "")
             usid = usid.replace(">", "")
             user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
+        if user is ctx.bot.user:
+            return await ctx.send(f"И с кем?!")
         decks=[f"{dk}Рыцарь смерти ({author.mention})", 
             f"{dh}Охотник на демонов ({author.mention})", 
             f"{dru}Друид ({author.mention})", 
