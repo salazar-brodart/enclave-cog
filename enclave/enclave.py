@@ -99,6 +99,22 @@ class enclave(commands.Cog):
             msg = f"с криком \"- Что ты скрываешь?!\" рассеивает иллюзию \"{illus}\" и обнаруживает под ней {name}.*"
         return await ctx.send(f"*{author.display_name} "+msg)
 
+    @commands.group(name="турнир", autohelp=False)
+    async def турнир(self, ctx: commands.GuildContext):
+        pass
+
+    @турнир.command(name="ктуна")
+    async def турнир_ктуна(self, ctx: Context, battid: str):
+        author=ctx.author
+        MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
+        if MAJ in author.roles:
+            return await ctx.send("Ты уже принимаешь участие в турнире.")
+        await author.add_roles(MAJ)
+        if "#" not in battid:
+            return await ctx.send("Это точно твой BattleTag?")
+        room=self.bot.get_channel(1102849302717534278)
+        return await room.send(f"{author} - {battid}.")
+
     @commands.group(name="банк", autohelp=False)
     async def банк(self, ctx: commands.GuildContext):
         pass
