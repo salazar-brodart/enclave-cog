@@ -104,16 +104,16 @@ class enclave(commands.Cog):
         pass
 
     @турнир.command(name="ктуна")
-    async def турнир_ктуна(self, ctx: Context, battid: str):
+    async def турнир_ктуна(self, ctx: Context, battletag: str):
         author=ctx.author
         MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
         if MAJ in author.roles:
             return await ctx.send("Ты уже принимаешь участие в турнире.")
-        await author.add_roles(MAJ)
-        if "#" not in battid:
+        if "#" not in battletag:
             return await ctx.send("Это точно твой BattleTag?")
         room=self.bot.get_channel(1102849302717534278)
-        return await room.send(f"{author} - {battid}.")
+        await author.add_roles(MAJ)
+        return await room.send(f"Участник: {author.mention} - BattleTag: {battletag}.")
 
     @commands.group(name="банк", autohelp=False)
     async def банк(self, ctx: commands.GuildContext):
