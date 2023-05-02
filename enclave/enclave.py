@@ -113,7 +113,7 @@ class enclave(commands.Cog):
             return await ctx.send("Это точно твой BattleTag?")
         room=self.bot.get_channel(1102849302717534278)
         await author.add_roles(MAJ)
-        return await room.send(f"Участник: {author.mention} - BattleTag: {battletag}.")
+        return await room.send(f"Участник: {author.mention}\nBattleTag: ```{battletag}```")
 
     @commands.group(name="банк", autohelp=False)
     async def банк(self, ctx: commands.GuildContext):
