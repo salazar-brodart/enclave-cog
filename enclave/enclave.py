@@ -123,12 +123,12 @@ class enclave(commands.Cog):
     @матч.command(name="бо5")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def матч_бо5(self, ctx: Context, user = None):
+        author=ctx.author
         MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
         if MAJ not in author.roles:
             return await ctx.send("Ты вообще не принимаешь участия в турнире.")
         if not ctx.message.channel.name.endswith("турнирный_столик"):
             return await ctx.send("Не то место и не то время.")
-        author=ctx.author
         war=self.bot.get_emoji(889833858160271370)
         hun=self.bot.get_emoji(889833963592503358)
         rog=self.bot.get_emoji(889833821942460426)
@@ -180,12 +180,12 @@ class enclave(commands.Cog):
     @матч.command(name="бо7")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def матч_бо7(self, ctx: Context, user = None):
+        author=ctx.author
         MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
         if MAJ not in author.roles:
             return await ctx.send("Ты вообще не принимаешь участия в турнире.")
         if not ctx.message.channel.name.endswith("турнирный_столик"):
             return await ctx.send("Не то место и не то время.")
-        author=ctx.author
         war=self.bot.get_emoji(889833858160271370)
         hun=self.bot.get_emoji(889833963592503358)
         rog=self.bot.get_emoji(889833821942460426)
@@ -237,12 +237,12 @@ class enclave(commands.Cog):
     @матч.command(name="бо9")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def матч_бо9(self, ctx: Context, user = None):
+        author=ctx.author
         MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
         if MAJ not in author.roles:
             return await ctx.send("Ты вообще не принимаешь участия в турнире.")
         if not ctx.message.channel.name.endswith("турнирный_столик"):
             return await ctx.send("Не то место и не то время.")
-        author=ctx.author
         war=self.bot.get_emoji(889833858160271370)
         hun=self.bot.get_emoji(889833963592503358)
         rog=self.bot.get_emoji(889833821942460426)
