@@ -1172,11 +1172,12 @@ class enclave(commands.Cog):
             att=random.choice(at)
             file = discord.File("/home/salazar/.local/share/Red-DiscordBot/data/jola/cogs/CogManager/cogs/enclave/data/Content/"+str(att)+".jpg", filename="Last.jpg")
             await ctx.send(file=file)
-            MRZ=False
+            MRZ1=False
             if mut>0:
                 NEMS=[("Контузия"), ("Отбитые почки"), ("Молчание"), ("Перебитое горло"), ("Немота"), ("Страх"), ("Оплетение корнями")]
                 MR=random.choice(NEMS)
                 MRZ=await self.getmute(ctx=ctx, user=target, name="Эффект: Контузия", color=0xA58E8E)
+                MRZ1=True
                 M=f', а напоследок накладывает мерзкое заклинание \"{MR}\"'
             else:
                 M=''
@@ -1186,7 +1187,7 @@ class enclave(commands.Cog):
             else:
                 S=''
             await ctx.send(f"*{OGR.display_name} трясёт {target.mention} в воздухе, вытряхивая {dmg} золотых монет*"+M+S+f"!\n\n{OGR.display_name} покидает лагерь живым.")
-            if MRZ:
+            if MRZ1:
                 await ctx.send (f"*Заклятие '{MRZ}' блокирует воздействие на {target.display_name}.*")
             await SIT.edit(name="Спокойная обстановка")
             try:
@@ -2577,7 +2578,7 @@ class enclave(commands.Cog):
         emb1 = discord.Embed(title='Книга, написанная кровью, в переплёте из человеческой кожи.', color=0xc41f3b)
         emb1.add_field(name="Заклинание: Осквернение", value="Ранг: Не требуется.\nЦена: 240\nДействие: Замедляет отправку сообщений на канале.", inline=True)
         emb1.add_field(name="Заклинание: Удар Плети", value="Ранг: Не требуется.\nЦена: 160\nДействие: Отнимает ~245 монет.", inline=True)
-        emb1.add_field(name="Пассивный эффект: Кровь вампира", value="Ранг: Ученик.\nЦена: 0\nДействие: Даёт 20% от нанесённого урона.", inline=True)
+        emb1.add_field(name="Пассивный эффект: Кровь вампира", value="Ранг: Ученик.\nЦена: 0\nДействие: Даёт 5% от нанесённого урона.", inline=True)
         emb1.add_field(name="Заклинание: Уничтожение", value="Ранг: Подмастерье.\nЦена: 3000\nДействие: Отнимает ~4050 монет.", inline=True)
         emb1.add_field(name="Заклинание: Антимагический панцирь", value="Ранг: Искусник.\nЦена: 140\nДействие: Выдаёт защиту от мута.", inline=True)
         emb1.add_field(name="Заклинание: Перерождение (Взрыв трупа)", value="Ранг: Мастер.\nЦена: 200\nДействие: Меняет защиту от мута.", inline=True)
@@ -4445,7 +4446,7 @@ class enclave(commands.Cog):
         ef=[("получает по голове"), ("получает по шапке"), ("получает сильный пинок"), ("получает мощный удар"), ("получает мощный пинок"), ("получает по зубам"), ("получает удар в живот"), ("получает ногой по коленке"), ("получает топор в спину")]
         while i<5:
             try:
-                msg=await self.bot.wait_for("message", check = lambda message: message.author != author, timeout=300)
+                msg=await self.bot.wait_for("message", check = lambda message: message.author != author and message.channel==ctx.channel and message.author != ctx.bot.user, timeout=300)
             except:
                 if slw<=300:
                     await ctx.channel.edit(slowmode_delay=0)
