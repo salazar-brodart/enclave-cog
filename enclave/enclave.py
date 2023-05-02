@@ -123,7 +123,20 @@ class enclave(commands.Cog):
     @матч.command(name="бо3")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def матч_бо3(self, ctx: Context, user = None):
+        if not ctx.message.channel.name.endswith("турнирный_столик"):
+            return await ctx.send("Не то место и не то время.")
         author=ctx.author
+        war=self.bot.get_emoji(889833858160271370)
+        hun=self.bot.get_emoji(889833963592503358)
+        rog=self.bot.get_emoji(889833821942460426)
+        pal=self.bot.get_emoji(889833946043514880)
+        dru=self.bot.get_emoji(889833977177845790)
+        sha=self.bot.get_emoji(889833872785805323)
+        mag=self.bot.get_emoji(889833910631014430)
+        pri=self.bot.get_emoji(889833892759089173)
+        loc=self.bot.get_emoji(889833865638723615)
+        dk=self.bot.get_emoji(921280885926531083)
+        dh=self.bot.get_emoji(921280848689528852)
         if user is None or user is author:
             return await ctx.send(f"И с кем?!")
         try:
@@ -132,11 +145,32 @@ class enclave(commands.Cog):
             user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
-        decks=[f"Рыцарь смерти ({author.mention})", f"Охотник на демонов ({author.mention})", f"Друид ({author.mention})", f"Охотник ({author.mention})", f"Маг ({author.mention})", f"Паладин ({author.mention})", f"Жрец ({author.mention})", f"Разбойник ({author.mention})", f"Шаман ({author.mention})", f"Чернокнижник ({author.mention})", f"Воин ({author.mention})", f"Рыцарь смерти ({user.mention})", f"Охотник на демонов ({user.mention})", f"Друид ({user.mention})", f"Охотник ({user.mention})", f"Маг ({user.mention})", f"Паладин ({user.mention})", f"Жрец ({user.mention})", f"Разбойник ({user.mention})", f"Шаман ({user.mention})", f"Чернокнижник ({user.mention})", f"Воин ({user.mention})"]
+        decks=[f"{dk}Рыцарь смерти ({author.mention})", 
+        f"{dh}Охотник на демонов ({author.mention})", 
+        f"{dru}Друид ({author.mention})", 
+        f"{hun}Охотник ({author.mention})", 
+        f"{mag}Маг ({author.mention})", 
+        f"{pal}Паладин ({author.mention})", 
+        f"{pri}Жрец ({author.mention})", 
+        f"{rog}Разбойник ({author.mention})", 
+        f"{sha}Шаман ({author.mention})", 
+        f"{loc}Чернокнижник ({author.mention})", 
+        f"{war}Воин ({author.mention})", 
+        f"{dk}Рыцарь смерти ({user.mention})", 
+        f"{dh}Охотник на демонов ({user.mention})", 
+        f"{dru}Друид ({user.mention})", 
+        f"{hun}Охотник ({user.mention})", 
+        f"{mag}Маг ({user.mention})", 
+        f"{pal}Паладин ({user.mention})", 
+        f"{pri}Жрец ({user.mention})", 
+        f"{rog}Разбойник ({user.mention})", 
+        f"{sha}Шаман ({user.mention})", 
+        f"{loc}Чернокнижник ({user.mention})", 
+        f"{war}Воин ({user.mention})"]
         decks = sorted(decks, key=lambda A: random.random())
-        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            *{decks[0]}\n            *{decks[1]}\n            *{decks[2]}\n{user.mention} воспользуется классами:\n            *{decks[3]}\n            *{decks[4]}\n            *{decks[5]}")
-        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            *{decks[0]}\n            *{decks[1]}\n            *{decks[2]}\n{user.mention} воспользуется классами:\n            *{decks[3]}\n            *{decks[4]}\n            *{decks[5]}")
-        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            *{decks[0]}\n            *{decks[1]}\n            *{decks[2]}\nТы воспользуешься классами:\n            *{decks[3]}\n            *{decks[4]}\n            *{decks[5]}")
+        await ctx.send(f"{author.mention} вызывает на бой {user.mention}!\n{author.mention} воспользуется классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\n{user.mention} воспользуется классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
+        await author.send(f"Ты вызываешь на бой {user.mention}!\nТы воспользуешься классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\n{user.mention} воспользуется классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
+        await user.send(f"{author.mention} вызывает тебя на бой!\n{author.mention} воспользуется классами:\n            {decks[0]}\n            {decks[1]}\n            {decks[2]}\nТы воспользуешься классами:\n            {decks[3]}\n            {decks[4]}\n            {decks[5]}")
         return
 
     @commands.group(name="банк", autohelp=False)
