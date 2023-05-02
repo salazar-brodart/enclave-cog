@@ -148,8 +148,8 @@ class enclave(commands.Cog):
             user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
-        if user is ctx.bot.user:
-            return await ctx.send(f"И с кем?!")
+        if user.display_name == "Джола Древняя" or user.display_name == "Вессина":
+            return await ctx.send(f"Абонент временно недоступен.")
         decks=[f"{dk}Рыцарь смерти ({author.mention})", 
             f"{dh}Охотник на демонов ({author.mention})", 
             f"{dru}Друид ({author.mention})", 
@@ -207,6 +207,8 @@ class enclave(commands.Cog):
             user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
+        if user.display_name == "Джола Древняя" or user.display_name == "Вессина":
+            return await ctx.send(f"Абонент временно недоступен.")
         decks=[f"{dk}Рыцарь смерти ({author.mention})", 
             f"{dh}Охотник на демонов ({author.mention})", 
             f"{dru}Друид ({author.mention})", 
@@ -264,6 +266,8 @@ class enclave(commands.Cog):
             user = discord.utils.get(ctx.guild.members, id=int(usid))
         except:
             return await ctx.send(f"{user} - это что?!")
+        if user.display_name == "Джола Древняя" or user.display_name == "Вессина":
+            return await ctx.send(f"Абонент временно недоступен.")
         decks=[f"{dk}Рыцарь смерти ({author.mention})", 
             f"{dh}Охотник на демонов ({author.mention})", 
             f"{dru}Друид ({author.mention})", 
