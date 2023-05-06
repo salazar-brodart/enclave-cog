@@ -3973,7 +3973,7 @@ class enclave(commands.Cog):
         NEED=self.bot.get_emoji(605429832007942174)
         MUR=self.bot.get_emoji(620973875219529788)
         OGR=self.bot.get_emoji(620973875714457600)
-        OZZ='⭐'#self.bot.get_emoji(732590031981641789)
+        OZZ='◼️'#self.bot.get_emoji(732590031981641789)
         roll=[FRY, ONE, TOP, COIN, KEK, GOBL, GOLD, NEED, MUR, OGR]
         if bid==None:
             return await ctx.send("Нужно больше золота!")
