@@ -106,6 +106,7 @@ class enclave(commands.Cog):
     @турнир.command(name="ктуна")
     @commands.cooldown(1, GLOBALCD, commands.BucketType.user)
     async def турнир_ктуна(self, ctx: Context, battletag: str):
+        return await ctx.send("Не то место и не то время.")
         author=ctx.author
         MAJ=discord.utils.get(ctx.guild.roles, name="🀄Завсегдатай")
         if MAJ in author.roles:
