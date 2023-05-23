@@ -1048,7 +1048,7 @@ class enclave(commands.Cog):
                 await msg.edit(embed=embed, components = [])
                 await ctx.send(f"*Джола Древняя молча наблюдает, как {author.display_name}, хохоча и выкрикивая 'Всё расскажу, всё расскажу', улетает на гиппогрифе в сторону Дымящихся озёр.*")
         else:
-            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь перекусть, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматными блюдами.*", color=0xdc7dff)
+            embed = discord.Embed(title = f"Пока что всё в лагере идёт своим чередом, никакая помощь не требуется. Хочешь перекусить, {author.display_name}?\n*Джола Древняя материализует возле себя стол, наполненный ароматными блюдами.*", color=0xdc7dff)
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/921279850956877834/1014575088676376576/unknown.png")
             await self.addfood(ctx=ctx, user=JOLA, f=3)
             await ctx.send(embed=embed)
@@ -4338,14 +4338,14 @@ class enclave(commands.Cog):
             if targbal<gold:
                 gold=targbal
             await bank.withdraw_credits(user, gold)
-            if not await self.chkrank(ctx=ctx, user=author, RNK="Ученик") and DK in author.roles and "🩸🩸🩸" in author.display_name and gold >= 100 and isinstance(switch, discord.Member):
+            if not await self.chkrank(ctx=ctx, user=author, RNK="Ученик") and DK in author.roles and "🩸🩸🩸" in author.display_name and gold >= 100 and switch==author:
                 heal=gold//20
                 targbal=await bank.get_balance(author)
                 if targbal>(max_bal-heal):
                     heal=(max_bal-targbal)
                 await bank.deposit_credits(author, heal)
                 await ctx.send (f"*{author.display_name} упивается страданиями {user.display_name} на {heal} золотых монет!*")
-            elif not await self.chkrank(ctx=ctx, user=author, RNK="Ученик") and DK in author.roles and gold >= 100 and isinstance(switch, discord.Member):
+            elif not await self.chkrank(ctx=ctx, user=author, RNK="Ученик") and DK in author.roles and gold >= 100 and switch==author:
                 try:
                     await author.edit(reason=get_audit_reason(ctx.author, None), nick=author.display_name + "🩸")
                 except:
@@ -4538,11 +4538,12 @@ class enclave(commands.Cog):
         for r in author.roles:
             if r.name=="🛡️: Щит":
                 ARM=False
+                rr=r
         if ARM or await self.chkrank(ctx=ctx, user=author, RNK="Искусник"):
             return await ctx.send(f"*{author.display_name} чувствует свою уязвимость.*")
         x=random.randint(1, 4)
         if x>2:
-            await ARM.delete()
+            await rr.delete()
             await ctx.send(f"*{author.display_name} отбрасывает щит в сторону и бежит на {user.display_name}, яростно крича!*")
             await self.delarm(ctx=ctx, user=user)
             await ctx.send(f"*{user.name} теперь {user.mention}.*")
