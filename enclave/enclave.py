@@ -675,7 +675,7 @@ class enclave(commands.Cog):
         bottle=["эль", "пиво", "ром"]
         bottle = sorted(bottle, key=lambda A: random.random())
         user = random.choice(ctx.message.guild.members)
-        if x%2=0:
+        if x%2==0:
             await ctx.send(f"Вы пьянеете от напитка \"{bottle[0]}\".")
         else:
             await ctx.send(f"Вы напиваетесь напитком \"{bottle[0]}\" вместе с {user.display_name}.")
