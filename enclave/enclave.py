@@ -1575,7 +1575,7 @@ class enclave(commands.Cog):
         if i==0:
             return await ctx.send("У тебя нет такого квеста.")
         obsch=r.name.replace("Квест Казино: ", "")
-        obsch=obsch.name.replace(" монет", "")
+        obsch=obsch.replace(" монет", "")
         obsch=int(obsch)
         obsch=await self.buffgold(ctx, author, obsch, switch=None)
         await r.edit(name=r.name.replace("Квест Казино", "Долг"))
